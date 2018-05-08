@@ -1,0 +1,13 @@
+
+    .alert{
+        width: 500px;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        position:fixed;
+        z-index: 1000;
+        bottom: 50px;
+        right: 50px;
+        font-weight: bolder;
+        opacity: 1;
+    }
