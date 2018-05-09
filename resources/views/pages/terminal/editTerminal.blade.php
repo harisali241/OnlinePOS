@@ -6,9 +6,9 @@
 
             <h5 class="txt-dark">Edit Branch</h5>
             <br><br>
-            <a href="{{url('branch/create')}}" class="btn btn-primary btn-anim"><strong><i class=" icon-plus "></i><span class="btn-text">ADD NEW</span></strong></a>
+            <a href="{{url('terminal/create')}}" class="btn btn-primary btn-anim"><strong><i class=" icon-plus "></i><span class="btn-text">ADD NEW</span></strong></a>
 
-            <a href="{{url('branch')}}" class="btn btn-default btn-anim" style="float: right;"><strong><i class="icon-arrow-left-circle"></i><span class="btn-text">BACK</span></strong></a>
+            <a href="{{url('terminal')}}" class="btn btn-default btn-anim" style="float: right;"><strong><i class="icon-arrow-left-circle"></i><span class="btn-text">BACK</span></strong></a>
             <br><br>
 
         </div>
@@ -33,36 +33,26 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-wrap">
-                                    <form data-toggle="validator" role="form" method="POST" action="{{url('branch/'.$branch->id)}}">
-                                        {{csrf_field()}}
+                                    <form data-toggle="validator" role="form" method="POST" action="{{url('terminal/'.$terminal->id)}}">
                                         {{ method_field('PATCH') }}
+                                        {{csrf_field()}}
 
-                                        <div class="form-group{{ $errors->has('branch_name') ? ' has-error' : '' }}">
-                                            <label for="inputName" class="control-label mb-10">Branch Name</label>
-                                            <input type="text" class="form-control"  name="branch_name" style="background:#f2f2f2;" value="{{$branch->branch_name}}">
-                                            @if ($errors->has('branch_name'))
+                                        <div class="form-group{{ $errors->has('terminal_name') ? ' has-error' : '' }}">
+                                            <label for="inputName" class="control-label mb-10">Terminal Name</label>
+                                            <input type="text" class="form-control" value="{{$terminal->terminal_name}}"  name="terminal_name" style="background:#f2f2f2;">
+                                            @if ($errors->has('terminal_name'))
                                                 <span class="help-block">
-                                                <strong>{{ $errors->first('branch_name') }}</strong>
-                                            </span>
+                                            <strong>{{ $errors->first('terminal_name') }}</strong>
+                                        </span>
                                             @endif
                                         </div>
 
-                                        <div class="form-group{{ $errors->has('branch_address') ? ' has-error' : '' }}">
-                                            <label for="inputName" class="control-label mb-10">Address</label>
-                                            <textarea class="form-control" name="branch_address" style="background:#f2f2f2;" rows="5">{{$branch->branch_address}}</textarea>
-                                            @if ($errors->has('branch_address'))
+                                        <div class="form-group{{ $errors->has('terminal_code') ? ' has-error' : '' }}">
+                                            <label for="inputName" class="control-label mb-10">Terminal Code</label>
+                                            <input  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="11" class="form-control" name="terminal_code" value="{{$terminal->terminal_code}}" style="background:#f2f2f2;">
+                                            @if ($errors->has('terminal_code'))
                                                 <span class="help-block">
-                                                     <strong>{{ $errors->first('branch_address') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-
-                                        <div class="form-group{{ $errors->has('branch_phoneNo') ? ' has-error' : '' }}">
-                                            <label for="inputName" class="control-label mb-10">PhoneNo</label>
-                                            <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="11" class="form-control" name="branch_phoneNo" style="background:#f2f2f2;" value="{{$branch->branch_phoneNo}}">
-                                            @if ($errors->has('branch_phoneNo'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('branch_phoneNo') }}</strong>
+                                                    <strong>{{ $errors->first('terminal_code') }}</strong>
                                                 </span>
                                             @endif
                                         </div>
@@ -71,7 +61,7 @@
 
                                             <label class="control-label mb-10">Status</label>
                                             <div>
-                                                <input id="check_box_switch" name="status" type="checkbox" data-off-text="Inactive" data-on-text="Active" data-toggle="Inactive" class="bs-switch @php if($branch->status == 0){ echo'switch'; } @endphp"/>
+                                                <input id="check_box_switch" name="status" type="checkbox" data-off-text="Inactive" data-on-text="Active"  class="bs-switch switch" />
                                             </div>
                                         </div>
 

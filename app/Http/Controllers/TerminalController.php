@@ -22,11 +22,7 @@ class TerminalController extends Controller
 
     public function index()
     {
-        $terminals = DB::table('terminals')
-                    ->join('companies' , 'terminals.company_id', '=', 'companies.id')
-                    ->join('branches', 'branches.id', '=', 'terminals.branch_id')
-                    ->select('terminals.*', 'branches.branch_name', 'companies.company_name')
-                    ->get();
+        $terminals = Terminal::index();
         return view('pages.terminal.terminal', compact('terminals'));
     }
 
@@ -37,14 +33,14 @@ class TerminalController extends Controller
      */
     public function create()
     {
-        $companies = Company::Where('status' , 1)->get();
-        $branches = Branch::Where('status' , 1)->get();
+        $companies = terminal::getCompanies();
+        $branches = terminal::getBranches();
         return view ('pages.terminal.addTerminal' , compact('companies','branches'));
     }
 
-    public function reqBranches(request $request){
-        $branches = Branch::Where('company_id' , request('id'))->get();
-
+    public function reqBranches(Request $request)
+    {
+        $branches =  terminal::jsonReq($request);
         return response()->json($branches);
     }
 
@@ -59,42 +55,12 @@ class TerminalController extends Controller
         //return $request->all();
         $this->validate(request(), [
             'company_id' => 'required',
-
             'branch_id' => 'required',
-
             'terminal_name' => "required",
-
             'terminal_code' => "required",
         ]);
 
-        if(request('status') == null){
-            $status = 0;
-        }else{
-            $status = 1;
-        }
-
-        $terminal = new Terminal;
-
-        $terminal->company_id = request('company_id');
-        $terminal->branch_id = request('branch_id');
-        $terminal->terminal_name = request('terminal_name');
-        $terminal->terminal_code = request('terminal_code');
-        $terminal->status = $status;
-        $terminal->save();
-
-//        Terminal::create([
-//
-//            'company_id' => request('company_id'),
-//
-//            'branch_id' => request('branch_id'),
-//
-//            'terminal_name' => request('terminal_name'),
-//
-//            'terminal_code' => request('terminal_code'),
-//
-//            'status' => $status,
-//
-//        ]);
+        Terminal::store($request);
 
         return redirect('terminal/create')->with('message', 'Successfully saved');
     }
@@ -107,13 +73,7 @@ class TerminalController extends Controller
      */
     public function show($id)
     {
-        $terminal = DB::table('terminals')
-            ->join('companies' , 'terminals.company_id', '=', 'companies.id')
-            ->join('branches', 'branches.id', '=', 'terminals.branch_id')
-            ->where('terminals.id','=', $id)
-            ->select('terminals.*', 'branches.branch_name', 'companies.company_name')
-            ->first();
-        //dd($terminal);
+        $terminal = Terminal::show($id);
         return view('pages.terminal.viewTerminal', compact('terminal'));
     }
 
@@ -125,7 +85,8 @@ class TerminalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $terminal = Terminal::edit($id);
+        return view('pages.terminal.editTerminal', compact('terminal'));
     }
 
     /**
@@ -137,7 +98,12 @@ class TerminalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(request(),[
+            'terminal_name' => "required",
+            'terminal_code' => "required",
+        ]);
+        Terminal::upd($request, $id);
+        return redirect('terminal')->with('message', 'Successfully Edit');
     }
 
     /**
@@ -148,7 +114,7 @@ class TerminalController extends Controller
      */
     public function destroy($id)
     {
-        Terminal::Where('id', $id)->delete();
+        Terminal::del($id);
         return redirect('terminal')->with('message', 'Successfully Deleted');
     }
 }

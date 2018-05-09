@@ -20,6 +20,7 @@ class CreateBranchesTable extends Migration
             $table->string('branch_name');
             $table->string('branch_address');
             $table->integer('branch_phoneNo')->nullable();
+            $table->boolean('status');
             $table->timestamps();
 
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');

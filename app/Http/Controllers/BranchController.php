@@ -21,10 +21,7 @@ class BranchController extends Controller
 
     public function index()
     {
-        $branches = DB::table('branches')
-                    ->join('companies', 'company_id', '=', 'companies.id')
-                    ->select('branches.*', 'companies.company_name')
-                    ->get();
+        $branches = Branch::index();
         return view ('pages.branch.branch',compact('branches'));
     }
 
@@ -35,7 +32,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        $companies = Company::Where('status' , 1)->get();
+        $companies = Branch::create();
         return view ('pages.branch.addBranch' , compact('companies'));
     }
 
@@ -51,34 +48,11 @@ class BranchController extends Controller
 
         $this->validate(request(), [
             'company_id' => 'required',
-
             'branch_name' => "required",
-
             'branch_address' => "required",
-
             'branch_phoneNo' => "required",
         ]);
-
-        if(request('status') == null){
-            $status = 0;
-        }else{
-            $status = 1;
-        }
-
-        Branch::create([
-
-            'company_id' => request('company_id'),
-
-            'branch_name' => request('branch_name'),
-
-            'branch_address' => request('branch_address'),
-
-            'branch_phoneNo' => request('branch_phoneNo'),
-
-            'status' => $status,
-
-        ]);
-
+        Branch::store($request);
         return redirect('branch/create')->with('message', 'Successfully saved');
     }
 
@@ -90,11 +64,7 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-        $branch = DB::table('branches')
-            ->join('companies', 'company_id', '=', 'companies.id')
-            ->WHERE('branches.id', $id)
-            ->select('branches.*', 'companies.company_name')
-            ->get()->first();
+        $branch = Branch::show($id);
         return view ('pages.branch.viewBranch',compact('branch'));
     }
 
@@ -106,7 +76,7 @@ class BranchController extends Controller
      */
     public function edit($id)
     {
-        $branch = branch::WHERE('id' , $id)->first();
+        $branch = Branch::edit($id);
         return view('pages.branch.editBranch',compact('branch'));
     }
 
@@ -120,29 +90,11 @@ class BranchController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate(request(), [
-
             'branch_name' => "required",
-
             'branch_address' => "required",
-
             'branch_phoneNo' => "required",
         ]);
-
-        if(request('status') == null){
-            $status = 0;
-        }else{
-            $status = 1;
-        }
-
-        $branch = Branch::findOrFail($id);
-
-        $branch->branch_name = request('branch_name');
-        $branch->branch_address = request('branch_address');
-        $branch->branch_phoneNo = request('branch_phoneNo');
-        $branch->status = $status;
-
-        $branch->save();
-
+        Branch::upd($request, $id);
         return redirect('branch')->with('message', 'Successfully Edit');
     }
 
@@ -154,7 +106,7 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-        Branch::Where('id', $id)->delete();
+        Branch::del($id);
         return redirect('branch')->with('message', 'Successfully Deleted');
     }
 

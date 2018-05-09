@@ -20,6 +20,7 @@ class CreateTerminalsTable extends Migration
             $table->integer('branch_id')->unsigned();
             $table->string('terminal_name');
             $table->bigInteger('terminal_code')->unsigned();
+            $table->boolean('status');
             $table->timestamps();
 
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');

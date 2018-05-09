@@ -20,7 +20,7 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $companies = company::all();
+        $companies = company::index();
         return view ('pages.company.company',compact('companies'));
     }
 
@@ -49,27 +49,7 @@ class CompanyController extends Controller
 
             'company_phoneNo' => "required",
         ]);
-
-        if(request('status') == null){
-            $status = 0;
-        }else{
-            $status = 1;
-        }
-
-        Company::create([
-
-            'user_id' => Auth::user()->id,
-
-            'company_name' => request('company_name'),
-
-            'company_address' => request('company_address'),
-
-            'company_phoneNo' => request('company_phoneNo'),
-
-            'status' => $status,
-
-        ]);
-
+        Company::store($request);
         return redirect('company/create')->with('message', 'Successfully saved');
 
     }
@@ -82,7 +62,7 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        $company = company::WHERE('id' , $id)->first();
+        $company = Company::show($id);
         return view('pages.company.viewCompany',compact('company'));
     }
 
@@ -94,7 +74,7 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        $company = company::WHERE('id' , $id)->first();
+        $company = company::edit($id);
         return view('pages.company.editCompany',compact('company'));
     }
 
@@ -109,26 +89,11 @@ class CompanyController extends Controller
     {
         $this->validate(request(), [
             'company_name' => "required",
-
             'company_address' => "required",
-
             'company_phoneNo' => "required",
         ]);
 
-        if(request('status') == null){
-            $status = 0;
-        }else{
-            $status = 1;
-        }
-
-        $company = Company::findOrFail($id);
-
-        $company->company_name = request('company_name');
-        $company->company_address = request('company_address');
-        $company->company_phoneNo = request('company_phoneNo');
-        $company->status = $status;
-
-        $company->save();
+        Company::upd($request, $id);
 
         return redirect('company')->with('message', 'Successfully Edit');
     }
@@ -141,7 +106,7 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        Company::Where('id', $id)->delete();
+        Company::del($id);
         return redirect('company')->with('message', 'Successfully Deleted');
     }
 }
