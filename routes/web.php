@@ -22,4 +22,4 @@ Route::resource('branch','BranchController');
 Route::resource('terminal','TerminalController');
 Route::resource('vendor','VendorController');
 Route::resource('customer','CustomerController');
-
+Route::resource('inventory','InventoryController');
