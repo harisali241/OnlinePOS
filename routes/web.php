@@ -20,6 +20,6 @@ Route::post('/reqBranches', 'TerminalController@reqBranches');
 Route::resource('company','CompanyController');
 Route::resource('branch','BranchController');
 Route::resource('terminal','TerminalController');
-Route::resource('vendor','VendorController');
+Route::resource('vender','VendorController');
 Route::resource('customer','CustomerController');
 

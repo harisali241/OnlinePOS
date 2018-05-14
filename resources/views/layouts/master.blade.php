@@ -157,6 +157,8 @@
 <!-- Form Advance Init JavaScript -->
 <script src="{{asset('dist/js/form-advance-data.js')}}"></script>
 
+<script src="{{asset('js/modal.js')}}"></script>
+
     @yield('script')
 
 <script type="text/javascript">

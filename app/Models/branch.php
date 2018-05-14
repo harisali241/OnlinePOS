@@ -20,6 +20,9 @@ class branch extends Model
     {
         return $this->belongsTo('App\Models\Company' , 'company_id');
     }
+    public function vendors(){
+        return $this->hasMany('App\Models\Vendor', 'branch_id');
+    }
 
     public static function index()
     {

@@ -2,73 +2,57 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+use App\Models\vendor;
+use Auth;
 
 class VendorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        return vendor::fetchvendor();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(), [
+            'account_id' => 'required',
+            'company_id' => 'required',
+            'branch_id' => "required",
+            'vendor_name' => "required",
+            'vendor_email' => "required",
+            'vendor_phoneNo' => "required",
+            'vendor_address' => "required",
+        ]);
+
+        vendor::storevendor($request);
+
+        return redirect('vender')->with('message', 'Successfully saved');
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(request(), [
+            'account_id' => 'required',
+            'company_id' => 'required',
+            'branch_id' => "required",
+            'vendor_name' => "required",
+            'vendor_email' => "required",
+            'vendor_phoneNo' => "required",
+            'vendor_address' => "required",
+        ]);
+
+        vendor::updatevendor($request, $id);
+
+        return redirect('vender')->with('message', 'Successfully Edit');
     }
 
     /**
@@ -79,6 +63,8 @@ class VendorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        vendor::deletevendor($id);
+        return redirect('vender')->with('message', 'Successfully Deleted');
+
     }
 }
