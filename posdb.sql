@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 08, 2018 at 06:18 PM
+-- Generation Time: May 14, 2018 at 09:05 AM
 -- Server version: 5.7.21
--- PHP Version: 7.0.29
+-- PHP Version: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -41,7 +41,15 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   KEY `accounts_company_id_foreign` (`company_id`),
   KEY `accounts_branch_id_foreign` (`branch_id`),
   KEY `accounts_nature_id_foreign` (`nature_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`id`, `nature_id`, `accounts_name`, `company_id`, `branch_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 'testing', 1, 1, NULL, NULL),
+(2, 1, 'test again', 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -54,7 +62,14 @@ CREATE TABLE IF NOT EXISTS `account_nature` (
   `nature_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nature_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`nature_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `account_nature`
+--
+
+INSERT INTO `account_nature` (`nature_id`, `nature_name`) VALUES
+(1, 'test');
 
 -- --------------------------------------------------------
 
@@ -71,9 +86,17 @@ CREATE TABLE IF NOT EXISTS `branches` (
   `branch_phoneNo` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `status` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `branches_company_id_foreign` (`company_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `branches`
+--
+
+INSERT INTO `branches` (`id`, `company_id`, `branch_name`, `branch_address`, `branch_phoneNo`, `created_at`, `updated_at`, `status`) VALUES
+(1, 1, 'north', 'nagan', 1234, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -93,14 +116,15 @@ CREATE TABLE IF NOT EXISTS `companies` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `companies_user_id_foreign` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `companies`
 --
 
 INSERT INTO `companies` (`id`, `user_id`, `company_name`, `company_address`, `company_phoneNo`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'TheNEwGateS', 'UnderWorld', 911, 1, '2018-05-08 13:17:14', '2018-05-08 13:17:14');
+(1, 1, 'TheNEwGateS', 'UnderWorld', 911, 1, '2018-05-08 13:17:14', '2018-05-08 13:17:14'),
+(2, 1, 'adasdas', 'sdasdasd', 123123, 1, '2018-05-13 16:38:09', '2018-05-14 14:48:14');
 
 -- --------------------------------------------------------
 
@@ -247,7 +271,15 @@ CREATE TABLE IF NOT EXISTS `vendors` (
   KEY `vendors_company_id_foreign` (`company_id`),
   KEY `vendors_branch_id_foreign` (`branch_id`),
   KEY `vendors_account_id_foreign` (`account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `vendors`
+--
+
+INSERT INTO `vendors` (`id`, `account_id`, `company_id`, `branch_id`, `vendor_name`, `vendor_email`, `vendor_phoneNo`, `vendor_address`, `status`, `created_at`, `updated_at`) VALUES
+(6, 2, 1, 1, 'dsdasd', 'asdasdas@gmail.com', 132132, 'sdadasd', 0, '2018-05-14 09:14:25', '2018-05-14 14:46:47'),
+(7, 1, 2, 1, 'sadasd', 'sadasd', 12312, 'sdasdasdasd', 0, '2018-05-14 14:50:53', '2018-05-14 14:51:03');
 
 --
 -- Constraints for dumped tables

@@ -95,10 +95,14 @@
                                                 <button type="submit" class="btn btn-danger  btn-rounded">
                                                     Login
                                                 </button>
+
+                                                <form class="form-inline" style="position:absolute; top:40%; left:50%; transform:translateX(-50%);">
+                                                    <input type="hidden" value="rotateInDownRight" id="entrance">
+                                                    <input type="hidden" value="rotateOutDownLeft" id="exit">
+                                                </form>
                                             </div>
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
                         </div>

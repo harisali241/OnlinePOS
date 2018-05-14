@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Moldels;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,9 +13,11 @@ class account extends Model
     public function account_natures(){
         $this->belongsTo('App/Models/account_nature');
     }
+
     public function vendors(){
-        $this->hasMany('App/Models/vendor');
+        return $this->hasMany('App\Models\vendor');
     }
+
     public function customers(){
         $this->hasMany('App/Models/customer');
     }

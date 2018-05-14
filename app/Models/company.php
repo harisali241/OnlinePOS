@@ -18,6 +18,9 @@ class company extends Model
     public function terminals(){
         return $this->hasMany('App\Models\Terminal', 'company_id');
     }
+    public function vendors(){
+        return $this->hasMany('App\Models\Vendor', 'company_id');
+    }
 
 
     public static function index(){
