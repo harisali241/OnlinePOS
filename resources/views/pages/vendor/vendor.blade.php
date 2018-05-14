@@ -478,8 +478,9 @@
 
                                                             <label class="control-label mb-10">Status</label>
                                                             <div>
-                                                                <input id="check_box_switch" name="status" type="checkbox" data-off-text="Inactive" data-on-text="Active" data-toggle="Inactive" class="bs-switch" />
+                                                                <input id="check_box_switch" name="status" type="checkbox" data-off-text="Inactive" data-on-text="Active" data-toggle="Inactive" class="bs-switch @php if($vendor->status == 0){ echo'switch'; } @endphp"/>
                                                             </div>
+
                                                         </div>
 
                                                         <!-- Status -->
@@ -745,6 +746,14 @@
             });
             return false;
         }
+
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+            $('.switch').click();
+        })
 
     </script>
 
