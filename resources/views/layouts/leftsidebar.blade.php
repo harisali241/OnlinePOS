@@ -70,7 +70,7 @@
                     <a href="{{url('customer')}}">View Customers</a>
                 </li>.
             </ul>
-        </li>
+         </li>
         <li>
     </ul>
 
