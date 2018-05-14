@@ -10,7 +10,7 @@ class account extends Model
         'nature_id', 'account_name'
     ];
 
-    public function accounts(){
+    public function account_natures(){
         $this->belongsTo('App/Models/account_nature');
     }
     public function vendors(){

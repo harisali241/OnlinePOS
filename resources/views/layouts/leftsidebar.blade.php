@@ -72,8 +72,15 @@
                     <a href="{{url('customer')}}">View Customers</a>
                 </li>.
             </ul>
-         </li>
+        </li>
+
+        <li class="navigation-header">
+            <span>locals</span>
+            <i class="zmdi zmdi-more"></i>
+        </li>
         <li>
+            <a href="{{url('/inventory')}}"><div class="pull-left"><i class=" icon-basket-loaded  mr-20"></i><span class="right-nav-text">Inventory</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
+        </li>
     </ul>
 
 </div>
