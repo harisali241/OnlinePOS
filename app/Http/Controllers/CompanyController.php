@@ -42,15 +42,16 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate(request(), [
+        $request->validate([
             'company_name' => "required",
 
             'company_address' => "required",
 
             'company_phoneNo' => "required",
         ]);
-        Company::store($request);
-        return redirect('company/create')->with('message', 'Successfully saved');
+        Company::createCompany($request);
+
+        return redirect('company')->with('message', 'Successfully saved');
 
     }
 

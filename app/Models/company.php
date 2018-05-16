@@ -27,7 +27,7 @@ class company extends Model
         return company::all();
     }
 
-    public static function store(Request $request){
+    public static function createCompany(Request $request){
 
         if(request('status') == null){
             $status = 0;
