@@ -50,15 +50,13 @@
             <span>locals</span>
             <i class="zmdi zmdi-more"></i>
         </li>
+
         <li>
-            <a href="javascript:void(0);" data-toggle="collapse" data-target="#vendor_dr"><div class="pull-left"><i class="icon-globe-alt  mr-20"></i><span class="right-nav-text">Vendors</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-            <ul id="vendor_dr" class="collapse collapse-level-1">
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#vendors_dr"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Vendors</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="vendors_dr" class="collapse collapse-level-1">
                 <li>
-                    <a href="{{url('vendor/create')}}">Add New Vendor</a>
+                    <a href="{{url('vender')}}">View Vendor</a>
                 </li>
-                <li>
-                    <a href="{{url('vendor')}}">View Vendors</a>
-                </li>.
             </ul>
         </li>
 
@@ -72,8 +70,15 @@
                     <a href="{{url('customer')}}">View Customers</a>
                 </li>.
             </ul>
-         </li>
+        </li>
+
+        <li class="navigation-header">
+            <span>locals</span>
+            <i class="zmdi zmdi-more"></i>
+        </li>
         <li>
+            <a href="{{url('/inventory')}}"><div class="pull-left"><i class=" icon-basket-loaded  mr-20"></i><span class="right-nav-text">Inventory</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
+        </li>
     </ul>
 
 </div>

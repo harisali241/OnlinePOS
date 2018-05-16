@@ -160,8 +160,12 @@
 <!-- Form Advance Init JavaScript -->
 <script src="{{asset('dist/js/form-advance-data.js')}}"></script>
 
+<<<<<<< HEAD
 
 <script src="{{asset('js/custom.js')}}"></script>
+=======
+<script src="{{asset('js/modal.js')}}"></script>
+>>>>>>> 107669518e6a8a1fa974a86e28f95a8081b8f975
 
     @yield('script')
 

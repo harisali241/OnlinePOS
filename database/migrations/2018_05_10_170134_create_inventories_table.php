@@ -23,6 +23,7 @@ class CreateInventoriesTable extends Migration
             $table->integer('account_id')->unsigned();
             $table->integer('company_id')->unsigned();
             $table->integer('branch_id')->unsigned();
+            $table->boolean('status');
             $table->timestamps();
 
             $table->foreign('account_id')->references('id')->on('accounts');
