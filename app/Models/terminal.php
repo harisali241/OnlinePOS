@@ -41,10 +41,7 @@ class terminal extends Model
     {
         return Branch::Where('status' , 1)->get();
     }
-    public  static function jsonReq(Request $request)
-    {
-        return branch::Where('company_id' , request('id'))->get();
-    }
+
 
     public static function store(Request $request)
     {

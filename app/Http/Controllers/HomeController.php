@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Models\terminal;
+use App\Models\account;
+use App\Models\company;
+use App\Models\branch;
+
 
 class HomeController extends Controller
 {
@@ -27,5 +32,11 @@ class HomeController extends Controller
     public function home()
     {
         return view('pages.dashboard');
+    }
+
+    public function reqBranches(Request $request)
+    {
+        $branches =  Branch::Where('company_id' , request('id'))->get();
+        return response()->json($branches);
     }
 }
