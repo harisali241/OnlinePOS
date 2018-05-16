@@ -12,6 +12,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
+
     <!-- Data table CSS -->
     <link href="{{asset('vendors/bower_components/datatables/media/css/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css"/>
 
@@ -114,6 +115,8 @@
 <!-- Fancy Dropdown JS -->
 <script src="{{asset('dist/js/dropdown-bootstrap-extended.js')}}"></script>
 
+
+
 <!-- Init JavaScript -->
 <script src="{{asset('dist/js/init.js')}}"></script>
 
@@ -157,11 +160,14 @@
 <!-- Form Advance Init JavaScript -->
 <script src="{{asset('dist/js/form-advance-data.js')}}"></script>
 
+
+<script src="{{asset('js/custom.js')}}"></script>
+
     @yield('script')
 
 <script type="text/javascript">
     $(document).ready(function (e) {
-        $('.alert').fadeOut(11000);
+        $('.alert').fadeOut(1000);
     })
 </script>
 
