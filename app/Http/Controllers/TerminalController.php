@@ -38,11 +38,6 @@ class TerminalController extends Controller
         return view ('pages.terminal.addTerminal' , compact('companies','branches'));
     }
 
-    public function reqBranches(Request $request)
-    {
-        $branches =  terminal::jsonReq($request);
-        return response()->json($branches);
-    }
 
     /**
      * Store a newly created resource in storage.

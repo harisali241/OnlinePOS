@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Models\inventory;
+use App\Models\account;
+
+use DB;
 
 class InventoryController extends Controller
 {
@@ -15,7 +19,9 @@ class InventoryController extends Controller
     public function index()
     {
         $inventories = Inventory::all();
-        return view('pages.inventory.inventory', compact('inventories'));
+        $accounts = Account::all();
+        $companies = Company::all();
+        return view('pages.inventory.inventory', compact('inventories','accounts','companies'));
     }
 
     /**
@@ -28,6 +34,8 @@ class InventoryController extends Controller
         //
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -39,6 +47,7 @@ class InventoryController extends Controller
         Inventory::insertInventory($request);
         return redirect('inventory')->with('message','Successfully Saved');
     }
+
 
     /**
      * Display the specified resource.

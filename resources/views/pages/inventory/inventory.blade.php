@@ -12,10 +12,33 @@
                 <div class="modal-body">
                     <form action="{{url('/inventory')}}" method="POST" role="form">
                         {{csrf_field()}}
+
+                        <label for="Account" class="control-label mb-10">Account</label>
+                        <select class="form-control select2 account-add" name="account_id" style="background:#f2f2f2;">
+                            <option disabled selected>Select Account</option>
+                            @foreach($accounts as $account)
+                                <option value="{{$account->id}}">{{$account->accounts_name}}</option>
+                            @endforeach
+
+                        </select>
+
+                        <label for="Company" class="control-label mb-10">Company</label>
+                        <select class="form-control select2 companyId" name="company_id" style="background:#f2f2f2;">
+                            <option disabled selected>Select Account</option>
+                            @foreach($companies as $company)
+                                <option value="{{$company->id}}">{{$company->company_name}}</option>
+                            @endforeach
+
+                        </select>
+
+                        <label for="branch" class="control-label mb-10">Branch</label>
+                        <select class="form-control select2 branchId" name="branch_id" style="background:#f2f2f2;">
+
+                        </select>
+
                         <div class="form-group">
                             <label for="Item Name" class="control-label mb-10">Item Name</label>
                             <input type="text" class="form-control item-name"  name="item_name" style="background:#f2f2f2;">
-                            <div style="color:red;padding:5px 5px 5px 5px;" class="item-name-box"></div>
                         </div>
                         <div class="form-group">
                             <label for="Description" class="control-label mb-10">Description</label>
@@ -143,7 +166,33 @@
 @section('script')
 
     <script type="text/javascript">
+        $(document).ready(function(){
+            $('.branchId').attr('disabled', 'disabled');
 
+            $(".companyId").on('change', function () {
+                $('.branchId').text('');
+                var id = $(this).val();
+
+                $.ajax({
+                    url:'/reqBranches',
+                    method:'POST',
+                    dataType:'JSON',
+                    data:{ 'id' : id , '_token': '{{csrf_token()}}' },
+                    success: function (data) {
+
+                        $('.branchId').removeAttr('disabled');
+
+                        $('.branchId').append('<option disabled selected>Select Branch</option>');
+
+                        data.forEach(function (result) {
+                            $('.branchId').append('<option value="'+result.id+'">'+result.branch_name+'</option>');
+                            //console.log(result.branch_name);
+                        })
+
+                    },
+                });
+            });
+        });
 
         function del(){
             swal({

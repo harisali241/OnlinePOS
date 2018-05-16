@@ -28,6 +28,7 @@ class inventory extends Model
     }
 
 
+
     public static function insertInventory(Request $request)
     {
         if(request('status') == null){

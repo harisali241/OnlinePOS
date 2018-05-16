@@ -16,7 +16,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@home');
 
-Route::post('/reqBranches', 'TerminalController@reqBranches');
+Route::post('/reqBranches', 'HomeController@reqBranches');
 Route::resource('company','CompanyController');
 Route::resource('branch','BranchController');
 Route::resource('terminal','TerminalController');
