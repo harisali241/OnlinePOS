@@ -20,7 +20,7 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $companies = company::index();
+        $companies = company::fetchCompanies();
         return view ('pages.company.company',compact('companies'));
     }
 
@@ -94,7 +94,7 @@ class CompanyController extends Controller
             'company_phoneNo' => "required",
         ]);
 
-        Company::upd($request, $id);
+        Company::updateCompany($request, $id);
 
         return redirect('company')->with('message', 'Successfully Edit');
     }
@@ -107,7 +107,7 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        Company::del($id);
+        Company::findOrFail($id)->delete();
         return redirect('company')->with('message', 'Successfully Deleted');
     }
 }

@@ -26,9 +26,9 @@ class CreateInventoriesTable extends Migration
             $table->boolean('status');
             $table->timestamps();
 
-            $table->foreign('account_id')->references('id')->on('accounts');
-            $table->foreign('company_id')->references('id')->on('companies');
-            $table->foreign('branch_id')->references('id')->on('branches');
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
         });
     }
 

@@ -23,7 +23,7 @@ class company extends Model
     }
 
 
-    public static function index(){
+    public static function fetchCompanies(){
         return company::all();
     }
 
@@ -51,34 +51,18 @@ class company extends Model
 
     }
 
-    public static function show($id){
-        return company::WHERE('id' , $id)->first();
-    }
 
-    public static function edit($id){
-        return company::WHERE('id' , $id)->first();
-    }
+    public static function updateCompany($request, $id){
 
-    public static function upd(Request $request, $id){
-        if(request('status') == null){
-            $status = 0;
-        }else{
-            $status = 1;
-        }
 
         $company = Company::findOrFail($id);
 
-        $company->company_name = request('company_name');
-        $company->company_address = request('company_address');
-        $company->company_phoneNo = request('company_phoneNo');
-        $company->status = $status;
+        $company->company_name = $request['company_name'];
+        $company->company_address = $request['company_address'];
+        $company->company_phoneNo = $request['company_phoneNo'];
+        $company->status = $request['status'];
 
         $company->save();
-    }
-
-    public static function del($id)
-    {
-        Company::Where('id', $id)->delete();
     }
 
 }

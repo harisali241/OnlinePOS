@@ -21,8 +21,17 @@ class BranchController extends Controller
 
     public function index()
     {
-        $branches = Branch::index();
-        return view ('pages.branch.branch',compact('branches'));
+        $branches = branch::fetchBranches();
+
+        $companies = company::fetchCompanies();
+
+        $edit_companies = company::pluck('company_name','id');
+
+        return view ('pages.branch.branch',array(
+            'companies' => $companies,
+            'branches' => $branches,
+            'edit_companies' => $edit_companies
+        ));
     }
 
     /**
@@ -32,8 +41,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        $companies = Branch::create();
-        return view ('pages.branch.addBranch' , compact('companies'));
+        //
     }
 
     /**
@@ -52,7 +60,7 @@ class BranchController extends Controller
             'branch_address' => "required",
             'branch_phoneNo' => "required",
         ]);
-        Branch::store($request);
+        branch::createBranch($request);
         return redirect('branch/create')->with('message', 'Successfully saved');
     }
 
@@ -64,8 +72,7 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-        $branch = Branch::show($id);
-        return view ('pages.branch.viewBranch',compact('branch'));
+       //
     }
 
     /**
@@ -76,8 +83,7 @@ class BranchController extends Controller
      */
     public function edit($id)
     {
-        $branch = Branch::edit($id);
-        return view('pages.branch.editBranch',compact('branch'));
+      //
     }
 
     /**
@@ -94,7 +100,7 @@ class BranchController extends Controller
             'branch_address' => "required",
             'branch_phoneNo' => "required",
         ]);
-        Branch::upd($request, $id);
+        branch::updateBranch($request, $id);
         return redirect('branch')->with('message', 'Successfully Edit');
     }
 
@@ -106,7 +112,7 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-        Branch::del($id);
+        branch::findOrFail($id)->delete();
         return redirect('branch')->with('message', 'Successfully Deleted');
     }
 
