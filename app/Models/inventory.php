@@ -29,9 +29,9 @@ class inventory extends Model
 
 
 
-    public static function insertInventory(Request $request)
+    public static function createInventory(Request $request)
     {
-        if(request('status') == null){
+        if(request('status') == 0){
             $status = 0;
         }else{
             $status = 1;
@@ -44,8 +44,30 @@ class inventory extends Model
         $inventory->purchase_rate = request('purchase_rate');
         $inventory->sell_rate = request('sell_rate');
         $inventory->alert_qty = request('alert_qty');
+        $inventory->account_id = request('account_id');
+        $inventory->company_id = request('company_id');
+        $inventory->branch_id = request('branch_id');
         $inventory->status = $status;
 
         $inventory->save();
     }
+
+    public static function updateInventory(Request $request, $id){
+
+
+        $inventory = inventory::findOrFail($id);
+
+        $inventory->item_name = request('item_name');
+        $inventory->item_desc = request('item_desc');
+        $inventory->purchase_rate = request('purchase_rate');
+        $inventory->sell_rate = request('sell_rate');
+        $inventory->alert_qty = request('alert_qty');
+        $inventory->account_id = request('account_id');
+        $inventory->company_id = request('company_id');
+        $inventory->branch_id = request('branch_id');
+        $inventory->status = request('status');
+
+        $inventory->save();
+    }
+
 }

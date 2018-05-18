@@ -61,7 +61,7 @@ class BranchController extends Controller
             'branch_phoneNo' => "required",
         ]);
         branch::createBranch($request);
-        return redirect('branch/create')->with('message', 'Successfully saved');
+        return redirect('branch')->with('message', 'Successfully saved');
     }
 
     /**

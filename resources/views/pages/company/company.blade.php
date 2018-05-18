@@ -112,7 +112,7 @@
                                 <td>{{$company->company_address}}</td>
                                 <td>{{$company->company_phoneNo}}</td>
                                 <td>
-                                    @if($company->status === 1)
+                                    @if($company->status == 1)
                                         <b style="color: red">Active</b>
                                     @else
                                         <b style="color: grey">Inactive</b>
@@ -135,10 +135,6 @@
                                             </form>
                                         </div>
                                     </div>
-
-
-
-
                                 </td>
                             </tr>
                             @php $i++; @endphp

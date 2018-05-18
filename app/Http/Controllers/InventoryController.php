@@ -44,8 +44,19 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        Inventory::insertInventory($request);
-        return redirect('inventory')->with('message','Successfully Saved');
+        $request->validate([
+            'item_name' => "required",
+            'item_desc' => "required",
+            'purchase_rate' => "required",
+            'sell_rate' => "required",
+            'alert_qty' => "required",
+            'account_id' => "required",
+            'company_id' => "required",
+            'branch_id' => "required",
+            'status' => "required",
+        ]);
+        Inventory::createInventory($request);
+        return redirect('inventory')->with('message', 'Successfully saved');
     }
 
 
@@ -80,7 +91,21 @@ class InventoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'item_name' => "required",
+            'item_desc' => "required",
+            'purchase_rate' => "required",
+            'sell_rate' => "required",
+            'alert_qty' => "required",
+            'account_id' => "required",
+            'company_id' => "required",
+            'branch_id' => "required",
+            'status' => "required",
+        ]);
+
+        Inventory::updateInventory($request, $id);
+
+        return redirect('inventory')->with('message', 'Successfully Edit');
     }
 
     /**
@@ -91,6 +116,8 @@ class InventoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
+        //Inventory::findOrFail($id)->delete();
+        return redirect('inventory')->with('message', 'Successfully Deleted');
     }
 }

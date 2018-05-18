@@ -22,8 +22,8 @@ class CreateAccountsTable extends Migration
             $table->integer('branch_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('branch_id')->references('id')->on('branches');
             $table->foreign('nature_id')->references('nature_id')->on('account_nature')->onDelete('cascade');
         });
     }
