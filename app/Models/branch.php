@@ -37,6 +37,11 @@ class branch extends Model
 
     public static function createBranch($request)
     {
+        if(request('status') == 0){
+            $status = 0;
+        }else{
+            $status = 1;
+        }
 
         $branch = new Branch;
 
@@ -44,7 +49,7 @@ class branch extends Model
         $branch->branch_name = $request['branch_name'];
         $branch->branch_address = $request['branch_address'];
         $branch->branch_phoneNo = $request['branch_phoneNo'];
-        $branch->status = $request['status'];
+        $branch->status = $status;
         $branch->save();
 
     }

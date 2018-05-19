@@ -30,27 +30,23 @@ class company extends Model
         return company::all();
     }
 
-    public static function createCompany(Request $request){
+    public static function createCompany(Request $Request){
 
-        if(request('status') == null){
+        if(request('status') == 0){
             $status = 0;
         }else{
             $status = 1;
         }
+        $company = new Company;
 
-        Company::create([
+        $company->user_id = Auth::user()->id;
+        $company->company_name = request('company_name');
+        $company->company_address = request('company_address');
+        $company->company_phoneNo = request('company_phoneNo');
+        $company->status = $status;
 
-            'user_id' => Auth::user()->id,
+        $company->save();
 
-            'company_name' => request('company_name'),
-
-            'company_address' => request('company_address'),
-
-            'company_phoneNo' => request('company_phoneNo'),
-
-            'status' => $status,
-
-        ]);
 
     }
 
