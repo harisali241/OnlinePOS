@@ -23,3 +23,6 @@ Route::resource('terminal','TerminalController');
 Route::resource('vender','VendorController');
 Route::resource('customer','CustomerController');
 Route::resource('inventory','InventoryController');
+Route::resource('nature','AccountNatureController');
+Route::resource('account','AccountController');
+Route::resource('customer','CustomerController');

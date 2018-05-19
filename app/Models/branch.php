@@ -23,6 +23,9 @@ class branch extends Model
     public function vendors(){
         return $this->hasMany('App\Models\Vendor', 'branch_id');
     }
+    public function accounts(){
+        return $this->hasMany('App\Models\Account', 'branch_id');
+    }
 
     public static function fetchBranches()
     {

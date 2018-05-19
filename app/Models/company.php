@@ -21,6 +21,9 @@ class company extends Model
     public function vendors(){
         return $this->hasMany('App\Models\Vendor', 'company_id');
     }
+    public function accounts(){
+        return $this->hasMany('App\Models\Account', 'company_id');
+    }
 
 
     public static function fetchCompanies(){

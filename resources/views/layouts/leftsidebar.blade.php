@@ -38,24 +38,19 @@
         </li>
 
         <li>
-            <a href="javascript:void(0);" data-toggle="collapse" data-target="#vendors_dr"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Vendors</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-            <ul id="vendors_dr" class="collapse collapse-level-1">
-                <li>
-                    <a href="{{url('vender')}}">View Vendor</a>
-                </li>
-            </ul>
+            <a href="{{url('nature')}}"><div class="pull-left"><i class="fa fa-fort-awesome mr-20"></i><span class="right-nav-text">Natures</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
         </li>
 
         <li>
-            <a href="javascript:void(0);" data-toggle="collapse" data-target="#cust_dr"><div class="pull-left"><i class=" icon-credit-card  mr-20"></i><span class="right-nav-text">Customers</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-            <ul id="cust_dr" class="collapse collapse-level-1">
-                <li>
-                    <a href="{{url('customer/create')}}">Add New Customer</a>
-                </li>
-                <li>
-                    <a href="{{url('customer')}}">View Customers</a>
-                </li>.
-            </ul>
+            <a href="{{url('account')}}"><div class="pull-left"><i class="fa fa-fort-awesome mr-20"></i><span class="right-nav-text">Accounts</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
+        </li>
+
+        <li>
+            <a href="{{url('vender')}}"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Vendors</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
+        </li>
+
+        <li>
+            <a href="{{url('customer')}}"><div class="pull-left"><i class="icon-credit-card  mr-20"></i><span class="right-nav-text">Customers</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
         </li>
 
         <li class="navigation-header">

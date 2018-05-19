@@ -14,82 +14,46 @@ class vendor extends Model
         'account_id', 'vendor_name', 'vendor_email', 'vendor_address', 'vendor_phoneNo', 'status'
     ];
 
-    public function account(){
-
-        return $this->belongsTo('App\Models\account');
-    }
-
-    public function company(){
-
-        return $this->belongsTo('App\Models\company');
-    }
-
-    public function branch(){
-
-        return $this->belongsTo('App\Models\branch');
-    }
-
-    public static function fetchvendor()
+    public function accounts()
     {
-        $vendors = vendor::all();
-        $accounts = account::all();
-        $companies = company::where('status', 1)->get();
-        $branches = branch::all();
-
-        return view ('pages.vendor.vendor',compact('vendors','accounts','branches','companies'));
+        return $this->belongsTo('App\Models\account' , 'account_id');
     }
 
-    public static function storevendor(Request $request)
+    public static function fetchVendors()
     {
+        $vendors = vendor::with('accounts')->get();
 
-        if(request('status') == null)
-        {
-            $status = 0;
-        }
-        else
-        {
-            $status = 1;
-        }
+        return $vendors;
+    }
 
+    public static function createVendors(Request $request)
+    {
         $vendor = new Vendor;
 
-        $vendor->account_id = request('account_id');
-        $vendor->company_id = request('company_id');
-        $vendor->branch_id = request('branch_id');
-        $vendor->vendor_name = request('vendor_name');
-        $vendor->vendor_email = request('vendor_email');
-        $vendor->vendor_phoneNo = request('vendor_phoneNo');
-        $vendor->vendor_address = request('vendor_address');
-        $vendor->status = $status;
-
+        $vendor->company_id = $request['company_id'];
+        $vendor->branch_id = $request['branch_id'];
+        $vendor->account_id = $request['account_id'];
+        $vendor->vendor_name = $request['vendor_name'];
+        $vendor->vendor_email = $request['vendor_email'];
+        $vendor->vendor_phoneNo = $request['vendor_phoneNo'];
+        $vendor->vendor_address = $request['vendor_address'];
+        $vendor->status = $request['status'];
         $vendor->save();
     }
 
 
-    public static function updatevendor(Request $request, $id){
-        if(request('status') == null){
-            $status = 0;
-        }else{
-            $status = 1;
-        }
-
-        $vendor = Vendor::findOrFail($id);
-
-        $vendor->account_id = request('account_id');
-        $vendor->company_id = request('company_id');
-        $vendor->branch_id = request('branch_id');
-        $vendor->vendor_name = request('vendor_name');
-        $vendor->vendor_email = request('vendor_email');
-        $vendor->vendor_phoneNo = request('vendor_phoneNo');
-        $vendor->vendor_address = request('vendor_address');
-        $vendor->status = $status;
-
-        $vendor->save();
-
-    }
-
-    public static function deletevendor($id)
+    public static function updateVendors(Request $request, $id)
     {
-        vendor::Where('id', $id)->delete();
+        $vendor = vendor::findOrFail($id);
+
+        $vendor->company_id = $request['company_id'];
+        $vendor->branch_id = $request['branch_id'];
+        $vendor->account_id = $request['account_id'];
+        $vendor->vendor_name = $request['vendor_name'];
+        $vendor->vendor_email = $request['vendor_email'];
+        $vendor->vendor_phoneNo = $request['vendor_phoneNo'];
+        $vendor->vendor_address = $request['vendor_address'];
+        $vendor->status = $request['status'];
+        $vendor->save();
     }
 }
