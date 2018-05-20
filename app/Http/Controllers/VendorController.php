@@ -24,24 +24,12 @@ class VendorController extends Controller
 
         $accounts = account::fetchAccounts();
 
-        $branches = branch::fetchBranches();
-
         $companies = company::fetchCompanies();
-
-        $edit_branches = branch::pluck('branch_name','id');
-
-        $edit_companies = company::pluck('company_name','id');
-
-        $edit_accounts = account::pluck('accounts_name','id');
 
         return view ('pages.vendor.vendor',array(
             'vendors' => $vendors,
             'accounts' => $accounts,
             'companies' => $companies,
-            'branches' => $branches,
-            'edit_branches' => $edit_branches,
-            'edit_companies' => $edit_companies,
-            'edit_accounts' => $edit_accounts,
         ));
     }
 

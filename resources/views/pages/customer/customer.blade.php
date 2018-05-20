@@ -49,7 +49,7 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="inputName" class="control-label mb-10">Companies<span class="text-danger">*</span></label>
-                                                    <select class="form-control select2" name="company_id">
+                                                    <select class="form-control select2 companyId" name="company_id">
                                                         <option disabled selected value="0">Select Company</option>
                                                         @foreach($companies as $company)
                                                             <option value="{{$company->id}}">{{$company->company_name}}</option>
@@ -66,11 +66,7 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="inputName" class="control-label mb-10">Branches<span class="text-danger">*</span></label>
-                                                    <select class="form-control select2" name="branch_id">
-                                                        <option disabled selected value="0">Select Branch</option>
-                                                        @foreach($branches as $branch)
-                                                            <option value="{{$branch->id}}">{{$branch->branch_name}}</option>
-                                                        @endforeach
+                                                    <select class="form-control select2 branchId" name="branch_id">
 
                                                     </select>
                                                 </div>
@@ -251,42 +247,47 @@
                                                 <div class="col-sm-12">
                                                     <div class="row p-10">
 
+                                                        {!! Form::hidden('account_id' , null ,['class' => 'form-control','id' => 'account_id'.$customer->id,'required' => 'required'] ) !!}
+                                                        {!! Form::hidden('company_id' , null ,['class' => 'form-control','id' => 'company_id'.$customer->id,'required' => 'required'] ) !!}
+                                                        {!! Form::hidden('branch_id' , null ,['class' => 'form-control','id' => 'branch_id'.$customer->id,'required' => 'required'] ) !!}
+
+
                                                         {{-- Account --}}
 
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label for="inputName" class="control-label mb-10">Account<span class="text-danger">*</span></label>
-                                                                {!! Form::select('account_id' ,$edit_accounts, null ,['class' => 'form-control select2',
-                                                                'id' => 'account_id'.$customer->id] ) !!}
+                                                        {{--<div class="col-sm-12">--}}
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<label for="inputName" class="control-label mb-10">Account<span class="text-danger">*</span></label>--}}
+                                                                {{--{!! Form::select('account_id' ,$edit_accounts, null ,['class' => 'form-control select2',--}}
+                                                                {{--'id' => 'account_id'.$customer->id] ) !!}--}}
 
-                                                            </div>
-                                                        </div>
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
 
                                                         {{-- Account --}}
 
                                                         {{-- Company Name --}}
 
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label for="inputName" class="control-label mb-10">Companies<span class="text-danger">*</span></label>
-                                                                {!! Form::select('company_id' ,$edit_companies, null ,['class' => 'form-control select2',
-                                                                'id' => 'company_id'.$customer->id] ) !!}
+                                                        {{--<div class="col-sm-12">--}}
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<label for="inputName" class="control-label mb-10">Companies<span class="text-danger">*</span></label>--}}
+                                                                {{--{!! Form::select('company_id' ,$edit_companies, null ,['class' => 'form-control select2',--}}
+                                                                {{--'id' => 'company_id'.$customer->id] ) !!}--}}
 
-                                                            </div>
-                                                        </div>
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
 
                                                         {{-- Company Name --}}
 
                                                         {{-- Branch Name --}}
 
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label for="inputName" class="control-label mb-10">Branches<span class="text-danger">*</span></label>
-                                                                {!! Form::select('branch_id' ,$edit_branches, null ,['class' => 'form-control select2',
-                                                                'id' => 'branch_id'.$customer->id] ) !!}
+                                                        {{--<div class="col-sm-12">--}}
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<label for="inputName" class="control-label mb-10">Branches<span class="text-danger">*</span></label>--}}
+                                                                {{--{!! Form::select('branch_id' ,$edit_branches, null ,['class' => 'form-control select2',--}}
+                                                                {{--'id' => 'branch_id'.$customer->id] ) !!}--}}
 
-                                                            </div>
-                                                        </div>
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
 
                                                         {{-- Branch Name --}}
 
@@ -408,6 +409,34 @@
 @section('script')
 
     <script>
+
+        $(document).ready(function (e) {
+            $('.branchId').attr('disabled', 'disabled');
+
+            $(".companyId").on('change', function () {
+                $('.branchId').text('');
+                var id = $(this).val();
+
+                $.ajax({
+                    url:'/reqBranches',
+                    method:'POST',
+                    dataType:'JSON',
+                    data:{ 'id' : id , '_token': '{{csrf_token()}}' },
+                    success: function (data) {
+
+                        $('.branchId').removeAttr('disabled');
+
+                        $('.branchId').append('<option disabled selected>Select Branch</option>');
+
+                        data.forEach(function (result) {
+                            $('.branchId').append('<option value="'+result.id+'">'+result.branch_name+'</option>');
+                            //console.log(result.branch_name);
+                        })
+
+                    },
+                });
+            });
+        });
 
         function del(){
             swal({

@@ -19,26 +19,14 @@ class AccountController extends Controller
     {
         $accounts = account::fetchAccounts();
 
-        $branches = branch::fetchBranches();
-
         $companies = company::fetchCompanies();
 
         $natures = account_nature::fetchAccountNatures();
 
-        $edit_branches = branch::pluck('branch_name','id');
-
-        $edit_companies = company::pluck('company_name','id');
-
-        $edit_natures = account_nature::pluck('nature_name','nature_id');
-
         return view ('pages.account.account',array(
             'accounts' => $accounts,
             'companies' => $companies,
-            'branches' => $branches,
             'natures' => $natures,
-            'edit_branches' => $edit_branches,
-            'edit_companies' => $edit_companies,
-            'edit_natures' => $edit_natures,
         ));
     }
 

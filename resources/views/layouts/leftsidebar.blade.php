@@ -54,7 +54,7 @@
         </li>
 
         <li class="navigation-header">
-            <span>locals</span>
+            <span>Store</span>
             <i class="zmdi zmdi-more"></i>
         </li>
         <li>
