@@ -4,6 +4,10 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Terminal;
+use App\Models\Company;
+use App\Models\Branch;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -27,14 +31,23 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function Companies()
+    public function companies()
     {
-        return $this->hasOne('App\Model\Company');
+        return $this->belongsTo('App\Models\Company');
     }
 
     public function branches()
     {
-        return $this->hasOne('App\Model\Branch');
+        return $this->belongsTo('App\Models\Branch');
+    }
+
+    public static function fetchCompanyFromUser(){
+        $company = Company::Where('id' , Auth::user()->company_id)->pluck('company_name')[0];
+        return $company;
+    }
+    public static function fetchBranchFromUser(){
+        $branch = Branch::Where('id' , Auth::user()->branch_id)->pluck('branch_name')[0];
+        return $branch;
     }
 
 }

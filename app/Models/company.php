@@ -15,6 +15,7 @@ class Company extends Model
     public function Branches(){
         return $this->hasMany('App\Models\Branch', 'company_id');
     }
+    
     public function Users(){
         return $this->hasOne('App\User', 'user_id');
     }

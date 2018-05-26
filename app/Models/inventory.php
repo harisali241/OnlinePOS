@@ -16,11 +16,11 @@ class Inventory extends Model
 
     public function companies()
     {
-        return $this->belongsTo('App\Model\Company');
+        return $this->belongsTo('App\Models\Company');
     }
     public function branches()
     {
-        return $this->belongsTo('App\Model\Branch');
+        return $this->belongsTo('App\Models\Branch');
     }
     public function accounts()
     {

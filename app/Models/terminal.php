@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\branch;
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Auth;
 
 class Terminal extends Model
 {
@@ -20,32 +21,26 @@ class Terminal extends Model
     }
     public function branches()
     {
-        return $this->belongsTo('App\Model\Branch');
+        return $this->belongsTo('App\Models\Branch');
     }
 
 
-    public static function index()
+    public static function fetchTerminals()
     {
-        return DB::table('terminals')
-            ->join('companies' , 'terminals.company_id', '=', 'companies.id')
-            ->join('branches', 'branches.id', '=', 'terminals.branch_id')
-            ->select('terminals.*', 'branches.branch_name', 'companies.company_name')
-            ->get();
-    }
+        $terminals = Terminal::all();
+        return $terminals;
 
-    public static function getCompanies()
-    {
-        return Company::Where('status' , 1)->get();
-    }
-    public static function getBranches()
-    {
-        return Branch::Where('status' , 1)->get();
+        // return DB::table('terminals')
+        //     ->join('companies' , 'terminals.company_id', '=', 'companies.id')
+        //     ->join('branches', 'branches.id', '=', 'terminals.branch_id')
+        //     ->select('terminals.*', 'branches.branch_name', 'companies.company_name')
+        //     ->get();
     }
 
 
-    public static function store(Request $request)
+    public static function createTerminal(Request $request)
     {
-        if(request('status') == null){
+        if(request('status') == 0){
             $status = 0;
         }else{
             $status = 1;
@@ -53,32 +48,19 @@ class Terminal extends Model
 
         $terminal = new Terminal;
 
-        $terminal->company_id = request('company_id');
-        $terminal->branch_id = request('branch_id');
+        $terminal->user_id = Auth::user()->id;
+        $terminal->branch_id = Auth::user()->branch_id;
         $terminal->terminal_name = request('terminal_name');
         $terminal->terminal_code = request('terminal_code');
         $terminal->status = $status;
         $terminal->save();
     }
 
-    public static function edit($id)
-    {
-        return Terminal::Where('id', $id)->get()->first();
-    }
+    
 
-    public static function show($id)
+    public static function updateTerminal(Request $request, $id)
     {
-        return DB::table('terminals')
-            ->join('companies' , 'terminals.company_id', '=', 'companies.id')
-            ->join('branches', 'branches.id', '=', 'terminals.branch_id')
-            ->where('terminals.id','=', $id)
-            ->select('terminals.*', 'branches.branch_name', 'companies.company_name')
-            ->first();
-    }
-
-    public static function upd(Request $request, $id)
-    {
-        if(request('status') == null){
+        if(request('status') == 0){
             $status = 0;
         }else{
             $status = 1;
@@ -86,6 +68,8 @@ class Terminal extends Model
 
         $terminal = Terminal::findOrFail($id);
 
+        $terminal->user_id = Auth::user()->id;
+        $terminal->branch_id = Auth::user()->branch_id;
         $terminal->terminal_name = request('terminal_name');
         $terminal->terminal_code = request('terminal_code');
         $terminal->status = $status;

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Terminal;
 use App\Models\Company;
 use App\Models\Branch;
+use App\User;
 use DB;
 
 class TerminalController extends Controller
@@ -14,7 +15,7 @@ class TerminalController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function __construct()
     {
         $this->middleware('auth');
@@ -22,8 +23,10 @@ class TerminalController extends Controller
 
     public function index()
     {
-        $terminals = Terminal::index();
-        return view('pages.terminal.terminal', compact('terminals'));
+        $terminals = Terminal::fetchTerminals();
+        $company = User::fetchCompanyFromUser();
+        $branch = User::fetchBranchFromUser();
+        return view('pages.terminal.terminal', compact('terminals', 'company', 'branch'));
     }
 
     /**
@@ -33,9 +36,7 @@ class TerminalController extends Controller
      */
     public function create()
     {
-        $companies = terminal::getCompanies();
-        $branches = terminal::getBranches();
-        return view ('pages.terminal.addTerminal' , compact('companies','branches'));
+        //
     }
 
 
@@ -49,15 +50,14 @@ class TerminalController extends Controller
     {
         //return $request->all();
         $this->validate(request(), [
-            'company_id' => 'required',
-            'branch_id' => 'required',
             'terminal_name' => "required",
             'terminal_code' => "required",
+            'status' => "required"
         ]);
 
-        Terminal::store($request);
+        Terminal::createTerminal($request);
 
-        return redirect('terminal/create')->with('message', 'Successfully saved');
+        return redirect('terminal')->with('message', 'Successfully saved');
     }
 
     /**
@@ -68,8 +68,7 @@ class TerminalController extends Controller
      */
     public function show($id)
     {
-        $terminal = Terminal::show($id);
-        return view('pages.terminal.viewTerminal', compact('terminal'));
+       //
     }
 
     /**
@@ -80,8 +79,7 @@ class TerminalController extends Controller
      */
     public function edit($id)
     {
-        $terminal = Terminal::edit($id);
-        return view('pages.terminal.editTerminal', compact('terminal'));
+        //
     }
 
     /**
@@ -96,8 +94,9 @@ class TerminalController extends Controller
         $this->validate(request(),[
             'terminal_name' => "required",
             'terminal_code' => "required",
+            'status' => "required"
         ]);
-        Terminal::upd($request, $id);
+        Terminal::updateTerminal($request, $id);
         return redirect('terminal')->with('message', 'Successfully Edit');
     }
 
