@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCompaniesTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -16,14 +15,12 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
             $table->string('company_name');
             $table->string('company_address');
-            $table->integer('company_phoneNo');
+            $table->bigInteger('company_phoneNo');
             $table->boolean('status');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -8,10 +8,10 @@ use App\Models\Company;
 use App\Models\branch;
 use DB;
 
-class inventory extends Model
+class Inventory extends Model
 {
     protected $fillable = [
-        'item_name', 'item_desc', 'purchase_rate', 'sell_rate', 'status', 'account_id', 'company_id', 'branch_id'
+        'item_name', 'item_desc', 'purchase_rate', 'sell_rate', 'status', 'account_id', 'user_id', 'branch_id'
     ];
 
     public function companies()

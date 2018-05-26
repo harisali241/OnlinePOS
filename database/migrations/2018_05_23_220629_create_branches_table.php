@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateBranchesTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -19,7 +18,7 @@ class CreateBranchesTable extends Migration
             $table->integer('company_id')->unsigned();
             $table->string('branch_name');
             $table->string('branch_address');
-            $table->integer('branch_phoneNo')->nullable();
+            $table->bigInteger('branch_phoneNo')->nullable();
             $table->boolean('status');
             $table->timestamps();
 

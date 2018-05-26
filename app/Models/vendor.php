@@ -3,20 +3,19 @@
 namespace App\Models;
 
 
-
 use App\Models\account;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class vendor extends Model
+class Vendor extends Model
 {
     protected $fillable = [
-        'account_id', 'vendor_name', 'vendor_email', 'vendor_address', 'vendor_phoneNo', 'status'
+        'account_id','user_id','branch_id', 'vendor_name', 'vendor_email', 'vendor_address', 'vendor_phoneNo', 'status'
     ];
 
-    public function accounts()
+    public function Accounts()
     {
-        return $this->belongsTo('App\Models\account' , 'account_id');
+        return $this->belongsTo('App\Models\Account' , 'account_id');
     }
 
     public static function fetchVendors()

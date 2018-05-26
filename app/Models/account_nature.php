@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use auth;
 
-class account_nature extends Model
+class Account_nature extends Model
 {
     public $timestamps = false;
 
@@ -18,7 +18,7 @@ class account_nature extends Model
         'nature_name'
     ];
 
-    public function accounts(){
+    public function Accounts(){
         return $this->hasMany('App\Models\Account', 'nature_id');
     }
 
@@ -49,5 +49,4 @@ class account_nature extends Model
 
         $nature->save();
     }
-
 }

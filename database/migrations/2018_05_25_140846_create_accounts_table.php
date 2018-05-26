@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateAccountsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -17,14 +16,20 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('nature_id')->unsigned();
-            $table->string('accounts_name');
-            $table->integer('company_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('branch_id')->unsigned();
+            $table->string('accounts_name');
+            $table->bigInteger('account_number');
+            $table->string('account_desc');
+            $table->bigInteger('account_contactNo');
+            $table->string('account_Address');
+            $table->double('opening_debit');
+            $table->double('opening_credit');
             $table->timestamps();
 
-            $table->foreign('company_id')->references('id')->on('companies');
-            $table->foreign('branch_id')->references('id')->on('branches');
-            $table->foreign('nature_id')->references('nature_id')->on('account_nature')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->foreign('nature_id')->references('id')->on('account_nature')->onDelete('cascade');
         });
     }
 

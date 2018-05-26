@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class customer extends Model
+class Customer extends Model
 {
     protected $fillable = [
-        'account_id', 'company_id', 'branch_id', 'customer_name', 'customer_email', 'customer_address', 'customer_phoneNo', 'status', 'credit_limit'
+        'account_id', ,'user_id','branch_id', 'customer_name', 'customer_email', 'customer_address', 'customer_phoneNo', 'status'
     ];
 
-    public function accounts()
+    public function Accounts()
     {
-        return $this->belongsTo('App\Models\account' , 'account_id');
+        return $this->belongsTo('App\Models\Account' , 'account_id');
     }
 
     public static function fetchCustomer()

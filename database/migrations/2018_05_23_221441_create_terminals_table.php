@@ -4,9 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVendorsTable extends Migration
+class CreateTerminalsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -14,21 +13,17 @@ class CreateVendorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vendors', function (Blueprint $table) {
+        Schema::create('terminals', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('account_id')->unsigned();
-            $table->integer('company_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('branch_id')->unsigned();
-            $table->string('vendor_name');
-            $table->string('vendor_email')->unique();
-            $table->integer('vendor_phoneNo');
-            $table->string('vendor_address');
+            $table->string('terminal_name');
+            $table->bigInteger('terminal_code')->unsigned();
             $table->boolean('status');
             $table->timestamps();
 
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
-            $table->foreign('account_id')->references('id')->on('accounts');
         });
     }
 
@@ -39,6 +34,6 @@ class CreateVendorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendors');
+        Schema::dropIfExists('terminals');
     }
 }

@@ -4,32 +4,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class account extends Model
+class Account extends Model
 {
     protected $fillable = [
-        'nature_id', 'accounts_name','company_id','branch_id'
+        'nature_id', 'accounts_name','user_id','branch_id', 'accounts_number', 'account_contact', 'accounts_desc', 'account_address', 'opening_credit', 'opening_debit'
     ];
 
-    public function companies()
+    public function Users()
     {
-        return $this->belongsTo('App\Models\Company' , 'company_id');
+        return $this->belongsTo('App\User' , 'company_id');
     }
 
-    public function branches()
+    public function Branches()
     {
         return $this->belongsTo('App\Models\Branch' , 'branch_id');
     }
 
-    public function vendors(){
+    public function Vendors(){
         return $this->hasMany('App\Models\Vendor', 'account_id');
     }
 
-    public function natures()
+    public function Natures()
     {
         return $this->belongsTo('App\Models\account_nature' , 'nature_id');
     }
 
-    public function customers(){
+    public function Customers(){
         return $this->hasMany('App\Models\customer', 'account_id');
     }
 
@@ -67,5 +67,4 @@ class account extends Model
 
         $account->save();
     }
-
 }

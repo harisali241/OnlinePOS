@@ -6,23 +6,17 @@ use Illuminate\Http\Request;
 use auth;
 use Illuminate\Database\Eloquent\Model;
 
-class company extends Model
+class Company extends Model
 {
     protected $fillable = [
-        'user_id', 'company_name', 'company_address', 'company_phoneNo', 'status'
+        'company_name', 'company_address', 'company_phoneNo', 'status'
     ];
 
-    public function branches(){
+    public function Branches(){
         return $this->hasMany('App\Models\Branch', 'company_id');
     }
-    public function terminals(){
-        return $this->hasMany('App\Models\Terminal', 'company_id');
-    }
-    public function vendors(){
-        return $this->hasMany('App\Models\Vendor', 'company_id');
-    }
-    public function accounts(){
-        return $this->hasMany('App\Models\Account', 'company_id');
+    public function Users(){
+        return $this->hasOne('App\User', 'user_id');
     }
 
 
@@ -63,5 +57,4 @@ class company extends Model
 
         $company->save();
     }
-
 }

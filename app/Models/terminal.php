@@ -8,15 +8,15 @@ use App\Models\branch;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class terminal extends Model
+class Terminal extends Model
 {
     protected $fillable = [
-        'company_id', 'branch_id', 'terminal_name', 'terminal_address', 'terminal_phoneNo', 'status'
+        'user_id', 'branch_id', 'terminal_name','terminal_code', 'status'
     ];
 
-    public function companies()
+    public function Users()
     {
-        return $this->belongsTo('App\Model\Company');
+        return $this->belongsTo('App\User');
     }
     public function branches()
     {

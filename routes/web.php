@@ -26,3 +26,6 @@ Route::resource('inventory','InventoryController');
 Route::resource('nature','AccountNatureController');
 Route::resource('account','AccountController');
 Route::resource('customer','CustomerController');
+
+Route::resource('purchase','purchaseController');
+Route::resource('sale','saleController');

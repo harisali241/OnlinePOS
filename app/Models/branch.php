@@ -7,25 +7,32 @@ use App\Models\Company;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class branch extends Model
+class Branch extends Model
 {
     protected $fillable = [
         'company_id', 'branch_name', 'branch_address', 'branch_phoneNo', 'status'
     ];
 
-    public function terminals(){
+    public function Terminals(){
         return $this->hasMany('App\Models\Terminal' ,'branch_id');
     }
-    public function companies()
+    public function Companies()
     {
         return $this->belongsTo('App\Models\Company' , 'company_id');
     }
-    public function vendors(){
+    public function Vendors(){
         return $this->hasMany('App\Models\Vendor', 'branch_id');
     }
-    public function accounts(){
+    public function Customers(){
+        return $this->hasMany('App\Models\Customer', 'branch_id');
+    }
+    public function Accounts(){
         return $this->hasMany('App\Models\Account', 'branch_id');
     }
+    public function Users(){
+        return $this->hasOne('App\User', 'branch_id');
+    }
+
 
     public static function fetchBranches()
     {
@@ -68,5 +75,4 @@ class branch extends Model
 
         $branch->save();
     }
-
 }

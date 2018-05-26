@@ -21,15 +21,21 @@ class CreateUsersTable extends Migration
         if(!Schema::hasTable('users')) {
             Schema::create('users', function (Blueprint $table) {
                 $table->increments('id');
+                $table->integer('company_id')->unsigned();
+                $table->integer('branch_id')->unsigned();
                 $table->string('username')->unique();
                 $table->string('firstName');
                 $table->string('lastName');
                 $table->string('email')->unique();
-                $table->integer('phoneNo')->nullable();
+                $table->bigInteger('phoneNo')->nullable();
                 $table->string('address')->nullable();;
                 $table->string('password');
+                $table->boolean('status');
                 $table->rememberToken();
                 $table->timestamps();
+
+                $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+                $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             });
         }
     }

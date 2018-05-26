@@ -82,6 +82,7 @@
                                             @endif
                                         </div>
 
+
                                         <div class="form-group">
                                             <div class="checkbox checkbox-primary pr-10 pull-left">
                                                 <input id="checkbox_2" type="checkbox">

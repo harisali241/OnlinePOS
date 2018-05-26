@@ -45,13 +45,13 @@
             <a href="{{url('account')}}"><div class="pull-left"><i class="fa fa-fort-awesome mr-20"></i><span class="right-nav-text">Accounts</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
         </li>
 
-        <li>
-            <a href="{{url('vender')}}"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Vendors</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
-        </li>
+        {{--<li>--}}
+            {{--<a href="{{url('vender')}}"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Vendors</span></div><div class="pull-right"></div><div class="clearfix"></div></a>--}}
+        {{--</li>--}}
 
-        <li>
-            <a href="{{url('customer')}}"><div class="pull-left"><i class="icon-credit-card  mr-20"></i><span class="right-nav-text">Customers</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
-        </li>
+        {{--<li>--}}
+            {{--<a href="{{url('customer')}}"><div class="pull-left"><i class="icon-credit-card  mr-20"></i><span class="right-nav-text">Customers</span></div><div class="pull-right"></div><div class="clearfix"></div></a>--}}
+        {{--</li>--}}
 
         <li class="navigation-header">
             <span>Store</span>
@@ -59,6 +59,12 @@
         </li>
         <li>
             <a href="{{url('/inventory')}}"><div class="pull-left"><i class=" icon-basket-loaded  mr-20"></i><span class="right-nav-text">Inventory</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
+        </li>
+        <li>
+            <a href="{{url('/purchase')}}"><div class="pull-left"><i class=" icon-key mr-20"></i><span class="right-nav-text">Purchase</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
+        </li>
+        <li>
+            <a href="{{url('/sale')}}"><div class="pull-left"><i class="icon-credit-card mr-20"></i><span class="right-nav-text">Sale</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
         </li>
     </ul>
 
