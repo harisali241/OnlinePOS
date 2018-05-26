@@ -36,12 +36,14 @@ $("input[name='tch1']").TouchSpin({
 	maxboostedstep: 10,
 	postfix: '%'
 });
-$("input[name='tch2']").TouchSpin({
+$(".tch2").TouchSpin({
 	min: -1000000000,
 	max: 1000000000,
+	decimals: 2,
+	step: 0.01,
 	stepinterval: 50,
 	maxboostedstep: 10000000,
-	prefix: '$'
+	prefix: 'Rs.'
 });
 $("input[name='tch3']").TouchSpin();
 

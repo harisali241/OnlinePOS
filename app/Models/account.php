@@ -2,7 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Http\Request;
+use App\Models\Company;
+use App\Models\branch;
 use Illuminate\Database\Eloquent\Model;
+use DB;
+use Auth;
 
 class Account extends Model
 {
@@ -24,9 +29,9 @@ class Account extends Model
         return $this->hasMany('App\Models\Vendor', 'account_id');
     }
 
-    public function Natures()
+    public function Account_natures()
     {
-        return $this->belongsTo('App\Models\account_nature' , 'nature_id');
+        return $this->belongsTo('App\Models\Account_nature' , 'id');
     }
 
     public function Customers(){
@@ -37,20 +42,26 @@ class Account extends Model
 
     public static function fetchAccounts()
     {
-        $accounts = account::with('branches','natures')->get();
+        $accounts = account::with('branches','account_natures')->get();
 
         return $accounts;
     }
 
-    public static function createAccounts($request)
+    public static function createAccounts(Request $request)
     {
 
         $account = new account;
 
-        $account->company_id = $request['company_id'];
-        $account->branch_id = $request['branch_id'];
-        $account->nature_id = $request['nature_id'];
-        $account->accounts_name = $request['accounts_name'];
+        $account->nature_id = request('nature_id');
+        $account->user_id = Auth::user()->id;
+        $account->branch_id = Auth::user()->branch_id;
+        $account->account_name = request('account_name');
+        $account->account_number = request('account_number');
+        $account->account_desc = request('account_desc');
+        $account->account_address = request('account_address');
+        $account->account_contactNo = request('account_contactNo');
+        $account->opening_debit = request('opening_debit');
+        $account->opening_credit = request('opening_credit');
         $account->save();
 
     }

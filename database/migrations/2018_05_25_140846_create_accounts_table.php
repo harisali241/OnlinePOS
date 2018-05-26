@@ -18,7 +18,7 @@ class CreateAccountsTable extends Migration
             $table->integer('nature_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('branch_id')->unsigned();
-            $table->string('accounts_name');
+            $table->string('account_name');
             $table->bigInteger('account_number');
             $table->string('account_desc');
             $table->bigInteger('account_contactNo');
@@ -29,7 +29,7 @@ class CreateAccountsTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
-            $table->foreign('nature_id')->references('id')->on('account_nature')->onDelete('cascade');
+            $table->foreign('nature_id')->references('id')->on('account_natures')->onDelete('cascade');
         });
     }
 

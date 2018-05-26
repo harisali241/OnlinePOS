@@ -10,16 +10,16 @@ class Account_nature extends Model
 {
     public $timestamps = false;
 
-    protected $primaryKey = 'nature_id';
+    protected $primaryKey = 'id';
 
-    protected $table = 'account_nature';
+    protected $table = 'account_natures';
 
     protected $fillable = [
         'nature_name'
     ];
 
     public function Accounts(){
-        return $this->hasMany('App\Models\Account', 'nature_id');
+        return $this->hasMany('App\Models\Account', 'id');
     }
 
     public static function fetchAccountNatures()

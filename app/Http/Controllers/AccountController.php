@@ -7,6 +7,7 @@ use App\Models\account_nature;
 use App\Models\branch;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use App\User;
 
 class AccountController extends Controller
 {
@@ -18,27 +19,32 @@ class AccountController extends Controller
     public function index()
     {
         $accounts = account::fetchAccounts();
-
-        $companies = company::fetchCompanies();
-
+        $company = User::fetchCompanyFromUser();
+        $branch = User::fetchBranchFromUser();
         $natures = account_nature::fetchAccountNatures();
 
         return view ('pages.account.account',array(
             'accounts' => $accounts,
-            'companies' => $companies,
+            'company' => $company,
+            'branch' => $branch,
             'natures' => $natures,
         ));
     }
 
     public function store(Request $request)
     {
+        //dd($request);
         $this->validate(request(), [
-            'company_id' => 'required',
-            'branch_id' => "required",
             'nature_id' => "required",
-            'accounts_name' => "required",
+            'account_name' => "required",
+            'account_number' => "required",
+            'account_contactNo' => "required",
+            'account_desc' => "required",
+            'account_address' => "required",
+            'opening_credit' => "required",
+            'opening_debit' => "required",
         ]);
-
+        
         account::createAccounts($request);
 
         return redirect('account')->with('message', 'Successfully saved');

@@ -14,7 +14,7 @@ class CreateAccountNaturesTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_nature', function (Blueprint $table) {
+        Schema::create('account_natures', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nature_name');
         });

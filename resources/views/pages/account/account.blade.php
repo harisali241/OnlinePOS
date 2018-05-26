@@ -27,63 +27,76 @@
                                     <div class="col-sm-12">
                                         <div class="row p-10">
 
-                                            {{-- account nature --}}
-
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <label for="inputName" class="control-label mb-10">Account Nature<span class="text-danger">*</span></label>
-                                                        <select class="form-control select2" name="nature_id">
-                                                            <option disabled selected value="0">Select Account Nature</option>
-                                                            @foreach($natures as $nature)
-                                                                <option value="{{$nature->nature_id}}">{{$nature->nature_name}}</option>
-                                                            @endforeach
-
-                                                        </select>
-                                                    </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="" class="control-label">Company Name</label>
+                                                    <input type="text" class="form-control" name="" required id="company_name" value="{{ $company }}" readonly>
                                                 </div>
+                                            </div>
 
-                                            {{-- account nature --}}
-
-                                            {{-- Company --}}
-
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <label for="inputName" class="control-label mb-10">Companies<span class="text-danger">*</span></label>
-                                                        <select class="form-control select2 companyId" name="company_id">
-                                                            <option disabled selected value="0">Select Company</option>
-                                                            @foreach($companies as $company)
-                                                                <option value="{{$company->id}}">{{$company->company_name}}</option>
-                                                            @endforeach
-
-                                                        </select>
-                                                    </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="" class="control-label">Branch Name</label>
+                                                    <input type="text" class="form-control" name="" required id="branch_name" value="{{ $branch }}" readonly>
                                                 </div>
+                                            </div>
 
-                                            {{-- Company --}}
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">Account Nature<span class="text-danger">*</span></label>
+                                                    <select class="form-control select2" name="nature_id">
+                                                        <option disabled selected>Select Account Nature</option>
+                                                        @foreach($natures as $nature)
+                                                            <option value="{{$nature->id}}">{{$nature->nature_name}}</option>
+                                                        @endforeach
 
-                                            {{-- Branch --}}
-
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <label for="inputName" class="control-label mb-10">Branches<span class="text-danger">*</span></label>
-                                                        <select class="form-control select2 branchId" name="branch_id">
-
-                                                        </select>
-                                                    </div>
+                                                    </select>
                                                 </div>
+                                            </div>
 
-                                            {{-- Branch --}}
-
-                                            {{-- account name--}}
-
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" required name="accounts_name" placeholder="Enter Account Name">
-                                                    </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" required name="account_name" placeholder="Enter Account Name">
                                                 </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">Account Number<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" required name="account_number" placeholder="Enter Account Number">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">Description<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" required name="account_desc" placeholder="Enter Description">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">Contact No<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" required name="account_contactNo" placeholder="Enter Contact Name">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">Address<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" required name="account_address" placeholder="Enter Address">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">Opening Credit<span class="text-danger">*</span></label>
+                                                    <input id="tch2" type="text" value="0" class=" form-control tch2" data-bts-button-down-class="btn btn-default" data-bts-button-up-class="btn btn-default" required name="opening_credit" placeholder="Enter Opening Credit">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">Opening Debit<span class="text-danger">*</span></label>
+                                                    <input id="tch2" type="text" value="0" class=" form-control tch2" data-bts-button-down-class="btn btn-default" data-bts-button-up-class="btn btn-default" required name="opening_debit" placeholder="Enter Opening Debit">
+                                                </div>
+                                            </div>
 
-                                            {{-- account name--}}
 
                                         </div>
                                     </div>
@@ -129,10 +142,10 @@
                         @foreach($accounts as $account)
                             <tr>
                                 <td>{!! $i !!}</td>
-                                <td>{{$account->companies->company_name}}</td>
+                                <td>{{$company}}</td>
                                 <td>{{$account->branches->branch_name}}</td>
-                                <td>{{$account->natures->nature_name}}</td>
-                                <td>{{$account->accounts_name}}</td>
+                                <td>{{$account->account_natures->nature_name}}</td>
+                                <td>{{$account->account_name}}</td>
                                 <td>
 
                                     <div class="row" align="center">
@@ -174,60 +187,17 @@
                                                     <div class="row p-10">
 
                                                         {!! Form::hidden('nature_id' , null ,['class' => 'form-control','id' => 'nature_id'.$account->id,'required' => 'required'] ) !!}
-                                                        {!! Form::hidden('company_id' , null ,['class' => 'form-control','id' => 'company_id'.$account->id,'required' => 'required'] ) !!}
+                                                        
                                                         {!! Form::hidden('branch_id' , null ,['class' => 'form-control','id' => 'branch_id'.$account->id,'required' => 'required'] ) !!}
 
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="inputName" class="control-label mb-10">Accounts Name<span class="text-danger">*</span></label>
+                                                                {!! Form::text('accounts_name' , null ,['class' => 'form-control',
+                                                                'placeholder' => 'Enter Account Name','id' => 'accounts_name'.$account->id,'required' => 'required'] ) !!}
 
-                                                        {{-- Account Nature--}}
-
-                                                            {{--<div class="col-sm-12">--}}
-                                                                {{--<div class="form-group">--}}
-                                                                    {{--<label for="inputName" class="control-label mb-10">Account Natures<span class="text-danger">*</span></label>--}}
-                                                                    {{--{!! Form::select('nature_id' ,$edit_natures, null ,['class' => 'form-control select2',--}}
-                                                                    {{--'id' => 'nature_id'.$account->id] ) !!}--}}
-
-                                                                {{--</div>--}}
-                                                            {{--</div>--}}
-
-                                                        {{-- Account Nature--}}
-
-                                                        {{-- Company Name --}}
-
-                                                            {{--<div class="col-sm-12">--}}
-                                                                {{--<div class="form-group">--}}
-                                                                    {{--<label for="inputName" class="control-label mb-10">Companies<span class="text-danger">*</span></label>--}}
-                                                                    {{--{!! Form::select('company_id' ,$edit_companies, null ,['class' => 'form-control select2',--}}
-                                                                    {{--'id' => 'company_id'.$account->id] ) !!}--}}
-
-                                                                {{--</div>--}}
-                                                            {{--</div>--}}
-
-                                                        {{-- Company Name --}}
-
-                                                        {{-- Branch Name --}}
-
-                                                        {{--<div class="col-sm-12">--}}
-                                                            {{--<div class="form-group">--}}
-                                                                {{--<label for="inputName" class="control-label mb-10">Branches<span class="text-danger">*</span></label>--}}
-                                                                {{--{!! Form::select('branch_id' ,$edit_branches, null ,['class' => 'form-control select2',--}}
-                                                                {{--'id' => 'branch_id'.$account->id] ) !!}--}}
-
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-
-                                                        {{-- Branch Name --}}
-
-                                                        {{-- Account Name --}}
-
-                                                            <div class="col-sm-12">
-                                                                <div class="form-group">
-                                                                    <label for="inputName" class="control-label mb-10">Accounts Name<span class="text-danger">*</span></label>
-                                                                    {!! Form::text('accounts_name' , null ,['class' => 'form-control',
-                                                                    'placeholder' => 'Enter Account Name','id' => 'accounts_name'.$account->id,'required' => 'required'] ) !!}
-
-                                                                </div>
                                                             </div>
-                                                        {{-- Account Name --}}
+                                                        </div>
 
                                                     </div>
                                                 </div>
