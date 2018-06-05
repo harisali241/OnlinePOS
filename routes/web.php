@@ -14,18 +14,20 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@home');
+Route::group(['middleware' => ['auth']],function () {
+    Route::get('/', 'HomeController@home');
 
-Route::post('/reqBranches', 'HomeController@reqBranches');
-Route::resource('company','CompanyController');
-Route::resource('branch','BranchController');
-Route::resource('terminal','TerminalController');
-Route::resource('vender','VendorController');
-Route::resource('customer','CustomerController');
-Route::resource('inventory','InventoryController');
-Route::resource('nature','AccountNatureController');
-Route::resource('account','AccountController');
-Route::resource('customer','CustomerController');
+    Route::post('/reqBranches', 'HomeController@reqBranches');
+    Route::resource('company', 'CompanyController');
+    Route::resource('branch', 'BranchController');
+    Route::resource('terminal', 'TerminalController');
+    Route::resource('vender', 'VendorController');
+    Route::resource('customer', 'CustomerController');
+    Route::resource('inventory', 'InventoryController');
+    Route::resource('nature', 'AccountNatureController');
+    Route::resource('account', 'AccountController');
+    Route::resource('customer', 'CustomerController');
 
-Route::resource('purchase','purchaseController');
-Route::resource('sale','saleController');
+    Route::resource('purchase', 'purchaseController');
+    Route::resource('sale', 'saleController');
+});

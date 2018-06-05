@@ -45,7 +45,7 @@ class Inventory extends Model
         $inventory->sell_rate = request('sell_rate');
         $inventory->alert_qty = request('alert_qty');
         $inventory->account_id = request('account_id');
-        $inventory->company_id = request('company_id');
+        $inventory->user_id = request('company_id');
         $inventory->branch_id = request('branch_id');
         $inventory->status = $status;
 
@@ -63,7 +63,7 @@ class Inventory extends Model
         $inventory->sell_rate = request('sell_rate');
         $inventory->alert_qty = request('alert_qty');
         $inventory->account_id = request('account_id');
-        $inventory->company_id = request('company_id');
+        $inventory->user_id = request('company_id');
         $inventory->branch_id = request('branch_id');
         $inventory->status = request('status');
 

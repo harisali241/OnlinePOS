@@ -16,11 +16,11 @@ class Branch extends Model
     public function Terminals(){
         return $this->hasMany('App\Models\Terminal' ,'branch_id');
     }
-    public function Companies()
+    public function companies()
     {
-        return $this->belongsTo('App\Models\Company' , 'company_id');
+        return $this->belongsTo('App\Models\company' , 'company_id');
     }
-    public function Vendors(){
+    /*public function Vendors(){
         return $this->hasMany('App\Models\Vendor', 'branch_id');
     }
     public function Customers(){
@@ -28,9 +28,9 @@ class Branch extends Model
     }
     public function Accounts(){
         return $this->hasMany('App\Models\Account', 'branch_id');
-    }
-    public function Users(){
-        return $this->hasOne('App\User', 'branch_id');
+    }*/
+    public function users(){
+        return $this->hasMany('App\User');
     }
 
 

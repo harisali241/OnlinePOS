@@ -8,6 +8,7 @@ use App\Models\inventory;
 use App\Models\account;
 
 use DB;
+use Illuminate\Support\Facades\Route;
 
 class InventoryController extends Controller
 {
@@ -18,8 +19,9 @@ class InventoryController extends Controller
      */
     public function index()
     {
+        dd(Route::getRoutes());
         $inventories = Inventory::all();
-        $accounts = Account::all();
+        $accounts = Account::fetchAccounts();
         $companies = Company::all();
         return view('pages.inventory.inventory', compact('inventories','accounts','companies'));
     }

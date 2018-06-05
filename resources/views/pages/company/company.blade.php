@@ -2,51 +2,88 @@
 @section('content')
 
     <div class="row heading-bg">
-        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-
-            <h5 class="txt-dark">Companies</h5>
-
-            <br><br>
-
+        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Manage Companies & Tenant</h5>
+        </div>
+        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12" align="right">
 
             <button type="button" data-toggle="modal" data-target=".bs-example-modal-lg"
-            class="btn btn-success btn-anim">Add Company</button>
+            class="btn btn-success btn-anim">Create +</button>
 
-            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                <div class="modal-dialog" style="width: 45%;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h5 class="modal-title" id="myLargeModalLabel">Add Company</h5>
-                        </div>
-                        <form data-toggle="validator" role="form" method="POST" id="company_submit" action="{{route('company.store')}}">
-                            {{csrf_field()}}
 
-                            <div class="modal-body">
+        </div>
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" style="width: 95%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h5 class="modal-title" id="myLargeModalLabel">Add Company & Tenant</h5>
+                    </div>
+                    <form data-toggle="validator" role="form" method="POST" id="company_submit" action="{{route('company.store')}}">
+                        {{csrf_field()}}
+
+                        <div class="modal-body">
                             <div class="row">
-
-                                <div class="col-sm-12">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-10">
                                     <div class="row p-10">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12" align="left">
+                                            <h5>Admin Information</h5>
+                                            <hr>
+                                        </div>
+                                        <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label for="" class="control-label">Name<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="company_name" required id="company_name" placeholder="Enter Company Name">
+                                                <label for="" class="control-label">First Name<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control small-input" name="first_name" required  placeholder="Enter First Name">
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
+
+                                        <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label for="" class="control-label">Phone No<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" required name="company_phoneNo" id="company_phoneNo" placeholder="Enter Phone No">
+                                                <label for="" class="control-label">Last Name<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control small-input" name="last_name" required placeholder="Enter Last Name">
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Phone No</label>
+                                                <input type="number" class="form-control small-input" required name="phoneNo"  placeholder="Enter Phone No">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Email<span class="text-danger">*</span></label>
+                                                <input type="email" class="form-control small-input" name="email" required placeholder="Enter Email Address">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Username<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control small-input" name="username" autocomplete="off" required placeholder="Enter Username">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Password<span class="text-danger">*</span></label>
+                                                <input type="email" name="email-fake" style="display: none">
+                                                <input type="password" name="password-fake" style="display: none">
+                                                <input type="password" class="form-control small-input" autocomplete="off" name="password" required placeholder="Enter Password">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-8">
                                             <div class="form-group">
                                                 <label for="" class="control-label">Address</label>
-                                                <textarea class="form-control" rows="3" name="company_address" id="company_address" placeholder="Enter Address"></textarea>
+                                                <textarea class="form-control " rows="3" name="company_address" id="company_address" placeholder="Enter Address"></textarea>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="" class="control-label">Status<span class="text-danger">*</span></label>
                                                 <div>
@@ -63,9 +100,32 @@
 
                                             </div>
                                         </div>
+                                        {{--USer Information End--}}
+
+                                        {{--Company Information--}}
+                                        <div class="col-sm-12" align="left">
+
+                                            <h5>Company Information</h5>
+                                            <hr>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Company Name<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control small-input" name="company_name" required  placeholder="Enter Company Name">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Last Name<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control small-input" name="last_name" required placeholder="Enter Last Name">
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
+                                <div class="col-sm-1"></div>
 
                             </div>
                         </div>
@@ -73,22 +133,23 @@
                             <button type="button" class="btn btn-default text-left" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-success text-left">Submit</button>
                         </div>
-                        </form>
-                    </div>
-                    <!-- /.modal-content -->
+                    </form>
                 </div>
-                <!-- /.modal-dialog -->
+                <!-- /.modal-content -->
             </div>
-
-
+            <!-- /.modal-dialog -->
         </div>
+        <div class="col-sm-12">
+            <hr>
+        </div>
+
 
     </div>
 
 
     <!-- Row -->
     <div class="row">
-        <div class="col-sm-12 mt-20">
+        <div class="col-sm-12">
             <div class="table-wrap">
                 <div class="table-responsive">
                     <table id="datable_1" class="table table-hover display pb-30" >

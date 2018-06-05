@@ -58,7 +58,11 @@
     <link href="{{asset('dist/css/style.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css">
 </head>
-
+<style>
+    .small-input{
+        height: 32px !important;
+    }
+</style>
 <body>
 <!--Preloader-->
 <div class="preloader-it">
@@ -67,9 +71,13 @@
 <!--/Preloader-->
 <div class="wrapper theme-1-active pimary-color-green">
 
-    @include('layouts.topmenu')
-    @include('layouts.leftsidebar')
-    @include('layouts.success')
+    @include('includes.topmenu')
+
+    @if(Auth::user()->role_id === 1)
+        @include('includes.leftsidebarSa')
+    @endif
+
+    @include('includes.success')
 
     <!-- Main Content -->
 
@@ -87,9 +95,10 @@
             <!-- /Title -->
 
         </div>
+        @include('includes.footer')
     </div>
     <!-- /Main Content -->
-        @include('layouts.footer')
+
 </div>
 <!-- /#wrapper -->
 

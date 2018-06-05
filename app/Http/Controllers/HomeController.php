@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\AdminmenuPremit;
 use Illuminate\Http\Request;
 use App\User;
 use App\Models\terminal;
 use App\Models\account;
 use App\Models\company;
 use App\Models\branch;
-
+use Illuminate\Support\Facades\Route;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -31,6 +33,8 @@ class HomeController extends Controller
 
     public function home()
     {
+        
+
         return view('pages.dashboard');
     }
 

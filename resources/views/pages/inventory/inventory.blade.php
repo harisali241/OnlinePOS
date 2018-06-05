@@ -14,10 +14,10 @@
                         {{csrf_field()}}
 
                         <label for="Account" class="control-label mb-10">Account<span class="text-danger">*</span></label>
-                        <select class="form-control select2 account-add" name="account_id" style="background:#f2f2f2;" required>
+                        <select class="form-control select2 account-add" name="account_id" >
                             <option disabled selected>Select Account</option>
                             @foreach($accounts as $account)
-                                <option value="{{$account->id}}">{{$account->accounts_name}}</option>
+                                <option value="{{$account->id}}">{{$account->account_name}}</option>
                             @endforeach
 
                         </select>

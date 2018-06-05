@@ -10,6 +10,7 @@ Left Sidebar Menu -->
         </li>
         <li>
             <a href="{{url('company')}}"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Companies</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
+            <a href="{{url('company')}}"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Companies</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
 
         </li>
 
@@ -29,10 +30,10 @@ Left Sidebar Menu -->
             <i class="zmdi zmdi-more"></i>
         </li>
 
-        <li>
+        {{--<li>
             <a href="{{url('nature')}}"><div class="pull-left"><i class=" icon-badge  mr-20"></i><span class="right-nav-text">Natures</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
         </li>
-
+--}}
         <li>
             <a href="{{url('account')}}"><div class="pull-left"><i class=" icon-fire  mr-20"></i><span class="right-nav-text">Accounts</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
         </li>
@@ -55,9 +56,7 @@ Left Sidebar Menu -->
         <li>
             <a href="{{url('/purchase')}}"><div class="pull-left"><i class=" icon-key mr-20"></i><span class="right-nav-text">Purchase</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
         </li>
-        <li>
-            <a href="{{url('/sale')}}"><div class="pull-left"><i class="icon-credit-card mr-20"></i><span class="right-nav-text">Sale</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
-        </li>
+
     </ul>
 
 </div>

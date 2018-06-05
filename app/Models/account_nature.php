@@ -32,7 +32,6 @@ class Account_nature extends Model
 
         account_nature::create([
 
-
             'nature_name' => request('nature_name'),
 
         ]);

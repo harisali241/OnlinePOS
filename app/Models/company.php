@@ -12,12 +12,12 @@ class Company extends Model
         'company_name', 'company_address', 'company_phoneNo', 'status'
     ];
 
-    public function Branches(){
-        return $this->hasMany('App\Models\Branch', 'company_id');
+    public function branches(){
+        return $this->hasMany('App\Models\branch');
     }
     
-    public function Users(){
-        return $this->hasOne('App\User', 'user_id');
+    public function users(){
+        return $this->hasMany('App\User');
     }
 
 
