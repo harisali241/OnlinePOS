@@ -25,37 +25,36 @@ class Company extends Model
         return company::all();
     }
 
-    public static function createCompany(Request $Request){
+    public static function createCompany($data){
 
-        if(request('status') == 0){
-            $status = 0;
-        }else{
-            $status = 1;
-        }
+
         $company = new Company;
 
-        $company->user_id = Auth::user()->id;
-        $company->company_name = request('company_name');
-        $company->company_address = request('company_address');
-        $company->company_phoneNo = request('company_phoneNo');
-        $company->status = $status;
+
+        $company->company_name = $data['company_name'];
+        $company->location = $data['location'];
+        $company->latitude = $data['latitude'];
+        $company->longitude = $data['longitude'];
 
         $company->save();
 
+        return $company;
 
     }
 
 
-    public static function updateCompany($request, $id){
+    public static function updateCompany($data, $id){
 
 
         $company = Company::findOrFail($id);
 
-        $company->company_name = $request['company_name'];
-        $company->company_address = $request['company_address'];
-        $company->company_phoneNo = $request['company_phoneNo'];
-        $company->status = $request['status'];
+        $company->company_name = $data['companies']['company_name'];
+        $company->location = $data['companies']['location'];
+        $company->latitude = $data['companies']['latitude'];
+        $company->longitude = $data['companies']['longitude'];
 
         $company->save();
+
+        return $company;
     }
 }

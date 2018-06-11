@@ -75,6 +75,8 @@
 
     @if(Auth::user()->role_id === 1)
         @include('includes.leftsidebarSa')
+    @elseif(Auth::user()->role_id === 2)
+        @include('includes.leftsidebarCa')
     @endif
 
     @include('includes.success')
@@ -170,7 +172,8 @@
 
 <!-- Form Advance Init JavaScript -->
 <script src="{{asset('dist/js/form-advance-data.js')}}"></script>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaFDP2nKAbpY8G_efz9z25mGkIimetgsw"
+        async defer></script>
 <script src="{{asset('js/custom.js')}}"></script>
 
 <script src="{{asset('js/modal.js')}}"></script>

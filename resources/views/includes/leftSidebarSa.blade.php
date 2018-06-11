@@ -1,6 +1,6 @@
 Left Sidebar Menu -->
 <div class="fixed-sidebar-left">
-    @php //createAdminPermission() @endphp
+    {{--@php createAdminPermission() @endphp--}}
     <ul class="nav navbar-nav side-nav nicescroll-bar">
         <li class="navigation-header">
             <span>Main</span>

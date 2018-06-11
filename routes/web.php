@@ -14,8 +14,8 @@
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth']],function () {
-    Route::get('/', 'HomeController@home');
+Route::group(['middleware' => ['auth','admin_security']],function () {
+    Route::get('/', 'HomeController@home')->name('home');
 
     Route::post('/reqBranches', 'HomeController@reqBranches');
     Route::resource('company', 'CompanyController');
@@ -30,4 +30,10 @@ Route::group(['middleware' => ['auth']],function () {
 
     Route::resource('purchase', 'purchaseController');
     Route::resource('sale', 'saleController');
+
+
+
+    /*Ajax Routes*/
+    Route::get('check_username','AjaxController@check_usernames');
+    Route::get('check_username_edit','AjaxController@check_usernames_edit');
 });

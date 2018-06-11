@@ -10,7 +10,6 @@ Left Sidebar Menu -->
         </li>
         <li>
             <a href="{{url('company')}}"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Companies</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
-            <a href="{{url('company')}}"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Companies</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
 
         </li>
 

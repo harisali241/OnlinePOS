@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Cornford\Googlmapper\Mapper;
 use Illuminate\Http\Request;
 use App\Models\company;
 use Auth;
@@ -13,26 +15,17 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    public function index()
-    {
-        $companies = company::fetchCompanies();
-        return view ('pages.company.company',compact('companies'));
-    }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function index()
     {
-        return view ('pages.company.addCompany');
+        $users = User::fetchCompanyAdmins();
+        //dd($users);
+        return view ('pages.company.company',compact('users'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -42,41 +35,17 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $request->validate([
             'company_name' => "required",
 
-            'company_address' => "required",
-
-            'company_phoneNo' => "required",
         ]);
-        Company::createCompany($request);
+        $company = Company::createCompany($request);
+
+        User::createCompanyAdmin($request,$company->id);
 
         return redirect('company')->with('message', 'Successfully saved');
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $company = Company::show($id);
-        return view('pages.company.viewCompany',compact('company'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $company = company::edit($id);
-        return view('pages.company.editCompany',compact('company'));
     }
 
     /**
@@ -88,13 +57,9 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate(request(), [
-            'company_name' => "required",
-            'company_address' => "required",
-            'company_phoneNo' => "required",
-        ]);
+        $company = Company::updateCompany($request,$id);
 
-        Company::updateCompany($request, $id);
+        User::updateCompanyAdmin($request,$company->id);
 
         return redirect('company')->with('message', 'Successfully Edit');
     }

@@ -19,7 +19,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        dd(Route::getRoutes());
+        //dd(Route::getRoutes());
         $inventories = Inventory::all();
         $accounts = Account::fetchAccounts();
         $companies = Company::all();

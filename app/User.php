@@ -33,12 +33,57 @@ class User extends Authenticatable
 
     public function companies()
     {
-        return $this->belongsTo('App\Models\Company');
+        return $this->belongsTo('App\Models\Company','company_id');
     }
 
     public function branches()
     {
         return $this->belongsTo('App\Models\Branch');
+    }
+
+    public static function createCompanyAdmin($data,$company_id){
+
+        $user = new User;
+        $user->firstName = $data['firstName'];
+        $user->lastName = $data['lastName'];
+        $user->role_id = 2;
+        $user->company_id = $company_id;
+        $user->username = $data['username'];
+        $user->email = $data['email'];
+        $user->address = $data['address'];
+        $user->phoneNo = $data['phoneNo'];
+        $user->status = $data['status'];
+        $user->password = bcrypt($data['password']);
+
+        $user->save();
+    }
+
+    public static function updateCompanyAdmin($data,$company_id){
+
+        $user = User::findOrFail($data['user_id']);
+
+        $user->firstName = $data['firstName'];
+        $user->lastName = $data['lastName'];
+        $user->role_id = 2;
+        $user->company_id = $company_id;
+        $user->username = $data['username'];
+        $user->email = $data['email'];
+        $user->address = $data['address'];
+        $user->phoneNo = $data['phoneNo'];
+        $user->status = $data['status'];
+
+        if($data['password'] !== null)
+            $user->password = bcrypt($data['password']);
+
+        $user->save();
+    }
+
+    public static function fetchCompanyAdmins(){
+
+        $users = User::with('companies')
+            ->Where('role_id' , '=',2)->get();
+
+        return $users;
     }
 
     public static function fetchCompanyFromUser(){
