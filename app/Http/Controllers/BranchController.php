@@ -57,7 +57,6 @@ class BranchController extends Controller
         $this->validate(request(), [
             'company_id' => 'required',
             'branch_name' => "required",
-            'branch_address' => "required",
             'branch_phoneNo' => "required",
         ]);
         branch::createBranch($request);
@@ -97,7 +96,6 @@ class BranchController extends Controller
     {
         $this->validate(request(), [
             'branch_name' => "required",
-            'branch_address' => "required",
             'branch_phoneNo' => "required",
         ]);
         branch::updateBranch($request, $id);

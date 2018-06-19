@@ -10,7 +10,7 @@ use DB;
 class Branch extends Model
 {
     protected $fillable = [
-        'company_id', 'branch_name', 'branch_address', 'branch_phoneNo', 'status'
+        'company_id', 'branch_name', 'branch_phoneNo', 'status'
     ];
 
     public function Terminals(){
@@ -44,19 +44,15 @@ class Branch extends Model
 
     public static function createBranch($request)
     {
-        if(request('status') == 0){
-            $status = 0;
-        }else{
-            $status = 1;
-        }
-
         $branch = new Branch;
 
         $branch->company_id = $request['company_id'];
         $branch->branch_name = $request['branch_name'];
-        $branch->branch_address = $request['branch_address'];
         $branch->branch_phoneNo = $request['branch_phoneNo'];
-        $branch->status = $status;
+        $branch->status = $request['status'];
+        $branch->location = $request['location'];
+        $branch->latitude = $request['latitude'];
+        $branch->longitude = $request['longitude'];
         $branch->save();
 
     }
@@ -69,9 +65,11 @@ class Branch extends Model
 
         $branch->company_id = $request['company_id'];
         $branch->branch_name = $request['branch_name'];
-        $branch->branch_address = $request['branch_address'];
         $branch->branch_phoneNo = $request['branch_phoneNo'];
         $branch->status = $request['status'];
+        $branch->location = $request['location'];
+        $branch->latitude = $request['latitude'];
+        $branch->longitude = $request['longitude'];
 
         $branch->save();
     }

@@ -44,12 +44,35 @@
                                                     <input type="text" class="form-control" required name="branch_name" placeholder="Enter Branch Name">
                                                 </div>
                                             </div>
+
+                                            <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Branch Location<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control small-input" name="location" id="location" required  placeholder="Enter Branch Location">
+                                                (Please Add Location On Google Map First)
+                                            </div>
+                                            </div>
+
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">Address</label>
-                                                    <textarea class="form-control" name="branch_address" rows="3" placeholder="Enter Branch Address"></textarea>
+                                                    <label for="" class="control-label">latitude</label>
+                                                    <input type="text" class="form-control small-input" name="latitude" id="latitude" required readonly placeholder="Latitude">
                                                 </div>
                                             </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="" class="control-label">longitude</label>
+                                                    <input type="text" class="form-control small-input" name="longitude" id="longitude" required readonly placeholder="latitude">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button type="button" class="btn btn-default btn-sm" style="margin-top: 20px;" id="show_map1">Show Map</button>
+                                            </div>
+                                            <div class="col-sm-12" id="create_map">
+
+                                            </div>
+
+
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="inputName" class="control-label mb-10">PhoneNo<span class="text-danger">*</span></label>
@@ -108,7 +131,7 @@
                             <th>S.NO</th>
                             <th>Company Name</th>
                             <th>Branch Name</th>
-                            <th>Address</th>
+                            <th>Location</th>
                             <th>Phone NO</th>
                             <th>Status</th>
                             <th width="15%">Action</th>
@@ -122,7 +145,7 @@
                                 <td>{!! $i !!}</td>
                                 <td>{{$branch->companies->company_name}}</td>
                                 <td>{{$branch->branch_name}}</td>
-                                <td>{{$branch->branch_address}}</td>
+                                <td>{{$branch->location}}</td>
                                 <td>{{$branch->branch_phoneNo}}</td>
                                 <td>
                                     @if($branch->status === 1)
@@ -186,14 +209,41 @@
 
                                                                 </div>
                                                             </div>
+
                                                             <div class="col-sm-12">
                                                                 <div class="form-group">
-                                                                    <label for="inputName" class="control-label mb-10">Address</label>
-                                                                    {!! Form::textarea('branch_address' , null ,['class' => 'form-control',
-                                                                    'placeholder' => 'Enter Address','rows' => '3'] ) !!}
+                                                                    <label for="" class="control-label">Branch Location<span class="text-danger">*</span></label>
+
+                                                                    {!! Form::text('location' , null ,['class' => 'form-control small-input location2',
+                                                                    'placeholder' => 'Enter Branch location','required','data-userId' => $branch->id, 'id' => 'location'.$branch->id,] ) !!}
+
+                                                                    (Please Add Location On Google Map First)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="" class="control-label">latitude</label>
+                                                                    {!! Form::text('latitude' , null ,['class' => 'form-control small-input',
+                                                                    'placeholder' => 'Latitude','required','readonly','id' => 'latitude'.$branch->id ,'data-userId' => $branch->id,] ) !!}
 
                                                                 </div>
                                                             </div>
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="" class="control-label">longitude</label>
+                                                                    {!! Form::text('longitude' , null ,['class' => 'form-control small-input',
+                                                                    'placeholder' => 'longitude','required','readonly','id' => 'longitude'.$branch->id ,'data-userId' => $branch->id,] ) !!}
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12">
+                                                                <button type="button" class="btn btn-default btn-sm show_map2" style="margin-top: 20px;" data-userId="{{$branch->id}}">Show Map</button>
+                                                            </div>
+                                                            <div class="col-sm-12" id="create_map{{$branch->id}}">
+
+                                                            </div>
+
                                                             <div class="col-sm-12">
                                                                 <div class="form-group">
                                                                     <label for="inputName" class="control-label mb-10">PhoneNo<span class="text-danger">*</span></label>

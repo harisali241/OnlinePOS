@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 11, 2018 at 08:02 PM
--- Server version: 5.7.19
--- PHP Version: 7.1.9
+-- Generation Time: Jun 19, 2018 at 01:40 PM
+-- Server version: 5.7.21
+-- PHP Version: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -175,14 +175,23 @@ CREATE TABLE IF NOT EXISTS `branches` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `company_id` int(10) UNSIGNED NOT NULL,
   `branch_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `branch_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `branch_phoneNo` bigint(20) DEFAULT NULL,
+  `location` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `latitude` decimal(11,7) DEFAULT NULL,
+  `longitude` float(11,7) DEFAULT NULL,
   `status` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `branches_company_id_foreign` (`company_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `branches`
+--
+
+INSERT INTO `branches` (`id`, `company_id`, `branch_name`, `branch_phoneNo`, `location`, `latitude`, `longitude`, `status`, `created_at`, `updated_at`) VALUES
+(1, 5, 'Danny Branch 1', 44544, 'denny', '36.3355744', -94.1879349, 1, '2018-06-19 20:28:35', '2018-06-19 20:38:55');
 
 -- --------------------------------------------------------
 
@@ -4934,8 +4943,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `username`, `firstName`, `lastName`, `email`, `phoneNo`, `address`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, 1, 'admin', 'Huzaifa', 'Siddiqui', 'huzzee.24.sidd@gmail.com', NULL, NULL, '$2y$10$T.rdL9/b9CXJTMS5e3L2Ve8s08fpP4h.US4ITy5EXyo2J63XMuiTW', 1, 'XnXwCt3tBduJXIbLV1vUGY1VxuwIyo4Ee9WBK6qDt4FZb1Js6fchnbKZWesc', NULL, NULL),
-(4, 5, NULL, 2, 'danny', 'Bilal', 'Danny', 'danny@gmail.com', 3122245, 'asgasgasg', '$2y$10$ojLppL6iQcN75zEK67Mu8uo7ubBoyHv3Kor81yJpGCK/V075Ot8/a', 1, NULL, '2018-06-07 02:47:29', '2018-06-07 02:47:29'),
+(1, 1, NULL, 1, 'admin', 'Huzaifa', 'Siddiqui', 'huzzee.24.sidd@gmail.com', NULL, NULL, '$2y$10$T.rdL9/b9CXJTMS5e3L2Ve8s08fpP4h.US4ITy5EXyo2J63XMuiTW', 1, 'PCGCPxHBIN5BgYVcaGeZdpGCMEoBrRSwhbVMOAbZRalmhojkUHUIXFfUOY5O', NULL, NULL),
+(4, 5, NULL, 2, 'danny', 'Bilal', 'Danny', 'danny@gmail.com', 3122245, 'asgasgasg', '$2y$10$VeMZ77halAmr9sX77Abqc.n1j37NfHOe27FkenoyGUXvNohiJTprm', 1, 'C97CqXyP2qrfWwWQNwdsblXF3RXMlbKYhdtwBYBzMR9SiB7DLB852Py1SmY6', '2018-06-07 02:47:29', '2018-06-07 02:47:29'),
 (5, 6, NULL, 2, 'zee21', 'huzaifa', 'Siddiqui', 'zee@gmail.com', NULL, NULL, '$2y$10$zSsd9xzA/.qZZyLUTGfZV.T7y65dEz7J.bivwnnMZCKQh75MEVA6W', 1, NULL, '2018-06-07 02:49:19', '2018-06-07 02:49:19');
 
 -- --------------------------------------------------------
