@@ -12,7 +12,7 @@ use Auth;
 class Account extends Model
 {
     protected $fillable = [
-        'nature_id', 'accounts_name','user_id','branch_id', 'accounts_number', 'account_contact', 'accounts_desc', 'account_address', 'opening_credit', 'opening_debit'
+        'nature_id', 'account_name','user_id','branch_id', 'account_number', 'account_contact', 'account_desc', 'account_address', 'opening_credit', 'opening_debit'
     ];
 
     public function Users()
@@ -54,7 +54,7 @@ class Account extends Model
 
         $account->nature_id = request('nature_id');
         $account->user_id = Auth::user()->id;
-        $account->branch_id = Auth::user()->branch_id;
+        $account->branch_id = request('branch_id');
         $account->account_name = request('account_name');
         $account->account_number = request('account_number');
         $account->account_desc = request('account_desc');
@@ -71,10 +71,15 @@ class Account extends Model
 
         $account = account::findOrFail($id);
 
-        $account->company_id = $request['company_id'];
         $account->branch_id = $request['branch_id'];
         $account->nature_id = $request['nature_id'];
-        $account->accounts_name = $request['accounts_name'];
+        $account->account_name = $request['account_name'];
+        //$account->opening_credit = $request['edit_opening_credit'];
+        $account->account_contactNo = $request['account_contactNo'];
+        //$account->opening_debit = $request['opening_debit'];
+        $account->account_Address = $request['account_Address'];
+        $account->account_desc = $request['account_desc'];
+        $account->account_number = $request['account_number'];
 
         $account->save();
     }
