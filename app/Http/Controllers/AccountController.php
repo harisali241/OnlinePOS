@@ -19,8 +19,11 @@ class AccountController extends Controller
     public function index()
     {
         $accounts = account::fetchAccounts();
+
         $company = User::fetchCompanyFromUser();
+
         $branch = User::fetchBranchFromUser();
+        
         $natures = account_nature::fetchAccountNatures();
 
         return view ('pages.account.account',array(
