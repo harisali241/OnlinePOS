@@ -21,16 +21,21 @@ class AccountController extends Controller
         $accounts = account::fetchAccounts();
 
         $company = User::fetchCompanyFromUser();
+<<<<<<< HEAD
 
         $branch = User::fetchBranchFromUser();
         
+=======
+        $branch = Branch::fetchBranches();
+>>>>>>> dc2dafab2fc83ed54e037ed48ad126f686b5117d
         $natures = account_nature::fetchAccountNatures();
 
-        return view ('pages.account.account',array(
-            'accounts' => $accounts,
+        return view('pages.account.account',array(
+
             'company' => $company,
             'branch' => $branch,
             'natures' => $natures,
+            'accounts' => $accounts,
         ));
     }
 
@@ -88,7 +93,7 @@ class AccountController extends Controller
             'company_id' => 'required',
             'branch_id' => "required",
             'nature_id' => "required",
-            'accounts_name' => "required",
+            'account_name' => "required",
         ]);
         account::updateAccounts($request, $id);
         return redirect('account')->with('message', 'Successfully Edit');
