@@ -29,9 +29,9 @@ class Account extends Model
         return $this->hasMany('App\Models\Vendor', 'account_id');
     }
 
-    public function Account_natures()
+    public function account_natures()
     {
-        return $this->belongsTo('App\Models\Account_nature' , 'id');
+        return $this->belongsTo('App\Models\Account_nature');
     }
 
     public function Customers(){
@@ -42,7 +42,18 @@ class Account extends Model
 
     public static function fetchAccounts()
     {
-        $accounts = account::with('branches','account_natures')->get();
+        if(Auth::user()->role_id === 2)
+        {
+            $accounts = account::with('account_natures')
+                ->where('company_id','=',Auth::user()->company_id)->get();
+        }
+        elseif(Auth::user()->role_id === 3)
+        {
+            $accounts = account::with('account_natures')
+                ->where('company_id','=',Auth::user()->company_id)
+                ->where('branch_id','=',Auth::user()->branch_id)->get();
+        }
+
 
         return $accounts;
     }

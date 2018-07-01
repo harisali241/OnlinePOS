@@ -20,14 +20,8 @@ class AccountController extends Controller
     {
         $accounts = account::fetchAccounts();
 
-        $company = User::fetchCompanyFromUser();
-<<<<<<< HEAD
-
-        $branch = User::fetchBranchFromUser();
-        
-=======
         $branch = Branch::fetchBranches();
->>>>>>> dc2dafab2fc83ed54e037ed48ad126f686b5117d
+
         $natures = account_nature::fetchAccountNatures();
 
         return view('pages.account.account',array(
