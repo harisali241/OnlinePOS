@@ -34,7 +34,7 @@ class Account extends Model
         return $this->belongsTo('App\Models\Account_nature');
     }
 
-    public function Customers(){
+    public function customers(){
         return $this->hasMany('App\Models\customer', 'account_id');
     }
 
@@ -66,11 +66,10 @@ class Account extends Model
         $account->nature_id = request('nature_id');
         $account->user_id = Auth::user()->id;
         $account->branch_id = request('branch_id');
+        $account->company_id = request('company_id');
         $account->account_name = request('account_name');
         $account->account_number = request('account_number');
         $account->account_desc = request('account_desc');
-        $account->account_address = request('account_address');
-        $account->account_contactNo = request('account_contactNo');
         $account->opening_debit = request('opening_debit');
         $account->opening_credit = request('opening_credit');
         $account->save();
@@ -86,9 +85,9 @@ class Account extends Model
         $account->nature_id = $request['nature_id'];
         $account->account_name = $request['account_name'];
         //$account->opening_credit = $request['edit_opening_credit'];
-        $account->account_contactNo = $request['account_contactNo'];
+
         //$account->opening_debit = $request['opening_debit'];
-        $account->account_Address = $request['account_Address'];
+
         $account->account_desc = $request['account_desc'];
         $account->account_number = $request['account_number'];
 

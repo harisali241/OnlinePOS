@@ -23,7 +23,7 @@
 
                             <div class="modal-body">
                                 <div class="row">
-
+                                    <div class="col-sm-1"></div>
                                     <div class="col-sm-10">
                                         <div class="row p-10">
                                             <input type="hidden" value="{{ Auth::user()->company_id }} " name="company_id">
@@ -34,44 +34,8 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">PhoneNo<span class="text-danger">*</span></label>
-                                                    <input required  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="11" class="form-control small-input" name="branch_phoneNo" placeholder="Enter Phone No">
-                                                </div>
-                                            </div>
 
                                             <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label for="" class="control-label mb-10">Branch Location<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control small-input" name="location" id="location" required  placeholder="Enter Branch Location">
-                                                (Please Add Location On Google Map First)
-                                            </div>
-                                            </div>
-
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="" class="control-label mb-10">latitude</label>
-                                                    <input type="text" class="form-control small-input" name="latitude" id="latitude" required readonly placeholder="Latitude">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="" class="control-label mb-10">longitude</label>
-                                                    <input type="text" class="form-control small-input" name="longitude" id="longitude" required readonly placeholder="latitude">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button type="button" class="btn btn-default btn-sm" style="margin-top: 20px;" id="show_map1">Show Map</button>
-                                            </div>
-                                            <div class="col-sm-12" id="create_map">
-
-                                            </div>
-
-
-                                            
-
-                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="" class="control-label">Status<span class="text-danger">*</span></label>
                                                     <div>
@@ -88,6 +52,44 @@
 
                                                 </div>
                                             </div>
+
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">PhoneNo<span class="text-danger">*</span></label>
+                                                    <input required  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="11" class="form-control small-input" name="branch_phoneNo" placeholder="Enter Phone No">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="" class="control-label mb-10">Branch Location<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control small-input" name="location" id="location" required  placeholder="Enter Branch Location">
+                                                    (Please Add Location On Google Map First)
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12"></div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="" class="control-label mb-10">latitude</label>
+                                                    <input type="text" class="form-control" name="latitude" id="latitude" required readonly placeholder="Latitude">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="" class="control-label mb-10">longitude</label>
+                                                    <input type="text" class="form-control" name="longitude" id="longitude" required readonly placeholder="latitude">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button type="button" class="btn btn-default btn-sm mt-35" style="margin-top: 20px;" id="show_map1">Show Map</button>
+                                            </div>
+                                            <div class="col-sm-12" id="create_map">
+
+                                            </div>
+
+
+                                            
+
+
 
                                         </div>
                                     </div>

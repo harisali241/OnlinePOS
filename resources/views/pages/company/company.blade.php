@@ -209,11 +209,11 @@
                                             class="btn btn-warning btn-icon-anim btn-square btn-sm m-b-5" style="float: left;margin-right: 2%"><i class="fa fa-pencil"></i></button>
 
 
-                                    <form method="post" action="company/{{$user->company_id}}" id="delete">
+                                    <form method="post" action="{{ url('company/'.$user->companies->id) }}" id="delete{{$user->companies->id}}">
                                         {{csrf_field()}}
                                         {{method_field("DELETE")}}
 
-                                        <button type="button" class="btn btn-danger btn-icon-anim btn-square btn-sm m-b-5" style="float: left;margin-right: 2%" onclick="del();"><i class="fa fa-trash"></i></button>
+                                        <button type="button" class="btn btn-danger btn-icon-anim btn-square btn-sm m-b-5" style="float: left;margin-right: 2%" onclick="del({{$user->companies->id}});"><i class="fa fa-trash"></i></button>
                                     </form>
 
 
@@ -410,7 +410,8 @@
 
     <script>
 
-        function del(){
+        function del(company_id){
+
             swal({
                 title: "Are you sure?",
                 text: "You will not be able to recover this Company & Admin!",
@@ -422,7 +423,7 @@
             }, function(){
 
                 swal("Deleted!", "Your record has been deleted.", "success");
-                $("#delete").submit();
+                $("#delete"+company_id).submit();
 
             });
             return false;

@@ -46,9 +46,9 @@ class AccountController extends Controller
             'nature_id' => "required",
             'account_name' => "required",
             'account_number' => "required",
-            'account_contactNo' => "required",
+
             'account_desc' => "required",
-            'account_address' => "required",
+
             'opening_credit' => "required",
             'opening_debit' => "required",
         ]);

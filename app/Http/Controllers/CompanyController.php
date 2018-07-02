@@ -72,6 +72,7 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
+        dd($id);
         Company::findOrFail($id)->delete();
         return redirect('company')->with('message', 'Successfully Deleted');
     }

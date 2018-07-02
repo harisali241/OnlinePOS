@@ -18,7 +18,7 @@ class Account_nature extends Model
         'nature_name'
     ];
 
-    public function Accounts(){
+    public function accounts(){
         return $this->hasMany('App\Models\Account', 'id');
     }
 
