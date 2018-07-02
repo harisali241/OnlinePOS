@@ -20,16 +20,22 @@ class AccountController extends Controller
     {
         $accounts = account::fetchAccounts();
 
-        $branch = Branch::fetchBranches();
+        $branches = Branch::fetchBranches();
 
         $natures = account_nature::fetchAccountNatures();
 
+
+        $edit_branches = branch::where('company_id','=',auth()->user()->company_id)->pluck('branch_name','id');
+        $edit_natures = account_nature::pluck('nature_name','id');
+
+
         return view('pages.account.account',array(
 
-            'company' => $company,
-            'branch' => $branch,
+            'branches' => $branches,
             'natures' => $natures,
             'accounts' => $accounts,
+            'edit_branches' => $edit_branches,
+            'edit_natures' => $edit_natures,
         ));
     }
 

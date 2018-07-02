@@ -26,31 +26,53 @@
                             <h5 class="modal-title" id="myLargeModalLabel">Add Account</h5>
                         </div>
 
-                        <form data-toggle="validator" role="form" method="POST" action="{{route('account.store')}}">
+                        <form data-toggle="validator" role="form" method="POST" id="form_add_for_accounts" action="{{route('account.store')}}">
 
                         	{{csrf_field()}}
 
                         	<div class="modal-body">
 
                         		<div class="row">
-
+									<div class="col-sm-1"></div>
                         			<div class="col-sm-10">
 
                         				<div class="row p-10">
+											<input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
+											<div class="col-sm-4">
+												<div class="form-group">
+													<label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
+													<input type="text" class="form-control small-input" required name="account_name" placeholder="Enter Account Name">
+												</div>
+											</div>
+											<div class="col-sm-4">
+												<div class="form-group">
+													<label for="inputName" class="control-label mb-10">Account Nature<span class="text-danger">*</span></label>
+													<select class="form-control select2" name="nature_id">
 
-                        					<div class="col-sm-4">
-                        					    <div class="form-group">
-                        					        <label for="" class="control-label mb-10">Company Name</label>
-                        					        <input type="text" class="form-control small-input" name="company_id" required id="company_name" value="{{ $company }}" readonly>
-                        					    </div>
-                        					</div>
+														@foreach($natures as $nature)
+															<option value="{{$nature->id}}">{{$nature->nature_name}}</option>
+														@endforeach
 
-                        					<div class="col-sm-4">
-                        					    <div class="form-group">
-                        					        <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
-                        					        <input type="text" class="form-control small-input" required name="account_name" placeholder="Enter Account Name">
-                        					    </div>
-                        					</div>
+													</select>
+												</div>
+											</div>
+											@if(auth()->user()->role_id === 2)
+												<div class="col-sm-4">
+													<div class="form-group">
+														<label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
+														<select class="form-control select2" name="branch_id" id="branch_id">
+															<option disabled selected value="0">Select Branch Name</option>
+															@foreach($branches as $branch)
+																<option value="{{$branch->id}}">{{$branch->branch_name}}</option>
+															@endforeach
+
+														</select>
+													</div>
+												</div>
+											@elseif(auth()->user()->role_id === 3)
+												<input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
+											@endif
+
 
                         					<div class="col-sm-4">
                         					    <div class="form-group">
@@ -59,26 +81,6 @@
                         					    </div>
                         					</div>
 
-                        					<div class="col-sm-4">
-                        					    <div class="form-group">
-                        					        <label for="inputName" class="control-label mb-10">Description<span class="text-danger">*</span></label>
-                        					        <input type="text" class="form-control small-input" required name="account_desc" placeholder="Enter Description">
-                        					    </div>
-                        					</div>
-
-                        					<div class="col-sm-4">
-                        					    <div class="form-group">
-                        					        <label for="inputName" class="control-label mb-10">Contact No<span class="text-danger">*</span></label>
-                        					        <input type="text" class="form-control small-input" required name="account_contactNo" placeholder="Enter Contact Name">
-                        					    </div>
-                        					</div>
-
-                        					<div class="col-sm-4">
-                        					    <div class="form-group">
-                        					        <label for="inputName" class="control-label mb-10">Address<span class="text-danger">*</span></label>
-                        					        <input type="text" class="form-control small-input" required name="account_address" placeholder="Enter Address">
-                        					    </div>
-                        					</div>
 
                         					<div class="col-sm-4">
                                                 <div class="form-group">
@@ -94,31 +96,12 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">Account Nature<span class="text-danger">*</span></label>
-                                                    <select class="form-control select2" name="nature_id">
-                                                        <option disabled selected>Select Account Nature</option>
-                                                        @foreach($natures as $nature)
-                                                            <option value="{{$nature->id}}">{{$nature->nature_name}}</option>
-                                                        @endforeach
-
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
-                                                    <select class="form-control select2" name="branch_id">
-                                                        <option disabled selected>Select Branch Name</option>
-                                                        @foreach($branch as $branch)
-                                                            <option value="{{$branch->id}}">{{$branch->branch_name}}</option>
-                                                        @endforeach
-
-                                                    </select>
-                                                </div>
-                                            </div>
+											<div class="col-sm-12">
+												<div class="form-group">
+													<label for="inputName" class="control-label mb-10">Description<span class="text-danger">*</span></label>
+													<input type="text" class="form-control" required name="account_desc" placeholder="Enter Description">
+												</div>
+											</div>
 
                         				</div>
 
@@ -162,8 +145,6 @@
     	        		<thead>
     	        		<tr>
     	        		    <th>S.NO</th>
-    	        		    <th>Company Name</th>
-    	        		    <th>Branch Name</th>
     	        		    <th>Account Nature</th>
     	        		    <th>Account Name</th>
     	        		    <th width="15%">Action</th>
@@ -176,8 +157,7 @@
     	        			@foreach($accounts as $account)
     	        			    <tr>
     	        			        <td>{!! $i !!}</td>
-    	        			        <td>{{$company}}</td>
-    	        			        <td>{{$account->branches->branch_name}}</td>
+
     	        			        <td>{{$account->account_natures->nature_name}}</td>
     	        			        <td>{{$account->account_name}}</td>
     	        			        <td>
@@ -224,12 +204,6 @@
     	        			                                
     	        			                                {!! Form::hidden('branch_id' , null ,['class' => 'form-control','id' => 'branch_id'.$account->id,'required' => 'required'] ) !!}
 
-    	        			                                <div class="col-sm-4">
-    	        			                                    <div class="form-group">
-    	        			                                        <label for="" class="control-label mb-10">Company Name</label>
-    	        			                                        <input type="text" class="form-control small-input" name="company_id" required id="company_name" value="{{ $company }}" readonly>
-    	        			                                    </div>
-    	        			                                </div>
 
     	        			                                <div class="col-sm-4">
     	        			                                    <div class="form-group">
@@ -291,25 +265,23 @@
                                             				<div class="col-sm-4">
                                             				    <div class="form-group">
                                             				        <label for="inputName" class="control-label mb-10">Account Nature<span class="text-danger">*</span></label>
-                                            				       	<select class="form-control select2" name="nature_id" style="background:#f2f2f2;" required>
-                                            				       	    <option value="{{$account->nature_id}}">{{$account->Account_natures->nature_name}}</option>
-                                            				       	    <option disabled>-------------------</option>
-                                            				       	    @foreach($natures as $nature)
-                                            				       	        <option value="{{$nature->nature_id}}">{{$nature->nature_name}}</option>
-                                            				       	    @endforeach
-                                            				       	</select>
+
+																	{!! Form::select('nature_id',$edit_natures,null,
+																		['class' => 'select2 form-control']) !!}
                                             				    </div>
                                             				</div>
 
-                                            				<div class="col-sm-4">
-                                            				    <div class="form-group">
-                                            				        <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
-                                            				        <select class="form-control select2" name="branch_id" style="background:#f2f2f2;" required>
-                                            				            <option value="{{$account->branch_id}}">{{$account->Branches->branch_name}}</option>
-                                            				            <option disabled>-------------------</option>
-                                            				        </select>
-                                            				    </div>
-                                            				</div>
+															@if(auth()->user()->role_id === 2)
+																<div class="col-sm-4">
+																	<div class="form-group">
+																		<label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
+																		{!! Form::select('branch_id',$edit_branches,null,
+																		['class' => 'select2 form-control']) !!}
+																	</div>
+																</div>
+															@elseif(auth()->user()->role_id === 3)
+																<input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
+															@endif
 
     	        			                            </div>
     	        			                        </div>
@@ -347,6 +319,26 @@
 @section('script')
 
     <script type="text/javascript">
+        var  submitFrom = 0;
+        $('#form_add_for_accounts').on('submit',function (e) {
+            var branch = $('#branch_id').val();
+            if(submitFrom === 0)
+            {
+                e.preventDefault();
+                if(branch*1 === 0)
+				{
+                    swal({
+                        title: "Required!",
+                        text: "PLease Select Branch!",
+                        confirmButtonColor: "#0098a3",
+                    });
+				}
+				else {
+                    submitFrom = 1;
+				}
+            }
+        });
+
 
         function del(){
             swal({
@@ -364,6 +356,8 @@
 
             });
             return false;
+
+
         }
 
     </script>

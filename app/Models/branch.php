@@ -36,7 +36,7 @@ class Branch extends Model
 
     public static function fetchBranches()
     {
-        $branches = branch::where('comapny_id','=',auth()->user()->company_id)->get();
+        $branches = branch::where('company_id','=',auth()->user()->company_id)->get();
         //dd($branches);
         return $branches;
     }
