@@ -55,7 +55,6 @@ class BranchController extends Controller
         //return request()->all();
 
         $this->validate(request(), [
-            'company_id' => 'required',
             'branch_name' => "required",
             'branch_phoneNo' => "required",
         ]);

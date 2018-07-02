@@ -12,7 +12,7 @@
                     class="btn btn-success btn-anim">Add Branch</button>
 
             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                <div class="modal-dialog" style="width: 45%;">
+                <div class="modal-dialog" style="width: 95%;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -24,44 +24,40 @@
                             <div class="modal-body">
                                 <div class="row">
 
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-10">
                                         <div class="row p-10">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">Companies<span class="text-danger">*</span></label>
-                                                    <select class="form-control select2" name="company_id">
-                                                        <option disabled selected value="0">Select Company</option>
-                                                        @foreach($companies as $company)
-                                                            <option value="{{$company->id}}">{{$company->company_name}}</option>
-                                                        @endforeach
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
+                                            <input type="hidden" value="{{ Auth::user()->company_id }} " name="company_id">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" required name="branch_name" placeholder="Enter Branch Name">
+                                                    <input type="text" class="form-control small-input" required name="branch_name" placeholder="Enter Branch Name">
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">PhoneNo<span class="text-danger">*</span></label>
+                                                    <input required  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="11" class="form-control small-input" name="branch_phoneNo" placeholder="Enter Phone No">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label for="" class="control-label">Branch Location<span class="text-danger">*</span></label>
+                                                <label for="" class="control-label mb-10">Branch Location<span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control small-input" name="location" id="location" required  placeholder="Enter Branch Location">
                                                 (Please Add Location On Google Map First)
                                             </div>
                                             </div>
 
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label for="" class="control-label">latitude</label>
+                                                    <label for="" class="control-label mb-10">latitude</label>
                                                     <input type="text" class="form-control small-input" name="latitude" id="latitude" required readonly placeholder="Latitude">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label for="" class="control-label">longitude</label>
+                                                    <label for="" class="control-label mb-10">longitude</label>
                                                     <input type="text" class="form-control small-input" name="longitude" id="longitude" required readonly placeholder="latitude">
                                                 </div>
                                             </div>
@@ -73,14 +69,9 @@
                                             </div>
 
 
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">PhoneNo<span class="text-danger">*</span></label>
-                                                    <input required  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="11" class="form-control" name="branch_phoneNo" placeholder="Enter Phone No">
-                                                </div>
-                                            </div>
+                                            
 
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label for="" class="control-label">Status<span class="text-danger">*</span></label>
                                                     <div>
@@ -179,7 +170,7 @@
 
                             {{-- Edit Modal --}}
                             <div class="modal fade bs-example-modal-edit{{ $branch->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                                <div class="modal-dialog" style="width: 45%;">
+                                <div class="modal-dialog" style="width: 95%;">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -193,15 +184,8 @@
 
                                                     <div class="col-sm-12">
                                                         <div class="row p-10">
-                                                            <div class="col-sm-12">
-                                                                <div class="form-group">
-                                                                    <label for="inputName" class="control-label mb-10">Companies<span class="text-danger">*</span></label>
-                                                                    {!! Form::select('company_id' ,$edit_companies, null ,['class' => 'form-control select2',
-                                                                    'id' => 'company_id'.$branch->id] ) !!}
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-12">
+                                                            {!! Form::hidden('company_id' , null ,['class' => 'form-control','id' => 'company_id'.$branch->id] ) !!}
+                                                            <div class="col-sm-4">
                                                                 <div class="form-group">
                                                                     <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
                                                                     {!! Form::text('branch_name' , null ,['class' => 'form-control',
@@ -210,7 +194,16 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-sm-12">
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="inputName" class="control-label mb-10">PhoneNo<span class="text-danger">*</span></label>
+                                                                    {!! Form::text('branch_phoneNo' , null ,['class' => 'form-control',
+                                                                    'placeholder' => 'Enter Phone No','id' => 'branch_phoneNo'.$branch->id,'required' => 'required'] ) !!}
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-4">
                                                                 <div class="form-group">
                                                                     <label for="" class="control-label">Branch Location<span class="text-danger">*</span></label>
 
@@ -221,7 +214,7 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-sm-12">
+                                                            <div class="col-sm-4">
                                                                 <div class="form-group">
                                                                     <label for="" class="control-label">latitude</label>
                                                                     {!! Form::text('latitude' , null ,['class' => 'form-control small-input',
@@ -229,7 +222,7 @@
 
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-12">
+                                                            <div class="col-sm-4">
                                                                 <div class="form-group">
                                                                     <label for="" class="control-label">longitude</label>
                                                                     {!! Form::text('longitude' , null ,['class' => 'form-control small-input',
@@ -237,23 +230,14 @@
 
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-12">
+                                                            <div class="col-sm-4">
                                                                 <button type="button" class="btn btn-default btn-sm show_map2" style="margin-top: 20px;" data-userId="{{$branch->id}}">Show Map</button>
                                                             </div>
                                                             <div class="col-sm-12" id="create_map{{$branch->id}}">
 
                                                             </div>
 
-                                                            <div class="col-sm-12">
-                                                                <div class="form-group">
-                                                                    <label for="inputName" class="control-label mb-10">PhoneNo<span class="text-danger">*</span></label>
-                                                                    {!! Form::text('branch_phoneNo' , null ,['class' => 'form-control',
-                                                                    'placeholder' => 'Enter Phone No','id' => 'branch_phoneNo'.$branch->id,'required' => 'required'] ) !!}
-
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-sm-12">
+                                                            <div class="col-sm-4">
                                                                 <div class="form-group">
                                                                     <label for="" class="control-label">Status<span class="text-danger">*</span></label>
                                                                     <div>
