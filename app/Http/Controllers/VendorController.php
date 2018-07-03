@@ -22,14 +22,23 @@ class VendorController extends Controller
     {
         $vendors = vendor::fetchVendors();
 
+        $branches = Branch::fetchBranches();
+
         $accounts = account::fetchAccounts();
 
         $companies = company::fetchCompanies();
+
+        $edit_branches = branch::where('company_id','=',auth()->user()->company_id)->pluck('branch_name','id');
+
+        $edit_accounts = account::where('company_id','=',auth()->user()->company_id)->pluck('account_name','id');
 
         return view ('pages.vendor.vendor',array(
             'vendors' => $vendors,
             'accounts' => $accounts,
             'companies' => $companies,
+            'branches' => $branches,
+            'edit_branches' => $edit_branches,
+            'edit_accounts' => $edit_accounts,
         ));
     }
 
@@ -37,8 +46,6 @@ class VendorController extends Controller
     {
         $this->validate(request(), [
             'account_id' => 'required',
-            'company_id' => 'required',
-            'branch_id' => "required",
             'vendor_name' => "required",
             'vendor_email' => "required",
             'vendor_phoneNo' => "required",

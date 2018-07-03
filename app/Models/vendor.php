@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 class Vendor extends Model
 {
     protected $fillable = [
-        'account_id','user_id','branch_id', 'vendor_name', 'vendor_email', 'vendor_address', 'vendor_phoneNo', 'status'
+        'account_id','user_id','branch_id', 'vendor_name', 'vendor_email', 'vendor_address', 'vendor_phoneNo', 'status','company_id'
     ];
 
-    public function Accounts()
+    public function accounts()
     {
         return $this->belongsTo('App\Models\Account' , 'account_id');
     }
@@ -30,6 +30,7 @@ class Vendor extends Model
         $vendor = new Vendor;
 
         $vendor->company_id = $request['company_id'];
+        $vendor->user_id = $request['user_id'];
         $vendor->branch_id = $request['branch_id'];
         $vendor->account_id = $request['account_id'];
         $vendor->vendor_name = $request['vendor_name'];
@@ -46,6 +47,7 @@ class Vendor extends Model
         $vendor = vendor::findOrFail($id);
 
         $vendor->company_id = $request['company_id'];
+        $vendor->user_id = $request['user_id'];
         $vendor->branch_id = $request['branch_id'];
         $vendor->account_id = $request['account_id'];
         $vendor->vendor_name = $request['vendor_name'];

@@ -2,14 +2,14 @@
 @section('content')
 
     <div class="row heading-bg">
-        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-
+        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
             <h5 class="txt-dark">Branches</h5>
+        </div>
 
-            <br><br>
-
+        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12" align="right">
             <button type="button" data-toggle="modal" data-target=".bs-example-modal-lg"
-                    class="btn btn-success btn-anim">Add Branch</button>
+            class="btn btn-success btn-anim">Create +</button>
+        </div>
 
             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
                 <div class="modal-dialog" style="width: 95%;">
@@ -37,7 +37,7 @@
 
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label for="" class="control-label">Status<span class="text-danger">*</span></label>
+                                                    <label for="" class="control-label mb-10">Status<span class="text-danger">*</span></label>
                                                     <div>
                                                         <div class="radio radio-success radio-inline">
                                                             <input type="radio" name="status" id="radio1" value="1" checked>
@@ -56,7 +56,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="inputName" class="control-label mb-10">PhoneNo<span class="text-danger">*</span></label>
-                                                    <input required  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="11" class="form-control small-input" name="branch_phoneNo" placeholder="Enter Phone No">
+                                                    <input required  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="11" class="form-control small-input" name="branch_phoneNo" placeholder="Enter Phone No" onkeypress='validate(event)'>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
@@ -86,11 +86,6 @@
 
                                             </div>
 
-
-                                            
-
-
-
                                         </div>
                                     </div>
 
@@ -105,6 +100,10 @@
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
+            </div>
+
+            <div class="col-sm-12">
+                <hr>
             </div>
 
 
@@ -157,11 +156,11 @@
                                         </div>
                                         <div class="col-sm-3" align="center">
 
-                                            <form method="post" action="branch/{{$branch->id}}" id="delete">
+                                            <form method="post" action="{{ url('branch/'.$branch->id) }}" id="delete{{$branch->id}}">
                                                 {{csrf_field()}}
                                                 {{method_field("DELETE")}}
 
-                                                <button type="button" class="btn btn-danger btn-icon-anim btn-square btn-sm m-b-5" onclick="del();"><i class="fa fa-trash"></i></button>
+                                                <button type="button" class="btn btn-danger btn-icon-anim btn-square btn-sm m-b-5" onclick="del({{$branch->id}});"><i class="fa fa-trash"></i></button>
                                             </form>
                                         </div>
                                     </div>
@@ -183,14 +182,14 @@
 
                                             <div class="modal-body">
                                                 <div class="row">
-
-                                                    <div class="col-sm-12">
+                                                    <div class="col-sm-1"></div>
+                                                    <div class="col-sm-10">
                                                         <div class="row p-10">
                                                             {!! Form::hidden('company_id' , null ,['class' => 'form-control','id' => 'company_id'.$branch->id] ) !!}
                                                             <div class="col-sm-4">
                                                                 <div class="form-group">
                                                                     <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
-                                                                    {!! Form::text('branch_name' , null ,['class' => 'form-control',
+                                                                    {!! Form::text('branch_name' , null ,['class' => 'form-control small-input',
                                                                     'placeholder' => 'Enter Branch Name','id' => 'branch_name'.$branch->id,'required' => 'required'] ) !!}
 
                                                                 </div>
@@ -198,50 +197,7 @@
 
                                                             <div class="col-sm-4">
                                                                 <div class="form-group">
-                                                                    <label for="inputName" class="control-label mb-10">PhoneNo<span class="text-danger">*</span></label>
-                                                                    {!! Form::text('branch_phoneNo' , null ,['class' => 'form-control',
-                                                                    'placeholder' => 'Enter Phone No','id' => 'branch_phoneNo'.$branch->id,'required' => 'required'] ) !!}
-
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <label for="" class="control-label">Branch Location<span class="text-danger">*</span></label>
-
-                                                                    {!! Form::text('location' , null ,['class' => 'form-control small-input location2',
-                                                                    'placeholder' => 'Enter Branch location','required','data-userId' => $branch->id, 'id' => 'location'.$branch->id,] ) !!}
-
-                                                                    (Please Add Location On Google Map First)
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <label for="" class="control-label">latitude</label>
-                                                                    {!! Form::text('latitude' , null ,['class' => 'form-control small-input',
-                                                                    'placeholder' => 'Latitude','required','readonly','id' => 'latitude'.$branch->id ,'data-userId' => $branch->id,] ) !!}
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <label for="" class="control-label">longitude</label>
-                                                                    {!! Form::text('longitude' , null ,['class' => 'form-control small-input',
-                                                                    'placeholder' => 'longitude','required','readonly','id' => 'longitude'.$branch->id ,'data-userId' => $branch->id,] ) !!}
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-4">
-                                                                <button type="button" class="btn btn-default btn-sm show_map2" style="margin-top: 20px;" data-userId="{{$branch->id}}">Show Map</button>
-                                                            </div>
-                                                            <div class="col-sm-12" id="create_map{{$branch->id}}">
-
-                                                            </div>
-
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <label for="" class="control-label">Status<span class="text-danger">*</span></label>
+                                                                    <label for="" class="control-label mb-10">Status<span class="text-danger">*</span></label>
                                                                     <div>
                                                                         <div class="radio radio-success radio-inline">
                                                                             {!! Form::radio('status', 1,['id' => 'radio1'.$branch->id]) !!}
@@ -255,6 +211,51 @@
                                                                     </div>
 
                                                                 </div>
+                                                            </div>
+
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="inputName" class="control-label mb-10">PhoneNo<span class="text-danger">*</span></label>
+                                                                    {!! Form::text('branch_phoneNo' , null ,['class' => 'form-control small-input',
+                                                                    'placeholder' => 'Enter Phone No','id' => 'branch_phoneNo'.$branch->id,'required' => 'required', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'onkeypress' => 'validate(event)'] ) !!}
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="" class="control-label mb-10">Branch Location<span class="text-danger">*</span></label>
+
+                                                                    {!! Form::text('location' , null ,['class' => 'form-control small-input location2',
+                                                                    'placeholder' => 'Enter Branch location','required','data-userId' => $branch->id, 'id' => 'location'.$branch->id,] ) !!}
+
+                                                                    (Please Add Location On Google Map First)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-12"></div>
+
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="" class="control-label mb-10">latitude</label>
+                                                                    {!! Form::text('latitude' , null ,['class' => 'form-control',
+                                                                    'placeholder' => 'Latitude','required','readonly','id' => 'latitude'.$branch->id ,'data-userId' => $branch->id,] ) !!}
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="" class="control-label mb-10">longitude</label>
+                                                                    {!! Form::text('longitude' , null ,['class' => 'form-control',
+                                                                    'placeholder' => 'longitude','required','readonly','id' => 'longitude'.$branch->id ,'data-userId' => $branch->id,] ) !!}
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <button type="button" class="btn btn-default btn-sm show_map2 mt-35" style="margin-top: 20px;" data-userId="{{$branch->id}}">Show Map</button>
+                                                            </div>
+                                                            <div class="col-sm-12" id="create_map{{$branch->id}}">
+
                                                             </div>
 
                                                         </div>
@@ -290,7 +291,7 @@
 
     <script>
 
-        function del(){
+        function del(branch_id){
             swal({
                 title: "Are you sure?",
                 text: "You will not be able to recover this imaginary file!",
@@ -302,7 +303,7 @@
             }, function(){
 
                 swal("Deleted!", "Your record has been deleted.", "success");
-                $("#delete").submit();
+                $("#delete"+branch_id).submit();
 
             });
             return false;
