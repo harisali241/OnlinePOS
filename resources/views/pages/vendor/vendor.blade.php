@@ -31,6 +31,68 @@
                                             <input type="hidden" value="{{ Auth::user()->company_id }}" name="company_id">
                                             <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
 
+                                            {{-- Branch --}}
+
+                                                @if(auth()->user()->role_id === 2)
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
+                                                            <select class="form-control select2" name="branch_id" id="branch_id">
+                                                                <option disabled selected value="0">Select Branch Name</option>
+                                                                @foreach($branches as $branch)
+                                                                    <option value="{{$branch->id}}">{{$branch->branch_name}}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                @elseif(auth()->user()->role_id === 3)
+                                                    <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
+                                                @endif
+
+                                            {{-- Branch --}}
+
+                                            {{-- account --}}
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
+                                                        <select class="form-control select2" name="account_id">
+                                                            <option disabled selected value="0">Select Account</option>
+                                                            @foreach($accounts as $account)
+                                                                <option value="{{$account->id}}">{{$account->account_name}}</option>
+                                                            @endforeach
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            {{-- account --}}
+
+                                            {{-- Status --}}
+
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="" class="control-label mb-10">Status<span class="text-danger">*</span></label>
+                                                        <div>
+                                                            <div class="radio radio-success radio-inline">
+                                                                <input type="radio" name="status" id="radio1" value="1" checked>
+                                                                <label for="radio1"> Active </label>
+                                                            </div>
+
+                                                            <div class="radio radio-info radio-inline">
+                                                                <input type="radio" name="status" id="radio2" value="0">
+                                                                <label for="radio2"> In Active </label>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            {{-- Status --}}
+
+                                            <div class="col-sm-12"></div>
+
                                             {{-- vendor name--}}
 
                                                 <div class="col-sm-4">
@@ -64,31 +126,9 @@
 
                                             {{-- vendor phoneNo --}}
 
-                                            {{-- Status --}}
-
-                                                <div class="col-sm-4">
-                                                    <div class="form-group">
-                                                        <label for="" class="control-label mb-10">Status<span class="text-danger">*</span></label>
-                                                        <div>
-                                                            <div class="radio radio-success radio-inline">
-                                                                <input type="radio" name="status" id="radio1" value="1" checked>
-                                                                <label for="radio1"> Active </label>
-                                                            </div>
-
-                                                            <div class="radio radio-info radio-inline">
-                                                                <input type="radio" name="status" id="radio2" value="0">
-                                                                <label for="radio2"> In Active </label>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-                                            {{-- Status --}}
-
                                             {{-- Vendor Address --}}
 
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="" class="control-label mb-10">Address</label>
                                                     <input type="text" class="form-control small-input" name="vendor_address" placeholder="Enter Address">
@@ -96,46 +136,6 @@
                                             </div>
 
                                             {{-- Vendor Address --}}
-
-                                            {{-- account --}}
-
-                                                <div class="col-sm-4">
-                                                    <div class="form-group">
-                                                        <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
-                                                        <select class="form-control select2" name="account_id">
-                                                            <option disabled selected value="0">Select Account</option>
-                                                            @foreach($accounts as $account)
-                                                                <option value="{{$account->id}}">{{$account->account_name}}</option>
-                                                            @endforeach
-
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                            {{-- account --}}
-
-                                            {{-- Branch --}}
-
-                                                @if(auth()->user()->role_id === 2)
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
-                                                            <select class="form-control select2" name="branch_id" id="branch_id">
-                                                                <option disabled selected value="0">Select Branch Name</option>
-                                                                @foreach($branches as $branch)
-                                                                    <option value="{{$branch->id}}">{{$branch->branch_name}}</option>
-                                                                @endforeach
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                @elseif(auth()->user()->role_id === 3)
-                                                    <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
-                                                @endif
-
-                                            {{-- Branch --}}
-
-                                            
 
                                         </div>
                                     </div>
@@ -240,6 +240,57 @@
                                                         {!! Form::hidden('user_id' , null ,['class' => 'form-control','id' => 'user_id'.$vendor->id,'required' => 'required'] ) !!}
                                                         {!! Form::hidden('company_id' , null ,['class' => 'form-control','id' => 'company_id'.$vendor->id,'required' => 'required'] ) !!}
 
+                                                        {{-- Branch --}}
+
+                                                            @if(auth()->user()->role_id === 2)
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
+                                                                        {!! Form::select('branch_id',$edit_branches,null,
+                                                                        ['class' => 'select2 form-control']) !!}
+                                                                    </div>
+                                                                </div>
+                                                            @elseif(auth()->user()->role_id === 3)
+                                                                <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
+                                                            @endif
+
+                                                        {{-- Branch --}}
+
+                                                        {{-- account --}}
+
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
+                                                                    {!! Form::select('account_id',$edit_accounts,null,
+                                                                    ['class' => 'select2 form-control']) !!}
+                                                                </div>
+                                                            </div>
+
+                                                        {{-- account --}}
+
+                                                        {{-- Status --}}
+
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="" class="control-label">Status<span class="text-danger">*</span></label>
+                                                                    <div>
+                                                                        <div class="radio radio-success radio-inline">
+                                                                            {!! Form::radio('status', 1,['id' => 'radio1'.$vendor->id]) !!}
+                                                                            <label for="radio1{{ $vendor->id }}"> Active </label>
+                                                                        </div>
+
+                                                                        <div class="radio radio-info radio-inline">
+                                                                            {!! Form::radio('status', 0,['id' => 'radio12'.$vendor->id]) !!}
+                                                                            <label for="radio12{{ $vendor->id }}"> In Active </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        {{-- Status --}}
+
+                                                        <div class="col-sm-12"></div>
+
                                                         {{-- Vendor Name --}}
 
                                                         <div class="col-sm-4">
@@ -281,7 +332,7 @@
 
                                                         {{-- Vendor Address --}}
 
-                                                            <div class="col-sm-4">
+                                                            <div class="col-sm-12">
                                                                 <div class="form-group">
                                                                     <label for="" class="control-label">Address</label>
                                                                     {!! Form::text('vendor_address' , null ,['class' => 'form-control small-input',
@@ -291,55 +342,6 @@
                                                             </div>
 
                                                         {{-- Vendor Address --}}
-
-                                                        {{-- Status --}}
-
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <label for="" class="control-label">Status<span class="text-danger">*</span></label>
-                                                                    <div>
-                                                                        <div class="radio radio-success radio-inline">
-                                                                            {!! Form::radio('status', 1,['id' => 'radio1'.$vendor->id]) !!}
-                                                                            <label for="radio1{{ $vendor->id }}"> Active </label>
-                                                                        </div>
-
-                                                                        <div class="radio radio-info radio-inline">
-                                                                            {!! Form::radio('status', 0,['id' => 'radio12'.$vendor->id]) !!}
-                                                                            <label for="radio12{{ $vendor->id }}"> In Active </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        {{-- Status --}}
-
-                                                        {{-- account --}}
-
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
-                                                                    {!! Form::select('account_id',$edit_accounts,null,
-                                                                    ['class' => 'select2 form-control']) !!}
-                                                                </div>
-                                                            </div>
-
-                                                        {{-- account --}}
-
-                                                        {{-- Branch --}}
-
-                                                            @if(auth()->user()->role_id === 2)
-                                                                <div class="col-sm-12">
-                                                                    <div class="form-group">
-                                                                        <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
-                                                                        {!! Form::select('branch_id',$edit_branches,null,
-                                                                        ['class' => 'select2 form-control']) !!}
-                                                                    </div>
-                                                                </div>
-                                                            @elseif(auth()->user()->role_id === 3)
-                                                                <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
-                                                            @endif
-
-                                                        {{-- Branch --}}
 
                                                     </div>
                                                 </div>

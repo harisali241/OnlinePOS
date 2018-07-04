@@ -20,7 +20,17 @@ class Vendor extends Model
 
     public static function fetchVendors()
     {
-        $vendors = vendor::with('accounts')->get();
+        if(Auth::user()->role_id === 2)
+        {
+            $vendors = vendor::with('accounts')
+                ->where('company_id','=',Auth::user()->company_id)->get();
+        }
+        elseif(Auth::user()->role_id === 3)
+        {
+            $vendors = vendor::with('accounts')
+                ->where('company_id','=',Auth::user()->company_id)
+                ->where('branch_id','=',Auth::user()->branch_id)->get();
+        }
 
         return $vendors;
     }
