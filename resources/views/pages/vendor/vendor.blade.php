@@ -243,7 +243,7 @@
                                                         {{-- Branch --}}
 
                                                             @if(auth()->user()->role_id === 2)
-                                                                <div class="col-sm-12">
+                                                                <div class="col-sm-4">
                                                                     <div class="form-group">
                                                                         <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
                                                                         {!! Form::select('branch_id',$edit_branches,null,

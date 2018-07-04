@@ -90,8 +90,6 @@ class AccountController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate(request(), [
-            'company_id' => 'required',
-            'branch_id' => "required",
             'nature_id' => "required",
             'account_name' => "required",
         ]);
