@@ -29,11 +29,19 @@ class Inventory extends Model
         $this->belongsTo('App/Models/account');
     }
 
-    public static function fetchUserBranch(){
+    public static function fetchInventories(){
 
-        $users = User::with('branches')
-            ->Where('branch_id', Auth::user()->branch_id)->get()->first();
-        return $users;
+        if(Auth::user()->role_id === 2)
+        {
+            $inventories = inventory::where('company_id','=',Auth::user()->company_id)->get();
+        }
+        elseif(Auth::user()->role_id === 3)
+        {
+            $inventories = inventory::where('company_id','=',Auth::user()->company_id)
+                ->where('branch_id','=',Auth::user()->branch_id)->get();
+        }
+        return $inventories;
+
     }
 
     public static function createInventory(Request $request)
