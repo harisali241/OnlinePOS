@@ -26,7 +26,7 @@ class VendorController extends Controller
 
         $accounts = account::fetchAccounts();
 
-        $companies = company::fetchCompanies();
+
 
         $edit_branches = branch::where('company_id','=',auth()->user()->company_id)->pluck('branch_name','id');
 
@@ -35,7 +35,7 @@ class VendorController extends Controller
         return view ('pages.vendor.vendor',array(
             'vendors' => $vendors,
             'accounts' => $accounts,
-            'companies' => $companies,
+
             'branches' => $branches,
             'edit_branches' => $edit_branches,
             'edit_accounts' => $edit_accounts,

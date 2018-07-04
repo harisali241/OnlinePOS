@@ -31,7 +31,7 @@ class Account extends Model
 
     public function account_natures()
     {
-        return $this->belongsTo('App\Models\Account_nature');
+        return $this->belongsTo('App\Models\Account_nature','nature_id');
     }
 
     public function customers(){
@@ -54,7 +54,7 @@ class Account extends Model
                 ->where('branch_id','=',Auth::user()->branch_id)->get();
         }
 
-
+        //dd($accounts);
         return $accounts;
     }
 
