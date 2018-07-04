@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 01, 2018 at 12:55 AM
--- Server version: 5.7.21
--- PHP Version: 7.2.4
+-- Generation Time: Jul 04, 2018 at 06:44 AM
+-- Server version: 5.7.19
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -32,13 +32,14 @@ DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE IF NOT EXISTS `accounts` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nature_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
   `branch_id` int(10) UNSIGNED NOT NULL,
+  `company_id` int(10) DEFAULT NULL,
   `account_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `account_number` bigint(20) NOT NULL,
   `account_desc` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `account_contactNo` bigint(20) NOT NULL,
-  `account_Address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `account_contactNo` bigint(20) DEFAULT NULL,
+  `account_Address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `opening_debit` double NOT NULL,
   `opening_credit` double NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -48,13 +49,6 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   KEY `accounts_branch_id_foreign` (`branch_id`),
   KEY `accounts_nature_id_foreign` (`nature_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `accounts`
---
-
-INSERT INTO `accounts` (`id`, `nature_id`, `user_id`, `branch_id`, `account_name`, `account_number`, `account_desc`, `account_contactNo`, `account_Address`, `opening_debit`, `opening_credit`, `created_at`, `updated_at`) VALUES
-(1, 1, 4, 1, 'testing', 5454, 'for testing purpose', 454654, 'fb area', 200, 2000, '2018-06-30 18:52:35', '2018-06-30 19:50:38');
 
 -- --------------------------------------------------------
 
@@ -199,13 +193,6 @@ CREATE TABLE IF NOT EXISTS `branches` (
   PRIMARY KEY (`id`),
   KEY `branches_company_id_foreign` (`company_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `branches`
---
-
-INSERT INTO `branches` (`id`, `company_id`, `branch_name`, `branch_phoneNo`, `location`, `latitude`, `longitude`, `status`, `created_at`, `updated_at`) VALUES
-(1, 5, 'Danny Branch 1', 44544, 'denny', '36.3355744', -94.1879349, 1, '2018-06-19 20:28:35', '2018-06-19 20:38:55');
 
 -- --------------------------------------------------------
 
@@ -4957,8 +4944,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `username`, `firstName`, `lastName`, `email`, `phoneNo`, `address`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, 1, 'admin', 'Huzaifa', 'Siddiqui', 'huzzee.24.sidd@gmail.com', NULL, NULL, '$2y$10$T.rdL9/b9CXJTMS5e3L2Ve8s08fpP4h.US4ITy5EXyo2J63XMuiTW', 1, 'epfwGOB7u5K9c3wb5ebYAcOVUhxtoB5XsVljk1Mi7S1C09ShXKnDokUVbnce', NULL, NULL),
-(4, 5, NULL, 2, 'danny', 'Bilal', 'Danny', 'danny@gmail.com', 3122245, 'asgasgasg', '$2y$10$VeMZ77halAmr9sX77Abqc.n1j37NfHOe27FkenoyGUXvNohiJTprm', 1, 'C97CqXyP2qrfWwWQNwdsblXF3RXMlbKYhdtwBYBzMR9SiB7DLB852Py1SmY6', '2018-06-07 02:47:29', '2018-06-07 02:47:29'),
+(1, 1, NULL, 1, 'admin', 'Huzaifa', 'Siddiqui', 'huzzee.24.sidd@gmail.com', NULL, NULL, '$2y$10$T.rdL9/b9CXJTMS5e3L2Ve8s08fpP4h.US4ITy5EXyo2J63XMuiTW', 1, 'ZSmV32pMgYXKX2naKILIUPZTVNw7YrDlTERKc78v9cpM25PGWg6VyyiaUyWG', NULL, NULL),
+(4, 5, NULL, 2, 'danny', 'Bilal', 'Danny', 'danny@gmail.com', 3122245, 'asgasgasg', '$2y$10$a4ZK2/nvrv4Nl05h24ZZDO10hKgEcC0Vw5LZ0bieZYVXFzLvQB.7y', 1, 'C97CqXyP2qrfWwWQNwdsblXF3RXMlbKYhdtwBYBzMR9SiB7DLB852Py1SmY6', '2018-06-07 02:47:29', '2018-07-04 01:44:14'),
 (5, 6, NULL, 2, 'zee21', 'huzaifa', 'Siddiqui', 'zee@gmail.com', NULL, NULL, '$2y$10$zSsd9xzA/.qZZyLUTGfZV.T7y65dEz7J.bivwnnMZCKQh75MEVA6W', 1, NULL, '2018-06-07 02:49:19', '2018-06-07 02:49:19');
 
 -- --------------------------------------------------------
