@@ -27,7 +27,6 @@ class VendorController extends Controller
         $accounts = account::fetchAccounts();
 
 
-
         $edit_branches = branch::where('company_id','=',auth()->user()->company_id)->pluck('branch_name','id');
 
         $edit_accounts = account::where('company_id','=',auth()->user()->company_id)->pluck('account_name','id');

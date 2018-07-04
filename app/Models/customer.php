@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Auth;
 
 class Customer extends Model
 {
     protected $fillable = [
-        'account_id', ,'user_id','branch_id', 'customer_name', 'customer_email', 'customer_address', 'customer_phoneNo', 'status'
+        'account_id', 'company_id' ,'user_id','branch_id', 'customer_name', 'customer_email', 'customer_address', 'customer_phoneNo', 'status'
     ];
 
     public function Accounts()
@@ -18,7 +19,15 @@ class Customer extends Model
 
     public static function fetchCustomer()
     {
-        $customers = customer::with('accounts')->get();
+        if(Auth::user()->role_id === 2)
+        {
+            $customers = customer::where('company_id','=',Auth::user()->company_id)->get();
+        }
+        elseif(Auth::user()->role_id === 3)
+        {
+            $customers = account::where('company_id','=',Auth::user()->company_id)
+                ->where('branch_id','=',Auth::user()->branch_id)->get();
+        }
 
         return $customers;
     }
@@ -27,6 +36,7 @@ class Customer extends Model
     {
         $customer = new customer;
 
+        $customer->user_id = $request['user_id'];
         $customer->company_id = $request['company_id'];
         $customer->branch_id = $request['branch_id'];
         $customer->account_id = $request['account_id'];
@@ -34,7 +44,6 @@ class Customer extends Model
         $customer->customer_email = $request['customer_email'];
         $customer->customer_phoneNo = $request['customer_phoneNo'];
         $customer->customer_address = $request['customer_address'];
-        $customer->credit_limit = $request['credit_limit'];
         $customer->status = $request['status'];
         $customer->save();
     }
@@ -44,6 +53,7 @@ class Customer extends Model
     {
         $customer = customer::findOrFail($id);
 
+        $customer->user_id = $request['user_id'];
         $customer->company_id = $request['company_id'];
         $customer->branch_id = $request['branch_id'];
         $customer->account_id = $request['account_id'];
@@ -51,7 +61,6 @@ class Customer extends Model
         $customer->customer_email = $request['customer_email'];
         $customer->customer_phoneNo = $request['customer_phoneNo'];
         $customer->customer_address = $request['customer_address'];
-        $customer->credit_limit = $request['credit_limit'];
         $customer->status = $request['status'];
         $customer->save();
     }

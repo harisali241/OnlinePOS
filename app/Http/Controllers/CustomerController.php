@@ -20,19 +20,26 @@ class CustomerController extends Controller
     {
         $customers = customer::fetchCustomer();
 
+        $branches = Branch::fetchBranches();
+
         $accounts = account::fetchAccounts();
 
-        $companies = company::fetchCompanies();
+        $edit_branches = branch::where('company_id','=',auth()->user()->company_id)->pluck('branch_name','id');
+
+        $edit_accounts = account::where('company_id','=',auth()->user()->company_id)->pluck('account_name','id');
 
         return view ('pages.customer.customer',array(
             'customers' => $customers,
             'accounts' => $accounts,
-            'companies' => $companies,
+            'branches' => $branches,
+            'edit_branches' => $edit_branches,
+            'edit_accounts' => $edit_accounts,
         ));
     }
 
     public function store(Request $request)
     {
+        //dd($request);
         $this->validate(request(), [
             'account_id' => 'required',
             'company_id' => 'required',

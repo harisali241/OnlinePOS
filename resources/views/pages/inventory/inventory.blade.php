@@ -1,98 +1,144 @@
 @extends('layouts.master')
 @section('content')
 
-    <!-- Add New Modal -->
-    <div id="addNew-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h5 class="modal-title">Add New Item</h5>
-                </div>
-                <div class="modal-body">
-                    <form action="{{url('/inventory')}}" method="POST" role="form">
+    <div class="row heading-bg">
+        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Manage Inventory's Items</h5>
+        </div>
+        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12" align="right">
+
+            <button type="button" data-toggle="modal" data-target=".bs-example-modal-lg"
+            class="btn btn-success btn-anim">Create +</button>
+
+
+        </div>
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" style="width: 95%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h5 class="modal-title" id="myLargeModalLabel">Add Items</h5>
+                    </div>
+                    <form data-toggle="validator" role="form" method="POST" id="inventory_submit" action="{{route('inventory.store')}}">
                         {{csrf_field()}}
 
-                        <label for="Account" class="control-label mb-10">Account<span class="text-danger">*</span></label>
-                        <select class="form-control select2 account-add" name="account_id" >
-                            <option disabled selected>Select Account</option>
-                            @foreach($accounts as $account)
-                                <option value="{{$account->id}}">{{$account->account_name}}</option>
-                            @endforeach
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-10">
+                                    <div class="row p-10">
+                                        <div class="col-sm-12" align="left">
+                                            <h5>Basic Information</h5>
+                                            <hr>
+                                        </div>
 
-                        </select>
+                                         <input type="hidden" name="company_id" value="{{Auth::user()->company_id}}">
 
-                        <label for="Company" class="control-label mb-10">Company<span class="text-danger">*</span></label>
-                        <select class="form-control select2 companyId" name="company_id" style="background:#f2f2f2;" required>
-                            <option disabled selected>Select Account</option>
-                            @foreach($companies as $company)
-                                <option value="{{$company->id}}">{{$company->company_name}}</option>
-                            @endforeach
+                                        <div class="col-sm-4">
+                                            <label for="Account" class="control-label">Account<span class="text-danger">*</span></label>
+                                            <select class="form-control select2" name="account_id">
+                                                <option disabled selected>Select Account</option>
+                                                @foreach($accounts as $account)
+                                                    <option value="{{$account->id}}">{{$account->account_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
-                        </select>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Branch Name<span class="text-danger">*</span></label>
+                                                @if(Auth::user()->role_id == 2)
+                                                    <select class="form-control select2" name="branch_id">
+                                                        @foreach($branches as $branch)
+                                                            <option value="{{$branch->id}}">{{$branch->branch_name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                @elseif(Auth::user()->role_id == 3  )
+                                                    <input type="hidden" name="branch_id" value="{{Auth::user()->branch_id}}">
+                                                @endif
+                                            </div>
+                                        </div>
+                                       
+                                    {{--Item Information--}}
+                                        <div class="col-sm-12" align="left">
+                                            <h5>Item Information</h5>
+                                            <hr>
+                                        </div>
 
-                        <label for="branch" class="control-label mb-10">Branch<span class="text-danger">*</span></label>
-                        <select class="form-control select2 branchId" name="branch_id" style="background:#f2f2f2;" required>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Item Name<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control small-input" name="item_name" required  placeholder="Enter Item Name">
+                                            </div>
+                                        </div>
 
-                        </select>
 
-                        <div class="form-group">
-                            <label for="Item Name" class="control-label mb-10">Item Name<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control item-name"  name="item_name" style="background:#f2f2f2;" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="Description" class="control-label mb-10">Description<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control item-desc"  name="item_desc" style="background:#f2f2f2;" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="Purchase Rate" class="control-label mb-10">Purchase Rate<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control purchase-rate"  name="purchase_rate" style="background:#f2f2f2;" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="Sell Rate" class="control-label mb-10">Sell Rate<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control sell-rate"  name="sell_rate" style="background:#f2f2f2;" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="Item Name" class="control-label mb-10">Alert Quantity<span class="text-danger">*</span></label>
-                            <input type="number" class="form-control alert-qty"  name="alert_qty" style="background:#f2f2f2;" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="control-label">Status<span class="text-danger">*</span></label>
-                            <div>
-                                <div class="radio radio-success radio-inline">
-                                    <input type="radio" name="status" id="radio1" value="1" checked>
-                                    <label for="radio1"> Active </label>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Item Description<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control small-input" name="item_desc" required  placeholder="Enter Item Description">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Purchase Rate<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control small-input" name="purchase_rate" required  placeholder="Enter Purchase Rate">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Sales Rate<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control small-input" name="sell_rate" required  placeholder="Enter Sales Rate">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Alert Quantity<span class="text-danger">*</span></label>
+                                                <input type="number" class="form-control small-input" name="alert_qty" required  placeholder="Enter Alert Quantity">
+                                            </div>
+                                        </div>
+
+                                         <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="" class="control-label">Status<span class="text-danger">*</span></label>
+                                                <div>
+                                                    <div class="radio radio-success radio-inline">
+                                                        <input type="radio" name="status" id="radio1" value="1" checked>
+                                                        <label for="radio1"> Active </label>
+                                                    </div>
+
+                                                    <div class="radio radio-info radio-inline">
+                                                        <input type="radio" name="status" id="radio2" value="0">
+                                                        <label for="radio2"> In Active </label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
+                                <div class="col-sm-1"></div>
 
-                                <div class="radio radio-info radio-inline">
-                                    <input type="radio" name="status" id="radio2" value="0">
-                                    <label for="radio2"> In Active </label>
-                                </div>
                             </div>
-
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success addNew-check">Submit</button>
+                            <button type="button" class="btn btn-default text-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success text-left submit_form_check">Submit</button>
                         </div>
                     </form>
                 </div>
+                <!-- /.modal-content -->
             </div>
+            <!-- /.modal-dialog -->
         </div>
-    </div>
-    <!-- Add New Modal -->
-
-    <div class="row heading-bg">
-        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-
-            <h5 class="txt-dark">Inventory</h5>
-
-            <br><br>
-
-            <button class="btn btn-success btn-anim" data-toggle="modal" data-target="#addNew-modal"><strong><i class=" icon-plus "></i><span class="btn-text">ADD NEW</span></strong></button>
-
-
+        <div class="col-sm-12">
+            <hr>
         </div>
+
 
     </div>
 
@@ -127,25 +173,25 @@
                                 <td>{{$item->alert_qty}}</td>
                                 <td>
                                     @if($item->status == '1')
-                                        <b style="color: red">Active</b>
+                                        <b style="color: green">Active</b>
                                     @else
-                                        <b style="color: grey">Inactive</b>
+                                        <b style="color: red">Inactive</b>
                                     @endif
                                 </td>
                                 <td>
                                     <div class="row" align="center">
                                         <div class="col-sm-3" align="center">
-                                            <button type="button" data-toggle="modal" data-target=".bs-example-modal-edit{{ $item->id }}"
+                                            <button type="button" data-toggle="modal" data-target=".bs-example-modal-lg-edit{{ $item->id }}"
                                                     class="btn btn-warning btn-icon-anim btn-square btn-sm "><i class="fa fa-pencil"></i></button>
 
                                         </div>
                                         <div class="col-sm-3" align="center">
 
-                                            <form method="POST" action="inventory/{{ $item->id }}" id="delete">
+                                            <form method="POST" action="{{ url('inventory/'.$item->id) }}" id="delete{{$item->id}}">
                                                 {{csrf_field()}}
                                                 {{method_field("DELETE")}}
 
-                                                <button type="button" class="btn btn-danger btn-icon-anim btn-square btn-sm" onclick="del();"><i class="fa fa-trash"></i></button>
+                                                <button type="button" class="btn btn-danger btn-icon-anim btn-square btn-sm" onclick="del({{$item->id}});"><i class="fa fa-trash"></i></button>
                                             </form>
 
 
@@ -158,8 +204,8 @@
                             @php $i++; @endphp
 
                             {{--edit Modal--}}
-                            <div class="modal bs-example-modal-edit{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                                <div class="modal-dialog" style="width: 45%;">
+                            <div class="modal fade bs-example-modal-lg-edit{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog" style="width: 95%;">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -170,61 +216,52 @@
 
                                         <div class="modal-body">
                                             <div class="row">
-
-                                                {!! Form::hidden('account_id' , null ,['class' => 'form-control','id' => 'account_id'.$item->id,'required' => 'required'] ) !!}
-                                                {!! Form::hidden('company_id' , null ,['class' => 'form-control','id' => 'company_id'.$item->id,'required' => 'required'] ) !!}
-                                                {!! Form::hidden('branch_id' , null ,['class' => 'form-control','id' => 'branch_id'.$item->id,'required' => 'required'] ) !!}
-
-                                                <div class="col-sm-12">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-10">
                                                     <div class="row p-10">
-                                                        <div class="col-sm-12">
+                                                    {{--Item Information--}}
+                                                        <div class="col-sm-12" align="left">
+                                                            <h5>Item Information</h5>
+                                                            <hr>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <label for="" class="control-label">Item Name<span class="text-danger">*</span></label>
-                                                                {!! Form::text('item_name' , null ,['class' => 'form-control',
-                                                                'placeholder' => 'Enter Item Name','id' => 'item_name'.$item->id,'required' => 'required'] ) !!}
-
+                                                                {!! Form::text('item_name' , null ,['class' => 'form-control','placeholder' => 'Enter Item Name','id' => 'item_name'.$item->id,'required' => 'required'] ) !!}
                                                             </div>
                                                         </div>
 
 
-                                                        <div class="col-sm-12">
+                                                        <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <label for="" class="control-label">Description<span class="text-danger">*</span></label>
-                                                                {!! Form::text('item_desc' , null ,['class' => 'form-control',
-                                                                'placeholder' => 'Enter Item Description','id' => 'item_desc'.$item->id,'required' => 'required'] ) !!}
-
+                                                                {!! Form::text('item_desc' , null ,['class' => 'form-control','placeholder' => 'Enter Item Description','id' => 'item_desc'.$item->id,'required' => 'required'] ) !!}
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-sm-12">
+                                                        <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <label for="" class="control-label">Purchase Rate<span class="text-danger">*</span></label>
-                                                                {!! Form::text('purchase_rate' , null ,['class' => 'form-control',
-                                                                'placeholder' => 'Enter Item Description','id' => 'purchase_rate'.$item->id,'required' => 'required'] ) !!}
-
+                                                                {!! Form::text('purchase_rate' , null ,['class' => 'form-control','placeholder' => 'Enter Item Description','id' => 'purchase_rate'.$item->id,'required' => 'required'] ) !!}
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-sm-12">
+                                                        <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <label for="" class="control-label">Sell Rate<span class="text-danger">*</span></label>
-                                                                {!! Form::text('sell_rate' , null ,['class' => 'form-control',
-                                                                'placeholder' => 'Enter Item Description','id' => 'sell_rate'.$item->id,'required' => 'required'] ) !!}
-
+                                                                {!! Form::text('sell_rate' , null ,['class' => 'form-control','placeholder' => 'Enter Item Description','id' => 'sell_rate'.$item->id,'required' => 'required'] ) !!}
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-sm-12">
+                                                        <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <label for="" class="control-label">Alert Quantity<span class="text-danger">*</span></label>
-                                                                {!! Form::text('alert_qty' , null ,['class' => 'form-control',
-                                                                'placeholder' => 'Enter Item Description','id' => 'alert_qty'.$item->id,'required' => 'required'] ) !!}
-
+                                                                {!! Form::text('alert_qty' , null ,['class' => 'form-control','placeholder' => 'Enter Item Description','id' => 'alert_qty'.$item->id,'required' => 'required'] ) !!}
                                                             </div>
                                                         </div>
 
-
-                                                        <div class="col-sm-12">
+                                                         <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <label for="" class="control-label">Status<span class="text-danger">*</span></label>
                                                                 <div>
@@ -238,11 +275,13 @@
                                                                         <label for="radio12{{ $item->id }}"> In Active </label>
                                                                     </div>
                                                                 </div>
+
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                 </div>
+                                                <div class="col-sm-1"></div>
 
                                             </div>
                                         </div>
@@ -303,7 +342,7 @@
             });
         });
 
-        function del(){
+        function del(id){
             swal({
                 title: "Are you sure?",
                 text: "You will not be able to recover this imaginary file!",
@@ -315,7 +354,7 @@
             }, function(){
 
                 swal("Deleted!", "Your record has been deleted.", "success");
-                $("#delete").submit();
+                $("#delete"+id).submit();
 
             });
             return false;

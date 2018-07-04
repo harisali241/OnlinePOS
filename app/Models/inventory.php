@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\branch;
+use App\User;
 use DB;
+use Auth;
 
 class Inventory extends Model
 {
@@ -27,7 +29,12 @@ class Inventory extends Model
         $this->belongsTo('App/Models/account');
     }
 
+    public static function fetchUserBranch(){
 
+        $users = User::with('branches')
+            ->Where('branch_id', Auth::user()->branch_id)->get()->first();
+        return $users;
+    }
 
     public static function createInventory(Request $request)
     {
@@ -45,7 +52,8 @@ class Inventory extends Model
         $inventory->sell_rate = request('sell_rate');
         $inventory->alert_qty = request('alert_qty');
         $inventory->account_id = request('account_id');
-        $inventory->user_id = request('company_id');
+        $inventory->user_id = Auth::user()->id;
+        $inventory->company_id = request('company_id');
         $inventory->branch_id = request('branch_id');
         $inventory->status = $status;
 
@@ -62,9 +70,8 @@ class Inventory extends Model
         $inventory->purchase_rate = request('purchase_rate');
         $inventory->sell_rate = request('sell_rate');
         $inventory->alert_qty = request('alert_qty');
-        $inventory->account_id = request('account_id');
-        $inventory->user_id = request('company_id');
-        $inventory->branch_id = request('branch_id');
+        $inventory->user_id = Auth::user()->id;
+        $inventory->company_id = Auth::user()->company_id;
         $inventory->status = request('status');
 
         $inventory->save();

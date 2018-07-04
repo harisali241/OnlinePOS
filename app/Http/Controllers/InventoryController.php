@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Models\Branch;
 use Illuminate\Http\Request;
 use App\Models\inventory;
 use App\Models\account;
@@ -22,8 +22,9 @@ class InventoryController extends Controller
         //dd(Route::getRoutes());
         $inventories = Inventory::all();
         $accounts = Account::fetchAccounts();
-        $companies = Company::all();
-        return view('pages.inventory.inventory', compact('inventories','accounts','companies'));
+        $branches = Branch::fetchBranches();
+        //$userBranch = Inventory::fetchUserBranch();
+        return view('pages.inventory.inventory', compact('inventories','accounts','branches'));
     }
 
     /**
@@ -46,6 +47,7 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $request->validate([
             'item_name' => "required",
             'item_desc' => "required",
@@ -53,8 +55,8 @@ class InventoryController extends Controller
             'sell_rate' => "required",
             'alert_qty' => "required",
             'account_id' => "required",
-            'company_id' => "required",
             'branch_id' => "required",
+            'company_id' => "required",
             'status' => "required",
         ]);
         Inventory::createInventory($request);
@@ -99,9 +101,6 @@ class InventoryController extends Controller
             'purchase_rate' => "required",
             'sell_rate' => "required",
             'alert_qty' => "required",
-            'account_id' => "required",
-            'company_id' => "required",
-            'branch_id' => "required",
             'status' => "required",
         ]);
 
@@ -118,8 +117,8 @@ class InventoryController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
-        //Inventory::findOrFail($id)->delete();
+        //dd($id);
+        Inventory::findOrFail($id)->delete();
         return redirect('inventory')->with('message', 'Successfully Deleted');
     }
 }

@@ -1,18 +1,19 @@
 @extends('layouts.master')
 @section('content')
 
-    <div class="row heading-bg">
-        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
 
-            <h5 class="txt-dark">Customers</h5>
+        <div class="row heading-bg">
+        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Manage Customers</h5>
+        </div>
 
-            <br><br>
-
+        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12" align="right">
             <button type="button" data-toggle="modal" data-target=".bs-example-modal-lg"
-                    class="btn btn-success btn-anim">Add Customer</button>
+            class="btn btn-success btn-anim">Create +</button>
+        </div>
 
             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                <div class="modal-dialog" style="width: 45%;">
+                <div class="modal-dialog" style="width: 95%;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -23,133 +24,121 @@
 
                             <div class="modal-body">
                                 <div class="row">
+                                    <div class="col-sm-1"></div>
 
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-10">
                                         <div class="row p-10">
 
-                                            {{-- account --}}
+                                            <input type="hidden" value="{{ Auth::user()->company_id }}" name="company_id">
+                                            <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
 
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
-                                                    <select class="form-control select2" name="account_id">
-                                                        <option disabled selected value="0">Select Account</option>
-                                                        @foreach($accounts as $account)
-                                                            <option value="{{$account->id}}">{{$account->accounts_name}}</option>
-                                                        @endforeach
+                                            {{-- customer name--}}
 
-                                                    </select>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="inputName" class="control-label mb-10">Customer Name<span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control small-input" required name="customer_name" placeholder="Enter Customer Name">
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            {{-- account --}}
+                                            {{-- customer name--}}
 
-                                            {{-- Company --}}
+                                            {{-- customer email --}}
 
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">Companies<span class="text-danger">*</span></label>
-                                                    <select class="form-control select2 companyId" name="company_id">
-                                                        <option disabled selected value="0">Select Company</option>
-                                                        @foreach($companies as $company)
-                                                            <option value="{{$company->id}}">{{$company->company_name}}</option>
-                                                        @endforeach
-
-                                                    </select>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="inputName" class="control-label mb-10">Customer Email<span class="text-danger">*</span></label>
+                                                        <input type="email" class="form-control small-input" required name="customer_email" placeholder="Enter Customer Email">
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            {{-- Company --}}
-
-                                            {{-- Branch --}}
-
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">Branches<span class="text-danger">*</span></label>
-                                                    <select class="form-control select2 branchId" name="branch_id">
-
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            {{-- Branch --}}
-
-                                            {{-- Customer name--}}
-
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">Customer Name<span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" required name="customer_name" placeholder="Enter Customer Name">
-                                                </div>
-                                            </div>
-
-                                            {{-- Customer name--}}
-
-                                            {{-- Customer email --}}
-
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">Customer Email<span class="text-danger">*</span></label>
-                                                    <input type="email" class="form-control" required name="customer_email" placeholder="Enter Customer Email">
-                                                </div>
-                                            </div>
 
                                             {{-- customer email --}}
 
                                             {{-- customer phoneNo --}}
 
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">Customer Contact Number<span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" required name="customer_phoneNo" id="customer_phoneNo" placeholder="Enter Phone No">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="inputName" class="control-label mb-10">Customer Contact Number<span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control small-input" required name="customer_phoneNo" id="customer_phoneNo" placeholder="Enter Phone No" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" onkeypress='validate(event)'>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            {{-- customer phoneNo --}}
+                                            {{-- Customer phoneNo --}}
 
-                                            {{-- Customer Address --}}
+                                            {{-- Status --}}
 
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="" class="control-label">Address</label>
-                                                    <textarea class="form-control" rows="3" name="customer_address" id="customer_address" placeholder="Enter Address"></textarea>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="" class="control-label mb-10">Status<span class="text-danger">*</span></label>
+                                                        <div>
+                                                            <div class="radio radio-success radio-inline">
+                                                                <input type="radio" name="status" id="radio1" value="1" checked>
+                                                                <label for="radio1"> Active </label>
+                                                            </div>
+
+                                                            <div class="radio radio-info radio-inline">
+                                                                <input type="radio" name="status" id="radio2" value="0">
+                                                                <label for="radio2"> In Active </label>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
+
+                                            {{-- Status --}}
+
+                                            {{-- customer Address --}}
+
+                                            <div class="col-sm-4">
+                                                @if(Auth::user()->role_id === 2)
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
+                                                            <select class="form-control select2" name="branch_id" id="branch_id">
+                                                                <option disabled selected value="0">Select Branch Name</option>
+                                                                @foreach($branches as $branch)
+                                                                    <option value="{{$branch->id}}">{{$branch->branch_name}}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                @elseif(Auth::user()->role_id === 3)
+                                                    <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
+                                                @endif
                                             </div>
 
                                             {{-- customer Address --}}
 
-                                            {{-- Credit Limit --}}
+                                            {{-- account --}}
 
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="inputName" class="control-label mb-10">Credit Limit<span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" required name="credit_limit" placeholder="Enter Credit Limit">
-                                                </div>
-                                            </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
+                                                        <select class="form-control select2" name="account_id">
+                                                            <option disabled selected value="0">Select Account</option>
+                                                            @foreach($accounts as $account)
+                                                                <option value="{{$account->id}}">{{$account->account_name}}</option>
+                                                            @endforeach
 
-                                            {{-- Credit Limit --}}
-
-                                            {{-- Status --}}
-
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="" class="control-label">Status<span class="text-danger">*</span></label>
-                                                    <div>
-                                                        <div class="radio radio-success radio-inline">
-                                                            <input type="radio" name="status" id="radio1" value="1" checked>
-                                                            <label for="radio1"> Active </label>
-                                                        </div>
-
-                                                        <div class="radio radio-info radio-inline">
-                                                            <input type="radio" name="status" id="radio2" value="0">
-                                                            <label for="radio2"> In Active </label>
-                                                        </div>
+                                                        </select>
                                                     </div>
+                                                </div>
 
+                                            {{-- account --}}
+
+                                            {{-- Branch --}}
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="" class="control-label mb-10">Address</label>
+                                                    <input type="text" class="form-control small-input" name="customer_address" placeholder="Enter Address">
                                                 </div>
                                             </div>
+                                                
 
-                                            {{-- Status --}}
+                                            {{-- Branch --}}
+
+                                            
 
                                         </div>
                                     </div>
@@ -167,11 +156,14 @@
                 <!-- /.modal-dialog -->
             </div>
 
+            <div class="col-sm-12">
+                <hr>
+            </div>
+
 
         </div>
 
     </div>
-
 
     <!-- Row -->
     <div class="row">
@@ -202,9 +194,9 @@
                                 <td>{{$customer->customer_address}}</td>
                                 <td>
                                     @if($customer->status === 1)
-                                        <b style="color: red">Active</b>
+                                        <b style="color: green">Active</b>
                                     @else
-                                        <b style="color: grey">Inactive</b>
+                                        <b style="color: red">Inactive</b>
                                     @endif
                                 </td>
                                 <td>
@@ -217,11 +209,11 @@
                                         </div>
                                         <div class="col-sm-3" align="center">
 
-                                            <form method="post" action="customer/{{$customer->id}}" id="delete">
+                                            <form method="post" action="{{ url('customer/'.$customer->id) }}" id="delete{{$customer->id}}">
                                                 {{csrf_field()}}
                                                 {{method_field("DELETE")}}
 
-                                                <button type="button" class="btn btn-danger btn-icon-anim btn-square btn-sm m-b-5" onclick="del();"><i class="fa fa-trash"></i></button>
+                                                <button type="button" class="btn btn-danger btn-icon-anim btn-square btn-sm m-b-5" onclick="del({{$customer->id}});"><i class="fa fa-trash"></i></button>
                                             </form>
                                         </div>
                                     </div>
@@ -232,7 +224,7 @@
 
                             {{-- Edit Modal --}}
                             <div class="modal fade bs-example-modal-edit{{ $customer->id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                                <div class="modal-dialog" style="width: 45%;">
+                                <div class="modal-dialog" style="width: 95%;">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -243,60 +235,19 @@
 
                                         <div class="modal-body">
                                             <div class="row">
-
-                                                <div class="col-sm-12">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-10">
                                                     <div class="row p-10">
 
-                                                        {!! Form::hidden('account_id' , null ,['class' => 'form-control','id' => 'account_id'.$customer->id,'required' => 'required'] ) !!}
+                                                        {!! Form::hidden('user_id' , null ,['class' => 'form-control','id' => 'user_id'.$customer->id,'required' => 'required'] ) !!}
                                                         {!! Form::hidden('company_id' , null ,['class' => 'form-control','id' => 'company_id'.$customer->id,'required' => 'required'] ) !!}
-                                                        {!! Form::hidden('branch_id' , null ,['class' => 'form-control','id' => 'branch_id'.$customer->id,'required' => 'required'] ) !!}
-
-
-                                                        {{-- Account --}}
-
-                                                        {{--<div class="col-sm-12">--}}
-                                                            {{--<div class="form-group">--}}
-                                                                {{--<label for="inputName" class="control-label mb-10">Account<span class="text-danger">*</span></label>--}}
-                                                                {{--{!! Form::select('account_id' ,$edit_accounts, null ,['class' => 'form-control select2',--}}
-                                                                {{--'id' => 'account_id'.$customer->id] ) !!}--}}
-
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-
-                                                        {{-- Account --}}
-
-                                                        {{-- Company Name --}}
-
-                                                        {{--<div class="col-sm-12">--}}
-                                                            {{--<div class="form-group">--}}
-                                                                {{--<label for="inputName" class="control-label mb-10">Companies<span class="text-danger">*</span></label>--}}
-                                                                {{--{!! Form::select('company_id' ,$edit_companies, null ,['class' => 'form-control select2',--}}
-                                                                {{--'id' => 'company_id'.$customer->id] ) !!}--}}
-
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-
-                                                        {{-- Company Name --}}
-
-                                                        {{-- Branch Name --}}
-
-                                                        {{--<div class="col-sm-12">--}}
-                                                            {{--<div class="form-group">--}}
-                                                                {{--<label for="inputName" class="control-label mb-10">Branches<span class="text-danger">*</span></label>--}}
-                                                                {{--{!! Form::select('branch_id' ,$edit_branches, null ,['class' => 'form-control select2',--}}
-                                                                {{--'id' => 'branch_id'.$customer->id] ) !!}--}}
-
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-
-                                                        {{-- Branch Name --}}
 
                                                         {{-- customer Name --}}
 
-                                                        <div class="col-sm-12">
+                                                        <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <label for="inputName" class="control-label mb-10">Customer Name<span class="text-danger">*</span></label>
-                                                                {!! Form::text('customer_name' , null ,['class' => 'form-control',
+                                                                {!! Form::text('customer_name' , null ,['class' => 'form-control small-input',
                                                                 'placeholder' => 'Enter Customer Name','id' => 'customer_name'.$customer->id,'required' => 'required'] ) !!}
 
                                                             </div>
@@ -304,78 +255,95 @@
 
                                                         {{-- customer Name --}}
 
-                                                        {{-- Customer Email --}}
+                                                        {{-- customer Email --}}
 
-                                                        <div class="col-sm-12">
+                                                        <div class="col-sm-4">
                                                             <div class="form-group">
-                                                                <label for="inputName" class="control-label mb-10">Customer Email<span class="text-danger">*</span></label>
-                                                                {!! Form::email('customer_email' , null ,['class' => 'form-control',
+                                                                <label for="inputName" class="control-label mb-10">Customer Name<span class="text-danger">*</span></label>
+                                                                {!! Form::email('customer_email' , null ,['class' => 'form-control small-input',
                                                                 'placeholder' => 'Enter Customer Email','id' => 'customer_email'.$customer->id,'required' => 'required'] ) !!}
 
                                                             </div>
                                                         </div>
 
-                                                        {{-- Customer Email --}}
+                                                        {{-- customer Email --}}
 
-                                                        {{-- Customer phoneno --}}
+                                                        {{-- customer phoneno --}}
 
-                                                        <div class="col-sm-12">
+                                                        <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <label for="inputName" class="control-label mb-10">Customer Contact No<span class="text-danger">*</span></label>
-                                                                {!! Form::text('customer_phoneNo' , null ,['class' => 'form-control',
-                                                                'placeholder' => 'Enter Customer Phone No','id' => 'customer_phoneNo'.$customer->id,'required' => 'required'] ) !!}
+                                                                {!! Form::text('customer_phoneNo' , null ,['class' => 'form-control small-input',
+                                                                'placeholder' => 'Enter Customer Phone No','id' => 'customer_phoneNo'.$customer->id,'required' => 'required','onkeypress' => 'validate(event)'] ) !!}
 
                                                             </div>
                                                         </div>
 
-                                                        {{-- Customer phoneon --}}
+                                                        {{-- customer phoneon --}}
 
-                                                        {{-- Customer Address --}}
+                                                        
+                                                        {{-- Branch --}}
 
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label for="" class="control-label">Address</label>
-                                                                {!! Form::textarea('customer_address' , null ,['class' => 'form-control',
-                                                                'placeholder' => 'Enter Address','rows' => '3'] ) !!}
+                                                            @if(auth()->user()->role_id === 2)
+                                                                <div class="col-sm-4">
+                                                                    <div class="form-group">
+                                                                        <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
+                                                                        {!! Form::select('branch_id',$edit_branches,null,
+                                                                        ['class' => 'select2 form-control']) !!}
+                                                                    </div>
+                                                                </div>
+                                                            @elseif(auth()->user()->role_id === 3)
+                                                                <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
+                                                            @endif
 
-                                                            </div>
-                                                        </div>
-
-                                                        {{-- Customer Address --}}
-
-                                                        {{-- Credit Limit --}}
-
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label for="inputName" class="control-label mb-10">Credit Limit<span class="text-danger">*</span></label>
-                                                                {!! Form::text('credit_limit' , null ,['class' => 'form-control',
-                                                                'placeholder' => 'Enter Credit Limit'.$customer->id,'required' => 'required'] ) !!}
-
-                                                            </div>
-                                                        </div>
-
-                                                        {{-- Credit Limit --}}
+                                                        {{-- Branch --}}
 
                                                         {{-- Status --}}
 
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label for="" class="control-label">Status<span class="text-danger">*</span></label>
-                                                                <div>
-                                                                    <div class="radio radio-success radio-inline">
-                                                                        {!! Form::radio('status', 1,['id' => 'radio1'.$customer->id]) !!}
-                                                                        <label for="radio1{{ $customer->id }}"> Active </label>
-                                                                    </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="" class="control-label">Status<span class="text-danger">*</span></label>
+                                                                    <div>
+                                                                        <div class="radio radio-success radio-inline">
+                                                                            {!! Form::radio('status', 1,['id' => 'radio1'.$customer->id]) !!}
+                                                                            <label for="radio1{{ $customer->id }}"> Active </label>
+                                                                        </div>
 
-                                                                    <div class="radio radio-info radio-inline">
-                                                                        {!! Form::radio('status', 0,['id' => 'radio12'.$customer->id]) !!}
-                                                                        <label for="radio12{{ $customer->id }}"> In Active </label>
+                                                                        <div class="radio radio-info radio-inline">
+                                                                            {!! Form::radio('status', 0,['id' => 'radio12'.$customer->id]) !!}
+                                                                            <label for="radio12{{ $customer->id }}"> In Active </label>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
                                                         {{-- Status --}}
+
+                                                        {{-- account --}}
+
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
+                                                                    {!! Form::select('account_id',$edit_accounts,null,
+                                                                    ['class' => 'select2 form-control']) !!}
+                                                                </div>
+                                                            </div>
+
+                                                        {{-- account --}}
+
+                                                        {{-- customer Address --}}
+
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="" class="control-label">Address</label>
+                                                                    {!! Form::text('customer_address' , null ,['class' => 'form-control small-input',
+                                                                    'placeholder' => 'Enter Address'] ) !!}
+
+                                                                </div>
+                                                            </div>
+
+                                                        {{-- customer Address --}}
+                                                        
 
                                                     </div>
                                                 </div>
@@ -392,7 +360,6 @@
                                 </div>
                                 <!-- /.modal-dialog -->
                             </div>
-
                             {{-- Edit Modal --}}
                         @endforeach
                         </tbody>
@@ -438,7 +405,7 @@
             });
         });
 
-        function del(){
+        function del(id){
             swal({
                 title: "Are you sure?",
                 text: "You will not be able to recover this imaginary file!",
@@ -450,7 +417,7 @@
             }, function(){
 
                 swal("Deleted!", "Your record has been deleted.", "success");
-                $("#delete").submit();
+                $("#delete"+id).submit();
 
             });
             return false;

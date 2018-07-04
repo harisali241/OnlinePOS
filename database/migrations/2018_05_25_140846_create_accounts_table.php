@@ -16,7 +16,7 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('nature_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->integer('company_id')->unsigned();
             $table->integer('branch_id')->unsigned();
             $table->string('account_name');
             $table->bigInteger('account_number');
@@ -27,7 +27,7 @@ class CreateAccountsTable extends Migration
             $table->double('opening_credit');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('company')->onDelete('cascade');
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->foreign('nature_id')->references('id')->on('account_natures')->onDelete('cascade');
         });

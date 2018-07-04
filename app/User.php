@@ -86,6 +86,7 @@ class User extends Authenticatable
         return $users;
     }
 
+
     public static function fetchCompanyFromUser(){
         $company = Company::Where('id' , Auth::user()->company_id)->pluck('company_name')[0];
         return $company;
