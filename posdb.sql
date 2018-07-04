@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 04, 2018 at 06:44 AM
--- Server version: 5.7.19
--- PHP Version: 7.1.9
+-- Generation Time: Jul 04, 2018 at 08:52 AM
+-- Server version: 5.7.21
+-- PHP Version: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -4957,6 +4957,7 @@ INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `username`, `fi
 DROP TABLE IF EXISTS `vendors`;
 CREATE TABLE IF NOT EXISTS `vendors` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `company_id` int(10) UNSIGNED NOT NULL,
   `account_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `branch_id` int(10) UNSIGNED NOT NULL,
@@ -4971,7 +4972,8 @@ CREATE TABLE IF NOT EXISTS `vendors` (
   UNIQUE KEY `vendors_vendor_email_unique` (`vendor_email`),
   KEY `vendors_user_id_foreign` (`user_id`),
   KEY `vendors_branch_id_foreign` (`branch_id`),
-  KEY `vendors_account_id_foreign` (`account_id`)
+  KEY `vendors_account_id_foreign` (`account_id`),
+  KEY `vendors_company_id_foreign` (`company_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -5071,6 +5073,7 @@ ALTER TABLE `users`
 ALTER TABLE `vendors`
   ADD CONSTRAINT `vendors_account_id_foreign` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `vendors_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `vendors_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `vendors_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 

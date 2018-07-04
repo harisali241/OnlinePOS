@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\account;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Auth;
 
 class Vendor extends Model
 {
