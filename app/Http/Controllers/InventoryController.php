@@ -51,8 +51,7 @@ class InventoryController extends Controller
         $request->validate([
             'item_name' => "required",
             'item_desc' => "required",
-            'purchase_rate' => "required",
-            'sell_rate' => "required",
+            'opening_qty' => "required",
             'alert_qty' => "required",
             'account_id' => "required",
             'branch_id' => "required",
@@ -98,8 +97,7 @@ class InventoryController extends Controller
         $request->validate([
             'item_name' => "required",
             'item_desc' => "required",
-            'purchase_rate' => "required",
-            'sell_rate' => "required",
+            'opening_qty' => "required",
             'alert_qty' => "required",
             'status' => "required",
         ]);

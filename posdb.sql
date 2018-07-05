@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 04, 2018 at 08:52 AM
+-- Generation Time: Jul 05, 2018 at 09:35 AM
 -- Server version: 5.7.21
--- PHP Version: 7.2.4
+-- PHP Version: 7.1.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -48,7 +48,14 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   KEY `accounts_user_id_foreign` (`user_id`),
   KEY `accounts_branch_id_foreign` (`branch_id`),
   KEY `accounts_nature_id_foreign` (`nature_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`id`, `nature_id`, `user_id`, `branch_id`, `company_id`, `account_name`, `account_number`, `account_desc`, `account_contactNo`, `account_Address`, `opening_debit`, `opening_credit`, `created_at`, `updated_at`) VALUES
+(2, 1, 6, 2, 7, 'Tooth Paste', 1001, 'none', NULL, NULL, 0, 0, '2018-07-05 04:33:43', '2018-07-05 04:33:43');
 
 -- --------------------------------------------------------
 
@@ -192,7 +199,14 @@ CREATE TABLE IF NOT EXISTS `branches` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `branches_company_id_foreign` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `branches`
+--
+
+INSERT INTO `branches` (`id`, `company_id`, `branch_name`, `branch_phoneNo`, `location`, `latitude`, `longitude`, `status`, `created_at`, `updated_at`) VALUES
+(2, 7, 'DDD', 559955, 'karachi, pakistan', '24.8607343', 67.0011368, 1, '2018-07-05 04:32:57', '2018-07-05 04:32:57');
 
 -- --------------------------------------------------------
 
@@ -212,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `companies` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `companies`
@@ -221,7 +235,8 @@ CREATE TABLE IF NOT EXISTS `companies` (
 INSERT INTO `companies` (`id`, `company_name`, `company_address`, `location`, `latitude`, `longitude`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Default Company', NULL, NULL, NULL, NULL, 1, NULL, NULL),
 (5, 'Danny PVT LTD', NULL, 'denny', '33.8462451', -118.3556137, 1, '2018-06-07 02:47:28', '2018-06-07 02:47:28'),
-(6, 'Zee Papar Company', NULL, 'Zee Papar', '30.3101122', -97.9423904, 1, '2018-06-07 02:49:19', '2018-06-07 02:49:19');
+(6, 'Zee Papar Company', NULL, 'Zee Papar', '30.3101122', -97.9423904, 1, '2018-06-07 02:49:19', '2018-06-07 02:49:19'),
+(7, 'Local Corporation', NULL, 'karachi, pakistan', '24.8607343', 67.0011368, 1, '2018-07-05 04:32:05', '2018-07-05 04:32:05');
 
 -- --------------------------------------------------------
 
@@ -501,6 +516,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `account_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
+  `company_id` int(11) NOT NULL,
   `branch_id` int(10) UNSIGNED NOT NULL,
   `customer_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `customer_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -527,11 +543,11 @@ CREATE TABLE IF NOT EXISTS `inventories` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `account_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
+  `company_id` int(11) NOT NULL,
   `branch_id` int(10) UNSIGNED NOT NULL,
   `item_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `item_desc` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `purchase_rate` double NOT NULL,
-  `sell_rate` double NOT NULL,
+  `opening_qty` double NOT NULL,
   `alert_qty` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -540,7 +556,14 @@ CREATE TABLE IF NOT EXISTS `inventories` (
   KEY `inventories_account_id_foreign` (`account_id`),
   KEY `inventories_user_id_foreign` (`user_id`),
   KEY `inventories_branch_id_foreign` (`branch_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `inventories`
+--
+
+INSERT INTO `inventories` (`id`, `account_id`, `user_id`, `company_id`, `branch_id`, `item_name`, `item_desc`, `opening_qty`, `alert_qty`, `status`, `created_at`, `updated_at`) VALUES
+(1, 2, 6, 7, 2, 'Tie', 'Tie', 500, 50, 1, '2018-07-05 04:34:14', '2018-07-05 04:34:14');
 
 -- --------------------------------------------------------
 
@@ -4937,16 +4960,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `users_company_id_foreign` (`company_id`),
   KEY `users_branch_id_foreign` (`branch_id`),
   KEY `users_role_id_foreign` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `username`, `firstName`, `lastName`, `email`, `phoneNo`, `address`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, 1, 'admin', 'Huzaifa', 'Siddiqui', 'huzzee.24.sidd@gmail.com', NULL, NULL, '$2y$10$T.rdL9/b9CXJTMS5e3L2Ve8s08fpP4h.US4ITy5EXyo2J63XMuiTW', 1, 'ZSmV32pMgYXKX2naKILIUPZTVNw7YrDlTERKc78v9cpM25PGWg6VyyiaUyWG', NULL, NULL),
+(1, 1, NULL, 1, 'admin', 'Huzaifa', 'Siddiqui', 'huzzee.24.sidd@gmail.com', NULL, NULL, '$2y$10$T.rdL9/b9CXJTMS5e3L2Ve8s08fpP4h.US4ITy5EXyo2J63XMuiTW', 1, 'AwNyRCI642SwVyQBbPJGM4WKVXhWg26rH2hotcEhnEhPP7XUz3dAm5vK1P1H', NULL, NULL),
 (4, 5, NULL, 2, 'danny', 'Bilal', 'Danny', 'danny@gmail.com', 3122245, 'asgasgasg', '$2y$10$a4ZK2/nvrv4Nl05h24ZZDO10hKgEcC0Vw5LZ0bieZYVXFzLvQB.7y', 1, 'C97CqXyP2qrfWwWQNwdsblXF3RXMlbKYhdtwBYBzMR9SiB7DLB852Py1SmY6', '2018-06-07 02:47:29', '2018-07-04 01:44:14'),
-(5, 6, NULL, 2, 'zee21', 'huzaifa', 'Siddiqui', 'zee@gmail.com', NULL, NULL, '$2y$10$zSsd9xzA/.qZZyLUTGfZV.T7y65dEz7J.bivwnnMZCKQh75MEVA6W', 1, NULL, '2018-06-07 02:49:19', '2018-06-07 02:49:19');
+(5, 6, NULL, 2, 'zee21', 'huzaifa', 'Siddiqui', 'zee@gmail.com', NULL, NULL, '$2y$10$zSsd9xzA/.qZZyLUTGfZV.T7y65dEz7J.bivwnnMZCKQh75MEVA6W', 1, NULL, '2018-06-07 02:49:19', '2018-06-07 02:49:19'),
+(6, 7, NULL, 2, 'haris', 'haris', 'ali', 'harisali241@gmail.com', 3357223534, 'karachi', '$2y$10$8L9EXkigZTH19E1yeqKiOOBOJDopIM7CbYqG9mZv9M2CQ9LrB16VK', 1, NULL, '2018-07-05 04:32:06', '2018-07-05 04:32:06');
 
 -- --------------------------------------------------------
 
@@ -4957,9 +4981,9 @@ INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `username`, `fi
 DROP TABLE IF EXISTS `vendors`;
 CREATE TABLE IF NOT EXISTS `vendors` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `company_id` int(10) UNSIGNED NOT NULL,
   `account_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
+  `company_id` int(11) NOT NULL,
   `branch_id` int(10) UNSIGNED NOT NULL,
   `vendor_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vendor_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -4972,8 +4996,7 @@ CREATE TABLE IF NOT EXISTS `vendors` (
   UNIQUE KEY `vendors_vendor_email_unique` (`vendor_email`),
   KEY `vendors_user_id_foreign` (`user_id`),
   KEY `vendors_branch_id_foreign` (`branch_id`),
-  KEY `vendors_account_id_foreign` (`account_id`),
-  KEY `vendors_company_id_foreign` (`company_id`)
+  KEY `vendors_account_id_foreign` (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -5073,7 +5096,6 @@ ALTER TABLE `users`
 ALTER TABLE `vendors`
   ADD CONSTRAINT `vendors_account_id_foreign` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `vendors_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `vendors_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `vendors_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 

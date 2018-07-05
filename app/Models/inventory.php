@@ -30,7 +30,7 @@ class Inventory extends Model
     }
 
     public static function fetchInventories(){
-
+        
         if(Auth::user()->role_id === 2)
         {
             $inventories = inventory::where('company_id','=',Auth::user()->company_id)->get();
@@ -56,8 +56,7 @@ class Inventory extends Model
 
         $inventory->item_name = request('item_name');
         $inventory->item_desc = request('item_desc');
-        $inventory->purchase_rate = request('purchase_rate');
-        $inventory->sell_rate = request('sell_rate');
+        $inventory->opening_qty = request('opening_qty');
         $inventory->alert_qty = request('alert_qty');
         $inventory->account_id = request('account_id');
         $inventory->user_id = Auth::user()->id;
@@ -75,8 +74,7 @@ class Inventory extends Model
 
         $inventory->item_name = request('item_name');
         $inventory->item_desc = request('item_desc');
-        $inventory->purchase_rate = request('purchase_rate');
-        $inventory->sell_rate = request('sell_rate');
+        $inventory->opening_qty = request('opening_qty');
         $inventory->alert_qty = request('alert_qty');
         $inventory->user_id = Auth::user()->id;
         $inventory->company_id = Auth::user()->company_id;

@@ -82,15 +82,8 @@
 
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label for="" class="control-label">Purchase Rate<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control small-input" name="purchase_rate" required  placeholder="Enter Purchase Rate">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label for="" class="control-label">Sales Rate<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control small-input" name="sell_rate" required  placeholder="Enter Sales Rate">
+                                                <label for="" class="control-label">Opening Quantity<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control small-input" name="opening_qty" required  placeholder="Enter Opening Quantity">
                                             </div>
                                         </div>
 
@@ -154,8 +147,7 @@
                             <th>S.NO</th>
                             <th>Item Name</th>
                             <th>Description</th>
-                            <th>Purchase Rate</th>
-                            <th>Sell Rate</th>
+                            <th>Opening Qty</th>
                             <th>Alrert Qty</th>
                             <th>Status</th>
                             <th width="15%">Action</th>
@@ -168,8 +160,7 @@
                                 <td>{!! $i !!}</td>
                                 <td>{{$item->item_name}}</td>
                                 <td>{{$item->item_desc}}</td>
-                                <td>{{$item->purchase_rate}}</td>
-                                <td>{{$item->sell_rate}}</td>
+                                <td>{{$item->opening_qty}}</td>
                                 <td>{{$item->alert_qty}}</td>
                                 <td>
                                     @if($item->status == '1')
@@ -242,22 +233,15 @@
 
                                                         <div class="col-sm-4">
                                                             <div class="form-group">
-                                                                <label for="" class="control-label">Purchase Rate<span class="text-danger">*</span></label>
-                                                                {!! Form::text('purchase_rate' , null ,['class' => 'form-control','placeholder' => 'Enter Item Description','id' => 'purchase_rate'.$item->id,'required' => 'required'] ) !!}
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label for="" class="control-label">Sell Rate<span class="text-danger">*</span></label>
-                                                                {!! Form::text('sell_rate' , null ,['class' => 'form-control','placeholder' => 'Enter Item Description','id' => 'sell_rate'.$item->id,'required' => 'required'] ) !!}
+                                                                <label for="" class="control-label">Opening Quantity<span class="text-danger">*</span></label>
+                                                                {!! Form::text('opening_qty' , null ,['class' => 'form-control','placeholder' => 'Opening Quantity','id' => 'opening_qty'.$item->id,'required' => 'required'] ) !!}
                                                             </div>
                                                         </div>
 
                                                         <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <label for="" class="control-label">Alert Quantity<span class="text-danger">*</span></label>
-                                                                {!! Form::text('alert_qty' , null ,['class' => 'form-control','placeholder' => 'Enter Item Description','id' => 'alert_qty'.$item->id,'required' => 'required'] ) !!}
+                                                                {!! Form::text('alert_qty' , null ,['class' => 'form-control','placeholder' => 'Alert Quantity','id' => 'alert_qty'.$item->id,'required' => 'required'] ) !!}
                                                             </div>
                                                         </div>
 
