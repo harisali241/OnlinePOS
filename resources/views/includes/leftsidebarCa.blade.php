@@ -53,7 +53,7 @@ Left Sidebar Menu -->
             <a href="{{url('/inventory')}}"><div class="pull-left"><i class=" icon-basket-loaded  mr-20"></i><span class="right-nav-text">Inventory</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
         </li>
         <li>
-            <a href="{{url('/purchase')}}"><div class="pull-left"><i class=" icon-key mr-20"></i><span class="right-nav-text">Purchase</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
+            <a href="{{url('/purchase/create')}}"><div class="pull-left"><i class=" icon-key mr-20"></i><span class="right-nav-text">Purchase</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
         </li>
 
     </ul>

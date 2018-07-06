@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
+use App\Models\Inventory;
 use App\Models\Purchase;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -14,7 +17,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        return view('pages.purchase.purchase');
+
     }
 
     /**
@@ -24,7 +27,14 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        //
+        $branches = Branch::fetchBranches();
+        $items = Inventory::fetchInventories();
+        $vendors = Vendor::fetchVendors();
+        return view('pages.purchase.createPurchase',array(
+            'branches' => $branches,
+            'items' => $items,
+            'vendors' => $vendors
+        ));
     }
 
     /**
@@ -35,7 +45,14 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $purchase = Purchase::createPurchase($request);
+
+        for($i=0; $i < sizeof($request->item_id); $i++)
+        {
+
+        }
+
+
     }
 
     /**
