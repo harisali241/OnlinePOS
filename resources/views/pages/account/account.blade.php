@@ -249,8 +249,8 @@
                                                             <div class="col-sm-4">
                                                                 <div class="form-group">
                                                                     <label for="inputName" class="control-label mb-10">Account Number<span class="text-danger">*</span></label>
-                                                                    {!! Form::text('account_number' , null ,['class' => 'form-control small-input',
-                                                                    'placeholder' => 'Enter Account Name','id' => 'account_number'.$account->id,'required' => 'required','onkeypress' => 'validate(event)'] ) !!}
+                                                                    {!! Form::number('account_number' , null ,['class' => 'form-control small-input',
+                                                                    'placeholder' => 'Enter Account Name','id' => 'account_number'.$account->id,'required' => 'required','maxlength' => '11'] ) !!}
                                                                 </div>
                                                             </div>
 

@@ -216,8 +216,8 @@
                                                             <div class="col-sm-4">
                                                                 <div class="form-group">
                                                                     <label for="inputName" class="control-label mb-10">PhoneNo<span class="text-danger">*</span></label>
-                                                                    {!! Form::text('branch_phoneNo' , null ,['class' => 'form-control small-input',
-                                                                    'placeholder' => 'Enter Phone No','id' => 'branch_phoneNo'.$branch->id,'required' => 'required', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'onkeypress' => 'validate(event)'] ) !!}
+                                                                    {!! Form::number('branch_phoneNo' , null ,['class' => 'form-control small-input',
+                                                                    'placeholder' => 'Enter Phone No','id' => 'branch_phoneNo'.$branch->id,'required' => 'required', 'oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'maxlength' => '11'] ) !!}
 
                                                                 </div>
                                                             </div>

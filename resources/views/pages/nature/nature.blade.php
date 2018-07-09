@@ -83,12 +83,11 @@
 
                                         </div>
                                         <div class="col-sm-3" align="center">
-
-                                            <form method="post" action="nature/{{$nature->nature_id}}" id="delete">
+                                            <form method="POST" action="{{ url('nature/'.$item->id) }}" id="delete{{$nature->id}}">
                                                 {{csrf_field()}}
                                                 {{method_field("DELETE")}}
 
-                                                <button type="button" class="btn btn-danger btn-icon-anim btn-square btn-sm m-b-5" onclick="del();"><i class="fa fa-trash"></i></button>
+                                                <button type="button" class="btn btn-danger btn-icon-anim btn-square btn-sm" onclick="del({{$nature->id}});"><i class="fa fa-trash"></i></button>
                                             </form>
                                         </div>
                                     </div>
@@ -157,7 +156,7 @@
 
     <script>
 
-        function del(){
+        function del(id){
             swal({
                 title: "Are you sure?",
                 text: "You will not be able to recover this imaginary file!",
@@ -169,7 +168,7 @@
             }, function(){
 
                 swal("Deleted!", "Your record has been deleted.", "success");
-                $("#delete").submit();
+                $("#delete"+id).submit();
 
             });
             return false;
