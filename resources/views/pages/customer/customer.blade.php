@@ -272,9 +272,9 @@
 
                                                         <div class="col-sm-4">
                                                             <div class="form-group">
-                                                                <label for="inputName" class="control-label mb-10">Customer Contact No<span class="text-danger">*</span></label>
+                                                                <label for="inputName" class="control-label mb-10">Customer Contact Number<span class="text-danger">*</span></label>
                                                                 {!! Form::text('customer_phoneNo' , null ,['class' => 'form-control small-input',
-                                                                'placeholder' => 'Enter Customer Phone No','id' => 'customer_phoneNo'.$customer->id,'required' => 'required','onkeypress' => 'validate(event)'] ) !!}
+                                                                'placeholder' => 'Enter Customer Phone Number','id' => 'customer_phoneNo'.$customer->id,'required' => 'required','maxlength' => '11'] ) !!}
 
                                                             </div>
                                                         </div>

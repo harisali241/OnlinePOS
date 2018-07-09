@@ -48,7 +48,7 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="" class="control-label">Phone No</label>
-                                                <input type="number" class="form-control small-input" name="phoneNo"  placeholder="Enter Phone No">
+                                                <input type="number" class="form-control small-input" name="phoneNo"  placeholder="Enter Phone No" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11">
                                             </div>
                                         </div>
 
@@ -263,7 +263,7 @@
                                                                 <div class="form-group">
                                                                     <label for="" class="control-label">Phone No</label>
                                                                     {!! Form::number('phoneNo' , null ,['class' => 'form-control small-input',
-                                                                    'placeholder' => 'Enter Phone No'] ) !!}
+                                                                    'placeholder' => 'Enter Phone No','oninput' => 'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);', 'maxlength' => '11'] ) !!}
 
                                                                 </div>
                                                             </div>
