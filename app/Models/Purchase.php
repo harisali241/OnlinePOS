@@ -22,6 +22,10 @@ class Purchase extends Model
     {
         return $this->belongsTo('App\Models\branch','branch_id');
     }
+    public function purchase_details()
+    {
+        return $this->hasMany('App\Models\PurchaseDetail','purchase_master_id');
+    }
 
     public static function createPurchase($data)
     {
@@ -32,10 +36,11 @@ class Purchase extends Model
         $purchase->user_id = auth()->user()->id;
         $purchase->purchase_master_no = $data['purchase_master_no'];
         $purchase->date = $data['purchase_Date'];
-        $purchase->total_amount = $data['grand_total'];
+        $purchase->amount = $data['grand_total'];
 
         $purchase->save();
 
         return $purchase;
     }
+
 }

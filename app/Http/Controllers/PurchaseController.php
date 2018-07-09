@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Branch;
 use App\Models\Inventory;
-use App\Models\Purchase;
+use App\Models\PurchaseMaster;
+use App\Models\PurchaseDetail;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,12 @@ class PurchaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-
+    {   
+        $branches = branch::where('company_id','=',auth()->user()->company_id)->pluck('branch_name','id');
+        $items = Inventory::fetchInventories();
+        $vendors = Vendor::where('company_id','=',auth()->user()->company_id)->pluck('vendor_name','id');
+        $purchaseOrder = PurchaseMaster::fetchPurchaseOrder();
+        return view('pages.purchase.Purchase',compact('purchaseOrder', 'branches', 'items', 'vendors')); 
     }
 
     /**
@@ -30,10 +35,12 @@ class PurchaseController extends Controller
         $branches = Branch::fetchBranches();
         $items = Inventory::fetchInventories();
         $vendors = Vendor::fetchVendors();
+        $random = rand(99, 9999999);
         return view('pages.purchase.createPurchase',array(
             'branches' => $branches,
             'items' => $items,
-            'vendors' => $vendors
+            'vendors' => $vendors,
+            'random' => $random,
         ));
     }
 
@@ -45,13 +52,15 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        $purchase = Purchase::createPurchase($request);
+        //dd($request);
+        $purchase = PurchaseMaster::createPurchase($request);
 
         for($i=0; $i < sizeof($request->item_id); $i++)
         {
-
+            PurchaseDetail::createPurchaseDetail($request, $i);
         }
 
+        return redirect('purchase/create')->with('message', 'Successfully Saved');
 
     }
 
@@ -61,9 +70,13 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function show(Purchase $purchase)
-    {
-        //
+    public function show($id)
+    {   
+        // $branches = branch::where('company_id','=',auth()->user()->company_id)->pluck('branch_name','id');
+        // $items = Inventory::where('company_id','=',auth()->user()->company_id)->pluck('item_name','id');
+        // $vendors = Vendor::where('company_id','=',auth()->user()->company_id)->pluck('vendor_name','id');
+        $purchase = PurchaseMaster::with('branches', 'vendors', 'purchase_details.inventories')->where('id', $id)->get()->first();
+        return view('pages.purchase.viewPurchase', compact('purchase'));
     }
 
     /**
@@ -72,9 +85,13 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function edit(Purchase $purchase)
-    {
-        //
+    public function edit(PurchaseMaster $purchaseMaster, $id)
+    {   
+        $branches = branch::where('company_id','=',auth()->user()->company_id)->pluck('branch_name','id');
+        $items = Inventory::where('company_id','=',auth()->user()->company_id)->pluck('item_name','id');
+        $vendors = Vendor::where('company_id','=',auth()->user()->company_id)->pluck('vendor_name','id');
+        $purchase = PurchaseMaster::fetchSinglePurchaseOrder($id);
+        return view('pages.purchase.editPurchase',compact('purchase', 'branches', 'items', 'vendors'));
     }
 
     /**
@@ -84,9 +101,23 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Purchase $purchase)
-    {
-        //
+    public function update(Request $request, $id)
+    {   
+        $request->validate([
+            'purchase_Date' => 'required',
+            'branch_id' => 'required',
+            'vendor_id' => 'required',
+            'purchase_master_no' => 'required',
+            'grand_total' => 'required',
+        ]);
+        $purchase = PurchaseMaster::updatePurchase($request ,$id);
+        PurchaseDetail::deleteOldDetails($request);
+        for($i=0; $i < sizeof($request->item_id); $i++)
+        {
+            PurchaseDetail::createPurchaseDetail($request, $i);
+        }
+
+        return redirect('purchase')->with('message', 'Successfully Saved');
     }
 
     /**
@@ -95,8 +126,15 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Purchase $purchase)
-    {
-        //
+    public function destroy(PurchaseMaster $purchaseMaster, $id)
+    {   
+        //dd($id);
+        PurchaseMaster::findOrFail($id)->delete();
+        return redirect('purchase')->with('message', 'Successfully Deleted');
     }
+
+    public function aprovel(Request $request){
+        return redirect('purchase')->with('message', 'Successfully Deleted');
+    }
+
 }

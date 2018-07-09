@@ -29,6 +29,9 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::resource('customer', 'CustomerController');
 
     Route::resource('purchase', 'purchaseController');
+    Route::post('aprovel', function(){
+        return 'ok';
+    });
     Route::resource('sale', 'saleController');
 
 

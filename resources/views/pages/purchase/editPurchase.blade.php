@@ -1,8 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-    <form action="{{ url('/purchase') }}" method="POST" role="form" id="purchase_add_form">
-        {{csrf_field()}}
+    {!! Form::model($purchase, ['method' => 'PATCH','url' => ['purchase', $purchase->id],'files'=>true,'class' => 'purchase_details_add_submit_edit','role' => 'form' ]) !!}
 
 
         <div class="row">
@@ -10,43 +9,33 @@
             <div class="col-sm-8">
                 <div class="panel panel-default card-view">
                     <div class="row" align="center">
-                        <h5>Create Purchase</h5>
+                        <h5>Edit Purchase</h5>
                         <hr>
                     </div>
                     <div class="row p-20">
                         <div class="form-group col-sm-6">
                             <label for="Item Name" class="control-label"><b>Purchase Number</b><span class="text-danger">*</span></label>
-                            <input type="text" class="form-control small-input" id="purchase_nmbr" value="{{$random}}" readonly name="purchase_master_no" required placeholder="Purchase Number">
+                            {!! Form::text('purchase_master_no' , $purchase->purchase_master_no ,['class' => 'form-control  small-input','id' => 'purchase_master_no'.$purchase->id,'required' => 'required', 'readonly'=>'readonly'] ) !!}
                         </div>
 
                         <div class="form-group col-sm-6">
                             <label for="Item Name" class="control-label">Date<span class="text-danger">*</span></label>
-                            <input type="date" class="form-control small-input" id="purchase_Date"  name="purchase_Date" required value="{{ date('Y-m-d',strtotime( \Carbon\Carbon::now())) }}">
+                            {!! Form::date('purchase_Date' , date('Y-m-d',strtotime( \Carbon\Carbon::now())) ,['class' => 'form-control  small-input','id' => 'purchase_Date'.$purchase->id,'required' => 'required'] ) !!}
                         </div>
 
                         <div class="form-group col-sm-6">
                             <label for="Item Name" class="control-label">Branch Name<span class="text-danger">*</span></label>
                             @if(Auth::user()->role_id == 2)
-                                <select class="form-control select2" id="branch_id" name="branch_id">
-                                    <option value="0" selected disabled>Select Branches</option>
-                                    @foreach($branches as $branch)
-                                        <option value="{{$branch->id}}">{{$branch->branch_name}}</option>
-                                    @endforeach
-                                </select>
+                                {!! Form::select('branch_id',$branches,null,['class' => 'select2 form-control small-input']) !!}
                             @elseif(Auth::user()->role_id == 3  )
-                                <input type="hidden" name="branch_id" value="{{Auth::user()->branch_id}}">
+                                {!!Form::hidden('branch_id', Auth::user()->branch_id)!!}
                             @endif
                         </div>
 
 
                         <div class="form-group col-sm-6">
                             <label for="Account" class="control-label">Vendor Name<span class="text-danger">*</span></label>
-                            <select class="form-control select2 small-input" name="vendor_id" id="vendor_id">
-                                <option disabled selected value="0">Select Vendor</option>
-                                @foreach($vendors as $vendor)
-                                    <option value="{{ $vendor->id }}">{{ $vendor->vendor_name }}</option>
-                                @endforeach
-                            </select>
+                            {!! Form::select('vendor_id',$vendors,null,['class' => 'select2 form-control small-input']) !!}
                         </div>
                     </div>
 
@@ -60,23 +49,42 @@
                             <div class="table-responsive">
                                 <table class="table table-hover display pb-10" >
                                     <thead>
-                                    <tr>
-
-                                        <th>Item Name</th>
-
-                                        <th>QTY</th>
-                                        <th>Rate/qnt</th>
-                                        <th>Total Amount</th>
-                                        <th>Action</th>
-                                    </tr>
+                                        <tr>
+                                            <th>Item Name</th>
+                                            <th>QTY</th>
+                                            <th>Rate/qnt</th>
+                                            <th>Total Amount</th>
+                                            <th>Action</th>
+                                        </tr>
                                     </thead>
                                     <tbody class="item_here">
-
+                                        @foreach($purchase->purchase_details as $item)
+                                            <tr>
+                                                <td>
+                                                    {{$item->inventories->item_name}}
+                                                    <input type="hidden" name="item_id[]" value="{{$item->inventories->id}}"/>
+                                                </td>
+                                                <td>
+                                                    {{$item->qty}}
+                                                    <input type="hidden" class="item_qnt" name="qnt[]" value="{{$item->qty}}"/>
+                                                </td>
+                                                <td>
+                                                    {{$item->rate}}
+                                                    <input type="hidden" class="item_rate" name="rate[]" value="{{$item->rate}}"/>
+                                                </td>
+                                                <td>
+                                                    {{$item->amount}}
+                                                    <input type="hidden" class="item_total" name="total_amount[]" value="{{$item->amount}}"/>
+                                                </td>
+                                                <td>
+                                                   <button type="button" class="btn btn-xs btn-danger remove_row"><i class="fa fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -89,14 +97,10 @@
                     </div>
                     <div class="row p-20">
                         <div class="form-group col-sm-12">
-                            <label for="Account" class="control-label">Item<span class="text-danger">*</span></label>
-                            <select class="form-control select2 item_detail">
-                                <option disabled selected>Select Items</option>
-                                @foreach($items as $item)
-                                    <option value="{{ $item->id }}">{{ $item->item_name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="items" class="control-label">Item<span class="text-danger">*</span></label>
+                            {!! Form::select('item_detail',$items,null,['class' => 'select2 form-control small-input item_detail']) !!}
                         </div>
+
                         <div class="form-group col-sm-6">
                             <label for="Item Name" class="control-label">QTY<span class="text-danger">*</span></label>
                             <input type="text" class="form-control qnt small-input"  name="alert_qty" placeholder="Quantity">
@@ -126,13 +130,13 @@
 
                         <div class="form-group col-sm-12">
                             <label for="Item Name" class="control-label">Total Items</label>
-                            <input type="text" class="form-control total_item" readonly value="0">
+                            <input type="text" class="form-control total_item" readonly value="{{ count($purchase->purchase_details) }}">
                         </div>
 
                         <div class="form-group col-sm-12">
                             <label for="Item Name" class="control-label">Grand Total</label>
                             <div class="input-group">
-                                <input type="text" name="grand_total" class="form-control grand_total" readonly value="0">
+                                <input type="text" name="grand_total" class="form-control grand_total" readonly value="{{ $purchase->total_amount }}">
                                 <span class="input-group-addon">Rs</span>
                             </div>
                         </div>
@@ -142,11 +146,9 @@
                         <hr>
                         <div class="form-group col-sm-12" align="right">
                             <button type="submit" class="btn btn-success addNew-check">Save</button>
-
                         </div>
 
                     </div>
-
                 </div>
             </div>
 
@@ -161,8 +163,8 @@
 
     <script type="text/javascript">
 
-        var grand_total = 0;
-        var total_items = 0;
+        var grand_total = $('.grand_total').val();;
+        var total_items = $('.total_item').val();;
 
         $('.addNew_item').click(function () {
             var item_id = $('.item_detail').val();
@@ -197,8 +199,8 @@
                 `;
 
                 $('.item_here').append(html);
-                grand_total+= qnt*rate;
-                total_items+= 1;
+                grand_total = +grand_total + +qnt*rate;
+                total_items = +total_items + 1;
 
                 $('.total_item').val(total_items);
                 $('.grand_total').val(grand_total);

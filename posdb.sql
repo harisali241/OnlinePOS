@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 06, 2018 at 03:02 PM
--- Server version: 5.7.19
--- PHP Version: 7.1.9
+-- Generation Time: Jul 09, 2018 at 08:31 PM
+-- Server version: 5.7.21
+-- PHP Version: 7.1.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -199,14 +199,16 @@ CREATE TABLE IF NOT EXISTS `branches` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `branches_company_id_foreign` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `branches`
 --
 
 INSERT INTO `branches` (`id`, `company_id`, `branch_name`, `branch_phoneNo`, `location`, `latitude`, `longitude`, `status`, `created_at`, `updated_at`) VALUES
-(2, 5, 'Abcd Branch', 651651, 'Zee Papar', '41.0645819', -73.8611145, 1, '2018-07-04 01:56:49', '2018-07-04 01:56:49');
+(2, 5, 'Abcd Branch', 651651, 'Zee Papar', '41.0645819', -73.8611145, 1, '2018-07-04 01:56:49', '2018-07-04 01:56:49'),
+(3, 5, 'Bartalomio', 99999, 'luffy', '32.8095005', -96.8376694, 1, '2018-07-08 07:23:40', '2018-07-08 07:23:40'),
+(4, 5, 'Hodi Jones', 8585, 'fish Iland', '28.5596762', -81.3047409, 1, '2018-07-08 07:24:18', '2018-07-08 07:24:18');
 
 -- --------------------------------------------------------
 
@@ -545,8 +547,7 @@ CREATE TABLE IF NOT EXISTS `inventories` (
   `branch_id` int(10) UNSIGNED NOT NULL,
   `item_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `item_desc` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `purchase_rate` double NOT NULL,
-  `sell_rate` double NOT NULL,
+  `opening_qty` double NOT NULL,
   `alert_qty` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -555,14 +556,19 @@ CREATE TABLE IF NOT EXISTS `inventories` (
   KEY `inventories_account_id_foreign` (`account_id`),
   KEY `inventories_user_id_foreign` (`user_id`),
   KEY `inventories_branch_id_foreign` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `inventories`
 --
 
-INSERT INTO `inventories` (`id`, `account_id`, `company_id`, `user_id`, `branch_id`, `item_name`, `item_desc`, `purchase_rate`, `sell_rate`, `alert_qty`, `status`, `created_at`, `updated_at`) VALUES
-(1, 2, 5, 4, 2, 'Shampoo Sunsilk', 'asasg', 200, 250, 12, 1, '2018-07-05 04:00:18', '2018-07-05 04:00:18');
+INSERT INTO `inventories` (`id`, `account_id`, `company_id`, `user_id`, `branch_id`, `item_name`, `item_desc`, `opening_qty`, `alert_qty`, `status`, `created_at`, `updated_at`) VALUES
+(1, 2, 5, 4, 2, 'Shampoo Sunsilk', 'asasg', 100, 12, 1, '2018-07-05 04:00:18', '2018-07-06 11:54:14'),
+(2, 2, 5, 4, 3, 'Super Biscuit', 'Super Hai Zindagi', 0, 20, 1, '2018-07-08 07:27:08', '2018-07-08 07:27:08'),
+(3, 2, 5, 4, 4, 'Lays', 'Chipas', 20, 11, 1, '2018-07-08 07:27:43', '2018-07-08 07:27:43'),
+(4, 2, 5, 4, 2, 'Candy', 'Candyland ki candy. candy hai ye candy', 90, 30, 1, '2018-07-08 07:28:37', '2018-07-08 07:28:37'),
+(5, 2, 5, 4, 3, '1 Rps waly Papar', 'local maal', 0, 80, 1, '2018-07-08 07:29:11', '2018-07-08 07:29:11'),
+(6, 2, 5, 4, 3, 'bubleGum', 'bubleGum', 500, 70, 1, '2018-07-08 07:29:41', '2018-07-08 07:29:41');
 
 -- --------------------------------------------------------
 
@@ -666,7 +672,28 @@ CREATE TABLE IF NOT EXISTS `purchase_details` (
   KEY `purchase_details_purchase_master_id_foreign` (`purchase_master_id`),
   KEY `purchase_details_branch_id_foreign` (`branch_id`),
   KEY `purchase_details_inventory_id_foreign` (`inventory_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `purchase_details`
+--
+
+INSERT INTO `purchase_details` (`id`, `branch_id`, `company_id`, `purchase_master_id`, `inventory_id`, `qty`, `rate`, `amount`, `created_at`, `updated_at`) VALUES
+(2, 2, 5, 7, 1, 500, 70, 35000, '2018-07-07 07:02:18', '2018-07-07 07:02:18'),
+(3, 2, 5, 7, 1, 500, 125, 62500, '2018-07-07 07:02:18', '2018-07-07 07:02:18'),
+(4, 2, 5, 7, 1, 500, 270, 135000, '2018-07-07 07:02:18', '2018-07-07 07:02:18'),
+(9, 2, 5, 9, 1, 300, 120, 36000, '2018-07-07 15:24:25', '2018-07-07 15:24:25'),
+(10, 2, 5, 9, 1, 300, 250, 75000, '2018-07-07 15:24:25', '2018-07-07 15:24:25'),
+(11, 2, 5, 9, 1, 1200, 5, 6000, '2018-07-07 15:24:25', '2018-07-07 15:24:25'),
+(21, 2, 5, 10, 2, 100, 110, 11000, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
+(22, 2, 5, 10, 3, 300, 15, 4500, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
+(23, 2, 5, 10, 5, 1000, 40, 40000, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
+(24, 2, 5, 10, 6, 500, 220, 110000, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
+(25, 2, 5, 10, 1, 123, 125, 15375, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
+(26, 2, 5, 10, 1, 90, 25, 2250, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
+(27, 2, 5, 10, 2, 53, 5, 265, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
+(28, 2, 5, 10, 4, 750, 60, 45000, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
+(29, 3, 5, 12, 3, 8000, 50, 400000, '2018-07-09 14:22:42', '2018-07-09 14:22:42');
 
 -- --------------------------------------------------------
 
@@ -691,7 +718,17 @@ CREATE TABLE IF NOT EXISTS `purchase_masters` (
   KEY `purchase_masters_vendor_id_foreign` (`vendor_id`),
   KEY `purchase_masters_user_id_foreign` (`user_id`),
   KEY `purchase_masters_branch_id_foreign` (`branch_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `purchase_masters`
+--
+
+INSERT INTO `purchase_masters` (`id`, `company_id`, `user_id`, `branch_id`, `vendor_id`, `purchase_master_no`, `date`, `total_amount`, `permission`, `created_at`, `updated_at`) VALUES
+(7, 5, 4, 2, 1, 3566004, '2018-07-05 00:00:00', '232500.000', 0, '2018-07-07 07:02:18', '2018-07-07 07:02:18'),
+(9, 5, 4, 2, 1, 5996926, '2018-07-08 00:00:00', '117000.000', 0, '2018-07-07 15:24:25', '2018-07-07 15:24:25'),
+(10, 5, 4, 2, 2, 5912949, '2018-07-08 00:00:00', '228390.000', 0, '2018-07-08 07:39:29', '2018-07-08 08:40:51'),
+(12, 5, 4, 3, 1, 521430, '2018-07-09 00:00:00', '400000.000', 0, '2018-07-09 14:22:42', '2018-07-09 14:22:42');
 
 -- --------------------------------------------------------
 
@@ -4965,8 +5002,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `username`, `firstName`, `lastName`, `email`, `phoneNo`, `address`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, 1, 'admin', 'Huzaifa', 'Siddiqui', 'huzzee.24.sidd@gmail.com', NULL, NULL, '$2y$10$T.rdL9/b9CXJTMS5e3L2Ve8s08fpP4h.US4ITy5EXyo2J63XMuiTW', 1, 'ZSmV32pMgYXKX2naKILIUPZTVNw7YrDlTERKc78v9cpM25PGWg6VyyiaUyWG', NULL, NULL),
-(4, 5, NULL, 2, 'danny', 'Bilal', 'Danny', 'danny@gmail.com', 3122245, 'asgasgasg', '$2y$10$a4ZK2/nvrv4Nl05h24ZZDO10hKgEcC0Vw5LZ0bieZYVXFzLvQB.7y', 1, 'C97CqXyP2qrfWwWQNwdsblXF3RXMlbKYhdtwBYBzMR9SiB7DLB852Py1SmY6', '2018-06-07 02:47:29', '2018-07-04 01:44:14'),
+(1, 1, NULL, 1, 'admin', 'Huzaifa', 'Siddiqui', 'huzzee.24.sidd@gmail.com', NULL, NULL, '$2y$10$T.rdL9/b9CXJTMS5e3L2Ve8s08fpP4h.US4ITy5EXyo2J63XMuiTW', 1, 'GKNWVCxofpKXi6Sg5VlzKkkuJHGFT9u226r0Y8LeYImcWu4GW1Trrt0Np4A8', NULL, NULL),
+(4, 5, NULL, 2, 'danny', 'Bilal', 'Danny', 'danny@gmail.com', 3122245, 'asgasgasg', '$2y$10$cJKUxS2zXZQnw6quxkTh1eAc5v7FfViqqUSe5E2tnHoh.DGVeTXee', 1, 'C97CqXyP2qrfWwWQNwdsblXF3RXMlbKYhdtwBYBzMR9SiB7DLB852Py1SmY6', '2018-06-07 02:47:29', '2018-07-06 10:23:11'),
 (5, 6, NULL, 2, 'zee21', 'huzaifa', 'Siddiqui', 'zee@gmail.com', NULL, NULL, '$2y$10$zSsd9xzA/.qZZyLUTGfZV.T7y65dEz7J.bivwnnMZCKQh75MEVA6W', 1, NULL, '2018-06-07 02:49:19', '2018-06-07 02:49:19');
 
 -- --------------------------------------------------------
@@ -4994,14 +5031,15 @@ CREATE TABLE IF NOT EXISTS `vendors` (
   KEY `vendors_user_id_foreign` (`user_id`),
   KEY `vendors_branch_id_foreign` (`branch_id`),
   KEY `vendors_account_id_foreign` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `vendors`
 --
 
 INSERT INTO `vendors` (`id`, `account_id`, `user_id`, `company_id`, `branch_id`, `vendor_name`, `vendor_email`, `vendor_phoneNo`, `vendor_address`, `status`, `created_at`, `updated_at`) VALUES
-(1, 2, 4, 5, 2, 'Test Vendor', 'test@abc.com', 31165168, 'asg', 1, '2018-07-05 04:58:00', '2018-07-05 04:58:00');
+(1, 2, 4, 5, 2, 'Test Vendor', 'test@abc.com', 31165168, 'asg', 1, '2018-07-05 04:58:00', '2018-07-05 04:58:00'),
+(2, 2, 4, 5, 4, 'Test Vendor 2', 'test2@hotmail.com', 9571294, 'karachi', 1, '2018-07-08 07:26:02', '2018-07-08 07:26:02');
 
 --
 -- Constraints for dumped tables

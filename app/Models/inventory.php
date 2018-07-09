@@ -28,6 +28,10 @@ class Inventory extends Model
     {
         $this->belongsTo('App/Models/account');
     }
+    public function purchase_details()
+    {
+        return $this->hasMany('App\Models\purchase_details','inventory_id');
+    }
 
     public static function fetchInventories(){
         

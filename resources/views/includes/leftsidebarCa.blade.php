@@ -52,8 +52,19 @@ Left Sidebar Menu -->
         <li>
             <a href="{{url('/inventory')}}"><div class="pull-left"><i class=" icon-basket-loaded  mr-20"></i><span class="right-nav-text">Inventory</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
         </li>
-        <li>
+        {{-- <li>
             <a href="{{url('/purchase/create')}}"><div class="pull-left"><i class=" icon-key mr-20"></i><span class="right-nav-text">Purchase</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
+        </li> --}}
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#pages_dr"><div class="pull-left"><i class=" icon-key mr-20"></i><span class="right-nav-text">Purchase Order</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="pages_dr" class="collapse collapse-level-1 two-col-list">
+                <li>
+                    <a href="{{url('/purchase/create')}}">Create Purchase Order</a>
+                </li>
+                <li>
+                    <a href="{{url('/purchase')}}">View Purchase Orders</a>
+                </li>
+            </ul>
         </li>
 
     </ul>
