@@ -62,7 +62,10 @@ Left Sidebar Menu -->
                     <a href="{{url('/purchase/create')}}">Create Purchase Order</a>
                 </li>
                 <li>
-                    <a href="{{url('/purchase')}}">View Purchase Orders</a>
+                    <a href="{{url('/purchase')}}">View Pending Purchase Orders</a>
+                </li>
+                <li>
+                    <a href="{{url('/purchaseapprove')}}">View Approve Purchase Orders</a>
                 </li>
             </ul>
         </li>

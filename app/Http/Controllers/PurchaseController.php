@@ -134,7 +134,23 @@ class PurchaseController extends Controller
     }
 
     public function aprovel(Request $request){
-        return redirect('purchase')->with('message', 'Successfully Deleted');
+
+        $purchase = PurchaseMaster::findOrFail($request->get('id'));
+
+        $purchase->permission = 1;
+
+        $purchase->save();
+
+        return redirect('purchase')->with('message', 'Successfully Approve');
+    }
+
+    public function approve()
+    {   
+        $branches = branch::where('company_id','=',auth()->user()->company_id)->pluck('branch_name','id');
+        $items = Inventory::fetchInventories();
+        $vendors = Vendor::where('company_id','=',auth()->user()->company_id)->pluck('vendor_name','id');
+        $purchaseOrder = PurchaseMaster::fetchPurchaseOrder();
+        return view('pages.purchase.purchaseapprove',compact('purchaseOrder', 'branches', 'items', 'vendors'));
     }
 
 }

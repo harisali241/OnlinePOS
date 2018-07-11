@@ -16,6 +16,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::get('/', 'HomeController@home')->name('home');
+    
 
     Route::post('/reqBranches', 'HomeController@reqBranches');
     Route::resource('company', 'CompanyController');
@@ -29,9 +30,9 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::resource('customer', 'CustomerController');
 
     Route::resource('purchase', 'purchaseController');
-    Route::post('aprovel', function(){
-        return 'ok';
-    });
+    // Route::get('/purchaseapprove', 'purchaseController@approve');
+
+    
     Route::resource('sale', 'saleController');
 
 
@@ -40,3 +41,6 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::get('check_username','AjaxController@check_usernames');
     Route::get('check_username_edit','AjaxController@check_usernames_edit');
 });
+
+Route::get('/purchaseapprove', 'purchaseController@approve');
+Route::post('aprovel', 'purchaseController@aprovel');

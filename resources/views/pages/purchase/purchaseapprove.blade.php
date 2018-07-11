@@ -3,7 +3,7 @@
     
     <div class="row heading-bg">
         <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
-            <h5 class="txt-dark">Manage Pending Purchase Order</h5>
+            <h5 class="txt-dark">Manage Approved Purchase Order</h5>
         </div>
         <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12" align="right">
 
@@ -34,7 +34,7 @@
                         <tbody>
                         @php $i = 1; @endphp
                         @foreach($purchaseOrder as $purchase)
-                        @if($purchase->permission == 0)
+                        @if($purchase->permission == 1)
                             <tr>
                                 <td>{!! $i !!}</td>
                                 <td>{{$purchase->date  }}</td>
@@ -64,22 +64,6 @@
                                             <button type="submit" class="btn btn-primary btn-icon-anim btn-square btn-sm "><i class="fa fa-eye"></i></button>
                                         </form>
                                     </div>
-                                    @if($purchase->permission == 0)
-                                        <div class="col-sm-3" align="center">
-                                            <form method="GET" action="{{ url('purchase/'.$purchase->id.'/edit') }}">
-                                                {{csrf_field()}}
-                                                <button type="submit" class="btn btn-warning btn-icon-anim btn-square btn-sm "><i class="fa fa-pencil"></i></button>
-                                            </form>
-                                        </div>
-                                    @endif
-                                    <div class="col-sm-3" align="center">
-                                        <form method="POST" action="{{ url('purchase/'.$purchase->id) }}" id="delete{{$purchase->id}}">
-                                            {{csrf_field()}}
-                                            {{method_field("DELETE")}}
-                                            <button type="button" class="btn btn-danger btn-icon-anim btn-square btn-sm" onclick="del({{$purchase->id}});"><i class="fa fa-trash"></i></button>
-                                        </form>
-                                    </div>
-
                                 </td>
 
 
