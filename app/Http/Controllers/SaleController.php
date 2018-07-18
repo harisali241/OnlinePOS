@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sale;
+use App\Models\Branch;
+use App\Models\Inventory;
+use App\Models\SaleMaster;
+use App\Models\SaleDetail;
+use App\Models\Customer;
+use App\Models\Terminal;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -14,7 +20,11 @@ class SaleController extends Controller
      */
     public function index()
     {
-        return view('pages.sale.sale');
+        $branches = branch::where('company_id','=',auth()->user()->company_id)->pluck('branch_name','id');
+        $items = Inventory::fetchInventories();
+        $customers = Customer::pluck('customer_name','id');
+        $saleOrder = SaleMaster::fetchSaleOrder();
+        return view('pages.sale.Sale',compact('saleOrder', 'branches', 'items', 'customers')); 
     }
 
     /**
@@ -24,7 +34,18 @@ class SaleController extends Controller
      */
     public function create()
     {
-        //
+        $branches = Branch::fetchBranches();
+        $items = Inventory::fetchInventories();
+        $customers = Customer::fetchCustomer();
+        $terminals = Terminal::fetchTerminals();
+        $random = rand(99, 9999999);
+        return view('pages.sale.createSale',array(
+            'branches' => $branches,
+            'items' => $items,
+            'customers' => $customers,
+            'terminals' => $terminals,
+            'random' => $random,
+        ));
     }
 
     /**
@@ -35,7 +56,14 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sale = SaleMaster::createSale($request);
+
+        for($i=0; $i < sizeof($request->item_id); $i++)
+        {
+            SaleDetail::createSaleDetail($request, $i);
+        }
+
+        return redirect('sale/create')->with('message', 'Successfully Saved');
     }
 
     /**
@@ -44,7 +72,7 @@ class SaleController extends Controller
      * @param  \App\Models\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function show(Sale $sale)
+    public function show($id)
     {
         //
     }
@@ -55,9 +83,14 @@ class SaleController extends Controller
      * @param  \App\Models\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sale $sale)
+    public function edit(SaleMaster $SaleMaster, $id)
     {
-        //
+        $branches = branch::where('company_id','=',auth()->user()->company_id)->pluck('branch_name','id');
+        $items = Inventory::where('company_id','=',auth()->user()->company_id)->pluck('item_name','id');
+        $customers = Customer::where('company_id','=',auth()->user()->company_id)->pluck('customer_name','id');
+        $terminals = Terminal::pluck('terminal_name','id');
+        $sale = SaleMaster::fetchSingleSaleOrder($id);
+        return view('pages.sale.editSale',compact('sale', 'branches', 'items', 'customers','terminals'));
     }
 
     /**
@@ -67,9 +100,24 @@ class SaleController extends Controller
      * @param  \App\Models\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sale $sale)
+    public function update(Request $request, $id)
     {
-        //
+        // $request->validate([
+        //     'sale_Date' => 'required',
+        //     'branch_id' => 'required',
+        //     'sale_master_no' => 'required',
+        //     'grand_total' => 'required',
+        // ]);
+
+        $sale = SaleMaster::updateSale($request ,$id);
+        
+        SaleDetail::deleteOldDetailssale($request);
+        for($i=0; $i < sizeof($request->item_id); $i++)
+        {
+            SaleDetail::createSaleDetail($request, $i);
+        }
+
+        return redirect('sale')->with('message', 'Successfully Saved');
     }
 
     /**
@@ -78,8 +126,9 @@ class SaleController extends Controller
      * @param  \App\Models\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sale $sale)
+    public function destroy($id)
     {
-        //
+        SaleMaster::findOrFail($id)->delete();
+        return redirect('sale')->with('message', 'Successfully Deleted');
     }
 }
