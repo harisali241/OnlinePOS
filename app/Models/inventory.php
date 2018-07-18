@@ -13,7 +13,7 @@ use Auth;
 class Inventory extends Model
 {
     protected $fillable = [
-        'item_name', 'item_desc', 'purchase_rate', 'sell_rate', 'status', 'account_id', 'user_id', 'branch_id'
+        'item_name', 'item_desc', 'purchase_rate', 'sell_rate', 'status', 'account_id', 'user_id', 'branch_id','current_qty'
     ];
 
     public function companies()
@@ -31,6 +31,10 @@ class Inventory extends Model
     public function purchase_details()
     {
         return $this->hasMany('App\Models\purchase_details','inventory_id');
+    }
+    public function sale_details()
+    {
+        return $this->hasMany('App\Models\SaleDetail','inventory_id');
     }
 
     public static function fetchInventories(){
@@ -61,6 +65,7 @@ class Inventory extends Model
         $inventory->item_name = request('item_name');
         $inventory->item_desc = request('item_desc');
         $inventory->opening_qty = request('opening_qty');
+        $inventory->current_qty = request('opening_qty');
         $inventory->alert_qty = request('alert_qty');
         $inventory->account_id = request('account_id');
         $inventory->user_id = Auth::user()->id;
@@ -79,6 +84,7 @@ class Inventory extends Model
         $inventory->item_name = request('item_name');
         $inventory->item_desc = request('item_desc');
         $inventory->opening_qty = request('opening_qty');
+        $inventory->current_qty = request('opening_qty');
         $inventory->alert_qty = request('alert_qty');
         $inventory->user_id = Auth::user()->id;
         $inventory->company_id = Auth::user()->company_id;

@@ -21,13 +21,22 @@ class Terminal extends Model
     }
     public function branches()
     {
-        return $this->belongsTo('App\Models\Branch');
+        return $this->belongsTo('App\Models\Branch', 'branch_id');
     }
 
 
     public static function fetchTerminals()
     {
-        $terminals = Terminal::all();
+        if(Auth::user()->role_id === 2)
+        {
+            $terminals = Terminal::with('branches')
+                ->get();
+        }
+        elseif(Auth::user()->role_id === 3)
+        {
+            $terminals = Terminal::with('branches')
+                ->where('branch_id','=',Auth::user()->branch_id)->get();
+        }
         return $terminals;
 
         // return DB::table('terminals')
@@ -40,19 +49,14 @@ class Terminal extends Model
 
     public static function createTerminal(Request $request)
     {
-        if(request('status') == 0){
-            $status = 0;
-        }else{
-            $status = 1;
-        }
 
         $terminal = new Terminal;
 
         $terminal->user_id = Auth::user()->id;
-        $terminal->branch_id = Auth::user()->branch_id;
+        $terminal->branch_id = request('branch_id');
         $terminal->terminal_name = request('terminal_name');
         $terminal->terminal_code = request('terminal_code');
-        $terminal->status = $status;
+        $terminal->status = $request['status'];
         $terminal->save();
     }
 
@@ -69,16 +73,11 @@ class Terminal extends Model
         $terminal = Terminal::findOrFail($id);
 
         $terminal->user_id = Auth::user()->id;
-        $terminal->branch_id = Auth::user()->branch_id;
+       $terminal->branch_id = request('branch_id');
         $terminal->terminal_name = request('terminal_name');
         $terminal->terminal_code = request('terminal_code');
         $terminal->status = $status;
 
         $terminal->save();
-    }
-
-    public static function del($id)
-    {
-        Terminal::Where('id', $id)->delete();
     }
 }

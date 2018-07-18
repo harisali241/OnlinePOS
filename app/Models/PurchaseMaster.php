@@ -61,6 +61,8 @@ class PurchaseMaster extends Model
     {
         $purchase = new PurchaseMaster;
         $purchase->company_id = auth()->user()->company_id;
+        $purchase->user_id = auth()->user()->id;
+        $purchase->permission = 0;
         $purchase->branch_id = $data['branch_id'];
         $purchase->vendor_id = $data['vendor_id'];
         $purchase->user_id = auth()->user()->id;

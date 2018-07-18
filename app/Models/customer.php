@@ -21,12 +21,11 @@ class Customer extends Model
     {
         if(Auth::user()->role_id === 2)
         {
-            $customers = customer::where('company_id','=',Auth::user()->company_id)->get();
+            $customers = customer::all();
         }
         elseif(Auth::user()->role_id === 3)
         {
-            $customers = account::where('company_id','=',Auth::user()->company_id)
-                ->where('branch_id','=',Auth::user()->branch_id)->get();
+            $customers = account::where('branch_id','=',Auth::user()->branch_id)->get();
         }
 
         return $customers;
