@@ -30,10 +30,11 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::resource('customer', 'CustomerController');
 
     Route::resource('purchase', 'purchaseController');
+    Route::resource('sale', 'SaleController');
     // Route::get('/purchaseapprove', 'purchaseController@approve');
 
     
-    Route::resource('sale', 'saleController');
+    //Route::resource('sale', 'saleController');
 
 
 
