@@ -1,165 +1,201 @@
 @extends('layouts.master')
 @section('content')
-
+    
     <div class="row heading-bg">
-        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Manage Sales Order</h5>
+        </div>
+        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12" align="right">
 
-            <h5 class="txt-dark">Sale</h5>
-
+            <a href="{{url('sale/create')}}"><button type="button" class="btn btn-success btn-anim">Create +</button></a>
 
         </div>
-
-    </div>
-    <hr>
-    <br>
-
-    <form action="{{url('/purchase')}}" method="POST" role="form">
-        {{csrf_field()}}
-
-
-        <div class="row">
-            <div class="form-group col-sm-2">
-                <label for="Item Name" class="control-label"><b>Sale Number</b><span class="text-danger">*</span></label>
-            </div>
-            <div class="form-group col-sm-2">
-                <input type="text" class="form-control alert-qty"  name="alert_qty" style="background:#f2f2f2;" required>
-            </div>
-
-
-            <div class="form-group col-sm-2">
-                <label for="Item Name" class="control-label">Company Name<span class="text-danger">*</span></label>
-            </div>
-            <div class="form-group col-sm-2">
-                <input type="text" class="form-control alert-qty"  name="alert_qty" style="background:#f2f2f2;" required>
-            </div>
-
-
-            <div class="form-group col-sm-2">
-                <label for="Item Name" class="control-label">Branch Name<span class="text-danger">*</span></label>
-            </div>
-            <div class="form-group col-sm-2">
-                <input type="text" class="form-control alert-qty"  name="alert_qty" style="background:#f2f2f2;" required>
-            </div>
-
+        <div class="col-sm-12">
+            <hr>
         </div>
 
-        <div class="row">
-            <div class="form-group col-sm-2">
-                <label for="Account" class="control-label mb-10">Customer Name<span class="text-danger">*</span></label>
-            </div>
-            <div class="form-group col-sm-4">
-                <select class="form-control select2 account-add" name="" style="background:#f2f2f2;" required>
-                    <option disabled selected>Select Customers</option>
-
-
-                </select>
-            </div>
-
-
-            <div class="form-group col-sm-2">
-                <label for="Item Name" class="control-label">Date<span class="text-danger">*</span></label>
-            </div>
-            <div class="form-group col-sm-4">
-                <input type="date" class="form-control alert-qty"  name="alert_qty" style="background:#f2f2f2;" required>
-            </div>
-
-        </div>
-
-    </form>
-    <br>
-    <hr>
-
-    <div class="row">
-
-        <div class="form-group col-sm-1"></div>
-
-        <div class="form-group col-sm-1">
-            <label for="Account" class="control-label mb-10">Item<span class="text-danger">*</span></label>
-        </div>
-        <div class="form-group col-sm-2">
-            <select class="form-control select2 account-add" name="" style="background:#f2f2f2;" required>
-                <option disabled selected>Select Items</option>
-
-
-            </select>
-        </div>
-
-
-        <div class="form-group col-sm-1">
-            <label for="Item Name" class="control-label">QTY<span class="text-danger">*</span></label>
-        </div>
-        <div class="form-group col-sm-1">
-            <input type="text" class="form-control alert-qty"  name="alert_qty" style="background:#f2f2f2;" required>
-        </div>
-
-
-        <div class="form-group col-sm-1">
-            <label for="Item Name" class="control-label">Rate<span class="text-danger">*</span></label>
-        </div>
-        <div class="form-group col-sm-1">
-            <input type="text" class="form-control alert-qty"  name="alert_qty" style="background:#f2f2f2;" required>
-        </div>
-
-        <div class="form-group col-sm-1">
-            <label for="Item Name" class="control-label">Amount<span class="text-danger">*</span></label>
-        </div>
-        <div class="form-group col-sm-1">
-            <input type="text" class="form-control alert-qty"  name="alert_qty" style="background:#f2f2f2;" required>
-        </div>
-
-        <div class="form-group col-sm-1">
-            <button type="submit" class="btn btn-success addNew-check">Add</button>
-        </div>
-
-        <div class="form-group col-sm-1"></div>
-
-    </div>
-
-    <hr>
-
-    <!-- Row -->
+         <!-- Row -->
     <div class="row">
         <div class="col-sm-12 mt-20">
-            <div class="panel panel-default card-view">
-                <div class="table-wrap">
-                    <div class="table-responsive">
-                        <table id="datable_1" class="table table-hover display pb-30" >
-                            <thead>
+            <div class="table-wrap">
+                <div class="table-responsive">
+                    <table id="datable_1" class="table table-hover display pb-30" >
+                        <thead>
+                        <tr>
+                            <th>S.NO</th>
+                            <th>Date</th>
+                            <th>Sale Code</th>
+                            <th>Total Quantity</th>
+                            <th>Total Amount</th>
+                            <th width="15%">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @php $i = 1; @endphp
+                        @foreach($saleOrder as $sale)
                             <tr>
-                                <th>S.NO</th>
-                                <th>Item Name</th>
-                                <th>Customer Name</th>
-                                <th>QTY</th>
-                                <th>Rate</th>
-                                <th>Amount</th>
-                                <th>Date</th>
+                                <td>{!! $i !!}</td>
+                                <td>{{$sale->date  }}</td>
+                                <td>{{$sale->sale_master_no}}</td>
+                                <td>
+                                    @php
+                                        $count = 0;
+                                    @endphp
+                                    @for($x=0; $x < sizeof($sale->sale_details); $x++)
+                                        @php
+                                            $count = $count + $sale->sale_details[$x]->qty;
+                                        @endphp
+                                    @endfor
+                                    {{$count}}
+                                </td>
+                                <td>Rs {{$sale->total_amount}}</td>
+                                <td>
+                                        <div class="col-sm-3" align="center">
+                                            <form method="GET" action="{{ url('sale/'.$sale->id.'/edit') }}">
+                                                {{csrf_field()}}
+                                                <button type="submit" class="btn btn-warning btn-icon-anim btn-square btn-sm "><i class="fa fa-pencil"></i></button>
+                                            </form>
+                                        </div>
+                                    <div class="col-sm-3" align="center">
+                                        <form method="POST" action="{{ url('sale/'.$sale->id) }}" id="delete{{$sale->id}}">
+                                            {{csrf_field()}}
+                                            {{method_field("DELETE")}}
+                                            <button type="button" class="btn btn-danger btn-icon-anim btn-square btn-sm" onclick="del({{$sale->id}});"><i class="fa fa-trash"></i></button>
+                                        </form>
+                                    </div>
+
+                                </td>
+
+
                             </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Potatost</td>
-                                <td>Ali Akbar</td>
-                                <td>10</td>
-                                <td>15</td>
-                                <td>150</td>
-                                <td>25/5/2018</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            @php $i++; @endphp
+
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
     <!-- /Row -->
 
+    </div>
 @endsection
 
 @section('script')
-
+    
     <script type="text/javascript">
 
-    </script>
+        var grand_total = 0;
+        var total_items = 0;
+
+        $('.addNew_item').click(function () {
+            var item_id = $('.item_detail').val();
+            var qnt = $('.qnt').val();
+            var rate = $('.rate').val();
+            var item_name = $('.item_detail option:selected').text();
+            var html = '';
+            if(item_id !== 0 && qnt !== '' && rate !== '')
+            {
+                html += `
+                    <tr>
+                        <td>
+                            `+item_name+`
+                            <input type="hidden" name="item_id[]" value="`+item_id+`"/>
+                        </td>
+                        <td>
+                            `+qnt+`
+                            <input type="hidden" class="item_qnt" name="qnt[]" value="`+qnt+`"/>
+                        </td>
+                        <td>
+                            `+rate+`
+                            <input type="hidden" class="item_rate" name="rate[]" value="`+rate+`"/>
+                        </td>
+                        <td>
+                            `+qnt*rate+`
+                            <input type="hidden" class="item_total" name="total_amount[]" value="`+qnt*rate+`"/>
+                        </td>
+                        <td>
+                           <button type="button" class="btn btn-xs btn-danger remove_row"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+
+                $('.item_here').append(html);
+                grand_total+= qnt*rate;
+                total_items+= 1;
+
+                $('.total_item').val(total_items);
+                $('.grand_total').val(grand_total);
+            }
+            else {
+                swal({
+                    title: "Required!",
+                    text: "PLease Enter Require Fields!",
+                    confirmButtonColor: "#0098a3",
+                });
+            }
+        });
+        
+        $('body').on('click','.remove_row',function () {
+            var qnt = $(this).parent().parent().find('.item_qnt').val();
+            var rate = $(this).parent().parent().find('.item_rate').val();
+            var total_amount = $(this).parent().parent().find('.total_amount').val();
+
+            $(this).parent().parent().remove();
+
+            grand_total-= qnt*rate;
+            total_items-= 1;
+
+            $('.total_item').val(total_items);
+            $('.grand_total').val(grand_total);
+
+        });
+
+        var allowsubmit = 0;
+        $('#sale_add_form').on('submit',function (e) {
+            var sale_number = $('#sale_nmbr').val();
+
+            var branch_id = $('#branch_id').val();
+            var customer_id = $('#customer_id').val();
+           if(allowsubmit === 0)
+           {
+               e.preventDefault();
+
+
+               if(purchase_number !== '' && branch_id*1 !== 0 && customer_id*1 !== 0 && total_items !== 0)
+               {
+                   allowsubmit = 1;
+                   $(this).submit();
+               }
+               else {
+                   swal({
+                       title: "Required!",
+                       text: "PLease Enter Require Fields!",
+                       confirmButtonColor: "#0098a3",
+                   });
+               }
+
+           }
+        });
+
+    function del(id){
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "red",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function(){
+
+            swal("Deleted!", "Your record has been deleted.", "success");
+            $("#delete"+id).submit();
+
+        });
+        return false;
+    }
+   </script>
 
 @endsection
