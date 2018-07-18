@@ -55,7 +55,6 @@ class InventoryController extends Controller
             'alert_qty' => "required",
             'account_id' => "required",
             'branch_id' => "required",
-            'company_id' => "required",
             'status' => "required",
         ]);
         Inventory::createInventory($request);
