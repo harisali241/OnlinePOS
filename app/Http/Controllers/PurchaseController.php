@@ -111,6 +111,7 @@ class PurchaseController extends Controller
             'grand_total' => 'required',
         ]);
         $purchase = PurchaseMaster::updatePurchase($request ,$id);
+        
         PurchaseDetail::deleteOldDetails($request);
         for($i=0; $i < sizeof($request->item_id); $i++)
         {
