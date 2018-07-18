@@ -24,9 +24,10 @@ class TerminalController extends Controller
     public function index()
     {
         $terminals = Terminal::fetchTerminals();
-        $company = User::fetchCompanyFromUser();
-        $branch = User::fetchBranchFromUser();
-        return view('pages.terminal.terminal', compact('terminals', 'company', 'branch'));
+        $branches = Branch::fetchBranches();
+        $random = rand(99, 9999999);
+        $edit_branches = branch::where('company_id','=',auth()->user()->company_id)->pluck('branch_name','id');
+        return view('pages.terminal.terminal', compact('terminals', 'branches','random','edit_branches'));
     }
 
     /**
@@ -108,7 +109,7 @@ class TerminalController extends Controller
      */
     public function destroy($id)
     {
-        Terminal::del($id);
+        Terminal::findOrFail($id)->delete();
         return redirect('terminal')->with('message', 'Successfully Deleted');
     }
 }
