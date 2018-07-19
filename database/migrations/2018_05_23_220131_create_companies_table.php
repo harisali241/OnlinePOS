@@ -17,7 +17,9 @@ class CreateCompaniesTable extends Migration
             $table->increments('id');
             $table->string('company_name');
             $table->string('company_address');
-            $table->bigInteger('company_phoneNo');
+            $table->string('location');
+            $table->float('latitude');
+            $table->float('longitude');
             $table->boolean('status');
             $table->timestamps();
 

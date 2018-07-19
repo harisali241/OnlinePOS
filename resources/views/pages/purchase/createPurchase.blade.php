@@ -142,7 +142,6 @@
                         <hr>
                         <div class="form-group col-sm-12" align="right">
                             <button type="submit" class="btn btn-success addNew-check">Save</button>
-
                         </div>
 
                     </div>

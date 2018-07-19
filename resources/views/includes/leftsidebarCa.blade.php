@@ -62,10 +62,22 @@ Left Sidebar Menu -->
                     <a href="{{url('/purchase/create')}}">Create Purchase Order</a>
                 </li>
                 <li>
-                    <a href="{{url('/purchase')}}">View Pending Purchase Orders</a>
+                    <a href="{{url('/purchase')}}">Pending PO</a>
                 </li>
                 <li>
-                    <a href="{{url('/purchaseapprove')}}">View Approve Purchase Orders</a>
+                    <a href="{{url('/purchaseapprove')}}">Approve PO</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#pages_grn"><div class="pull-left"><i class=" icon-note mr-20"></i><span class="right-nav-text">Good Receive Note</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="pages_grn" class="collapse collapse-level-1 two-col-list">
+                <li>
+                    <a href="{{url('/grn/create')}}">Create GRN</a>
+                </li>
+                <li>
+                    <a href="{{url('/grn')}}">View GRN</a>
                 </li>
             </ul>
         </li>

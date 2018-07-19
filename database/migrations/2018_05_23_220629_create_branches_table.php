@@ -17,8 +17,10 @@ class CreateBranchesTable extends Migration
             $table->increments('id');
             $table->integer('company_id')->unsigned();
             $table->string('branch_name');
-            $table->string('branch_address');
             $table->bigInteger('branch_phoneNo')->nullable();
+            $table->string('location');
+            $table->float('latitude');
+            $table->float('longitude');
             $table->boolean('status');
             $table->timestamps();
 

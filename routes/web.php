@@ -28,14 +28,9 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::resource('nature', 'AccountNatureController');
     Route::resource('account', 'AccountController');
     Route::resource('customer', 'CustomerController');
-
     Route::resource('purchase', 'purchaseController');
     Route::resource('sale', 'SaleController');
-    // Route::get('/purchaseapprove', 'purchaseController@approve');
-
-    
-    //Route::resource('sale', 'saleController');
-
+    Route::resource('grn', 'grnController');
 
 
     /*Ajax Routes*/
@@ -43,5 +38,6 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::get('check_username_edit','AjaxController@check_usernames_edit');
 });
 
+Route::post('reqPO','grnController@reqPO');
 Route::get('/purchaseapprove', 'purchaseController@approve');
 Route::post('aprovel', 'purchaseController@aprovel');
