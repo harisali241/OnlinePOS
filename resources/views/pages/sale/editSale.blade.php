@@ -13,6 +13,10 @@
                         <hr>
                     </div>
                     <div class="row p-20">
+<<<<<<< HEAD
+
+=======
+>>>>>>> 9dd727bbb6d234a48d94b64a5c23c301e500be54
                         <div class="form-group col-sm-6">
                             <label for="Item Name" class="control-label"><b>Purchase Number</b><span class="text-danger">*</span></label>
                             {!! Form::text('sale_master_no' , $sale->sale_master_no ,['class' => 'form-control  small-input','id' => 'sale_master_no'.$sale->id,'required' => 'required', 'readonly'=>'readonly'] ) !!}
