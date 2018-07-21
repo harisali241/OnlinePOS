@@ -30,7 +30,15 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::resource('customer', 'CustomerController');
     Route::resource('purchase', 'purchaseController');
     Route::resource('sale', 'SaleController');
+<<<<<<< HEAD
+    // Route::get('/purchaseapprove', 'purchaseController@approve');
+
+    
+    //Route::resource('sale', 'saleController');
+
+=======
     Route::resource('grn', 'grnController');
+>>>>>>> 9dd727bbb6d234a48d94b64a5c23c301e500be54
 
 
     /*Ajax Routes*/
