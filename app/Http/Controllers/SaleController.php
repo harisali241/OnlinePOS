@@ -109,9 +109,32 @@ class SaleController extends Controller
         //     'grand_total' => 'required',
         // ]);
 
+<<<<<<< HEAD
+        $delupdate = SaleDetail::where('sale_master_id',$id)->get();
+
+        foreach($delupdate as $del)
+        {
+            $inventoryupdate = Inventory::where('id', $del->inventory_id)->get();
+
+            foreach($inventoryupdate as $invent)
+            {
+                $totalupdate = $del->qty + $invent->current_qty;
+
+                $inventory = Inventory::findOrFail($invent->id);
+                $inventory->current_qty = $totalupdate;
+                $inventory->save();
+            }
+        }
+
         $sale = SaleMaster::updateSale($request ,$id);
         
         SaleDetail::deleteOldDetailssale($request);
+
+=======
+        $sale = SaleMaster::updateSale($request ,$id);
+        
+        SaleDetail::deleteOldDetailssale($request);
+>>>>>>> 9dd727bbb6d234a48d94b64a5c23c301e500be54
         for($i=0; $i < sizeof($request->item_id); $i++)
         {
             SaleDetail::createSaleDetail($request, $i);
