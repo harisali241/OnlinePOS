@@ -77,19 +77,10 @@ Left Sidebar Menu -->
                     <a href="{{url('/grn/create')}}">Create GRN</a>
                 </li>
                 <li>
-                    <a href="{{url('/grn')}}">View GRN</a>
-                </li>
-            </ul>
-        </li>
-
-        <li>
-            <a href="javascript:void(0);" data-toggle="collapse" data-target="#pages_dr1"><div class="pull-left"><i class=" icon-key mr-20"></i><span class="right-nav-text">Sale Order</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-            <ul id="pages_dr1" class="collapse collapse-level-1 two-col-list">
-                <li>
-                    <a href="{{url('/sale/create')}}">Create Sale Order</a>
+                    <a href="{{url('/grn')}}">View Pending GRN</a>
                 </li>
                 <li>
-                    <a href="{{url('/sale')}}">View Sale Orders</a>
+                    <a href="{{url('/grnComplete')}}">View Completed GRN</a>
                 </li>
             </ul>
         </li>

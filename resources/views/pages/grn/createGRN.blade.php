@@ -80,7 +80,7 @@
                     <div class="row p-20">
                         <div class="form-group col-sm-12">
                             <label for="Account" class="control-label">Purchase Order<span class="text-danger">*</span></label>
-                            <select class="form-control select2 purchase_id">
+                            <select class="form-control select2 purchase_id" name="purchase_id">
                                 <option disabled selected>Select Order</option>
                                 @foreach($purchaseOrder as $purchase)
                                     <option value="{{ $purchase->id }}">Code No - {{ $purchase->purchase_master_no }}</option>
@@ -163,8 +163,8 @@
                         data:{ 'id' : id , '_token': '{{csrf_token()}}' },
                         success: function (data) {
                             //console.log( data.purchase_details );
-                            $('.branch_id').append('<option value="'+data.branch_id+'" selected>'+data.branches.branch_name+'</option>');
-                            $('.vendor_id').append('<option value="'+data.vendor_id+'" selected>'+data.vendors.vendor_name+'</option>');
+                            $('.branch_id').html('<option value="'+data.branch_id+'" selected>'+data.branches.branch_name+'</option>');
+                            $('.vendor_id').html('<option value="'+data.vendor_id+'" selected>'+data.vendors.vendor_name+'</option>');
                             //$('.branch_id').val(data.branches.branch_name);
                             //$('.vendor_id').val(data.vendors.vendor_name);
                             $('.total_item').val( $(data.purchase_details).size() );

@@ -19,6 +19,7 @@ class CreateGRNMastersTable extends Migration
             $table->integer('company_id')->unsigned();
             $table->integer('branch_id')->unsigned();
             $table->integer('vendor_id')->unsigned();
+            $table->integer('purchase_id')->unsigned();
             $table->integer('grn_master_no');
             $table->dateTime('date');
             $table->integer('total_amount');

@@ -20,6 +20,8 @@ class CreatePurchaseMastersTable extends Migration
             $table->integer('vendor_id')->unsigned();
             $table->integer('purchase_master_no');
             $table->dateTime('date');
+            $table->boolean('permission');
+            $table->boolean('complete');
             $table->timestamps();
 
             $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');

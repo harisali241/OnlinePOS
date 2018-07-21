@@ -23,8 +23,15 @@ class grnController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('pages.grn.viewGRN');
+    {   
+        $grns = GRNMaster::fetchGRN();
+        return view('pages.grn.inCompleteGRN', compact('grns'));
+    }
+
+    public function complete()
+    {   
+        $grns = GRNMaster::fetchGRN();
+        return view('pages.grn.completedGRN', compact('grns'));
     }
 
     /**
@@ -35,7 +42,7 @@ class grnController extends Controller
     public function create()
     {      
         $random = rand(99, 9999999);
-        $purchaseOrder = PurchaseMaster::where('permission' , 1)->get();
+        $purchaseOrder = PurchaseMaster::where('permission' , 1)->where('complete' , null)->get();
         return view('pages.grn.createGRN', compact('purchaseOrder', 'random'));
     }
 
@@ -72,7 +79,8 @@ class grnController extends Controller
      */
     public function show($id)
     {
-        //
+        $grn = GRNMaster::fetchSingleGRN($id);
+        return view('pages.grn.viewGRN', compact('grn'));
     }
 
     /**
@@ -105,7 +113,9 @@ class grnController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {   
+        GRNMaster::changePurchaseComplete($id);
+        GRNMaster::findOrFail($id)->delete();
+        return redirect('grn')->with('message', 'Successfully Deleted');
     }
 }
