@@ -25,6 +25,38 @@ class SaleDetail extends Model
 
     public static function createSaleDetail(Request $request, $i)
     {
+<<<<<<< HEAD
+        $item = $request['item_id'][$i];
+
+        $quantity = $request['qnt'][$i];
+
+        $sale_master_id = SaleMaster::where('sale_master_no', $request['sale_master_no'])->pluck('id')->first();
+
+        //$sub = SaleDetail::where('sale_master_id', $sale_master_id)->first();
+
+        $invent = Inventory::where('id','=',$item)->pluck('current_qty')->first();
+
+        $total = $invent - $quantity;
+
+            $sale = new SaleDetail;
+            $sale->company_id = auth()->user()->company_id;
+            $sale->branch_id = $request['branch_id'];
+            $sale->sale_master_id = $sale_master_id;
+            $sale->user_id = auth()->user()->id;
+            $sale->customer_id = $request['customer_id'];
+            $sale->terminal_id = $request['terminal_id'];
+            $sale->inventory_id = $item;
+            $sale->qty = $quantity;
+            $sale->rate = $request['rate'][$i];
+            $sale->amount = $request['total_amount'][$i];
+
+            $sale->save();
+
+            $inventory = Inventory::findOrFail($item);
+            $inventory->current_qty = $total;
+            $inventory->save();
+        
+=======
         $sale_master_id = SaleMaster::where('sale_master_no', $request['sale_master_no'])->pluck('id')->first();
 
         $sale = new SaleDetail;
@@ -41,6 +73,7 @@ class SaleDetail extends Model
         $sale->amount = $request['total_amount'][$i];
 
         $sale->save();
+>>>>>>> 9dd727bbb6d234a48d94b64a5c23c301e500be54
     }
 
     public static function deleteOldDetailssale(Request $request)
