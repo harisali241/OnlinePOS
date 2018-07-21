@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 19, 2018 at 08:23 PM
+-- Generation Time: Jul 21, 2018 at 01:28 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.16
 
@@ -569,16 +569,17 @@ CREATE TABLE IF NOT EXISTS `g_r_n_details` (
   KEY `g_r_n_details_vendor_id_foreign` (`vendor_id`),
   KEY `g_r_n_details_inventory_id_foreign` (`inventory_id`),
   KEY `g_r_n_details_company_id_foreign` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `g_r_n_details`
 --
 
 INSERT INTO `g_r_n_details` (`id`, `user_id`, `company_id`, `branch_id`, `vendor_id`, `grn_master_id`, `inventory_id`, `qty`, `rate`, `amount`, `balance`, `created_at`, `updated_at`) VALUES
-(16, 4, 5, 2, 1, 7, 1, 300, 70, 21000, 200, '2018-07-19 15:21:55', '2018-07-19 15:21:55'),
-(17, 4, 5, 2, 1, 7, 1, 300, 125, 37500, 200, '2018-07-19 15:21:56', '2018-07-19 15:21:56'),
-(18, 4, 5, 2, 1, 7, 1, 300, 270, 81000, 200, '2018-07-19 15:21:56', '2018-07-19 15:21:56');
+(27, 4, 5, 3, 2, 16, 4, 1000000, 5, 5000000, 0, '2018-07-20 14:42:17', '2018-07-20 14:42:17'),
+(28, 4, 5, 2, 1, 17, 1, 500, 70, 35000, 0, '2018-07-21 08:19:56', '2018-07-21 08:19:56'),
+(29, 4, 5, 2, 1, 17, 1, 500, 125, 62500, 0, '2018-07-21 08:19:56', '2018-07-21 08:19:56'),
+(30, 4, 5, 2, 1, 17, 1, 500, 270, 135000, 0, '2018-07-21 08:19:56', '2018-07-21 08:19:56');
 
 -- --------------------------------------------------------
 
@@ -593,10 +594,12 @@ CREATE TABLE IF NOT EXISTS `g_r_n_masters` (
   `company_id` int(10) UNSIGNED NOT NULL,
   `branch_id` int(10) UNSIGNED NOT NULL,
   `vendor_id` int(10) UNSIGNED NOT NULL,
+  `purchase_id` int(10) UNSIGNED NOT NULL,
   `grn_master_no` int(11) NOT NULL,
   `date` datetime NOT NULL,
   `total_amount` int(11) NOT NULL,
-  `total_balance` int(11) NOT NULL,
+  `total_balance` int(11) DEFAULT NULL,
+  `complete` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -604,14 +607,15 @@ CREATE TABLE IF NOT EXISTS `g_r_n_masters` (
   KEY `g_r_n_masters_vendor_id_foreign` (`vendor_id`),
   KEY `g_r_n_masters_user_id_foreign` (`user_id`),
   KEY `g_r_n_masters_branch_id_foreign` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `g_r_n_masters`
 --
 
-INSERT INTO `g_r_n_masters` (`id`, `user_id`, `company_id`, `branch_id`, `vendor_id`, `grn_master_no`, `date`, `total_amount`, `total_balance`, `created_at`, `updated_at`) VALUES
-(7, 4, 5, 2, 1, 3784039, '2018-07-17 00:00:00', 139500, 600, '2018-07-19 15:21:55', '2018-07-19 15:21:55');
+INSERT INTO `g_r_n_masters` (`id`, `user_id`, `company_id`, `branch_id`, `vendor_id`, `purchase_id`, `grn_master_no`, `date`, `total_amount`, `total_balance`, `complete`, `created_at`, `updated_at`) VALUES
+(16, 4, 5, 3, 2, 13, 6453553, '2018-07-02 00:00:00', 5000000, NULL, 1, '2018-07-20 14:42:17', '2018-07-20 14:42:17'),
+(17, 4, 5, 2, 1, 7, 2763101, '2018-07-21 00:00:00', 232500, NULL, 1, '2018-07-21 08:19:56', '2018-07-21 08:19:56');
 
 -- --------------------------------------------------------
 
@@ -796,6 +800,7 @@ CREATE TABLE IF NOT EXISTS `purchase_masters` (
   `date` datetime NOT NULL,
   `total_amount` decimal(15,3) DEFAULT NULL,
   `permission` tinyint(1) NOT NULL DEFAULT '0',
+  `complete` tinyint(1) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -808,12 +813,12 @@ CREATE TABLE IF NOT EXISTS `purchase_masters` (
 -- Dumping data for table `purchase_masters`
 --
 
-INSERT INTO `purchase_masters` (`id`, `company_id`, `user_id`, `branch_id`, `vendor_id`, `purchase_master_no`, `date`, `total_amount`, `permission`, `created_at`, `updated_at`) VALUES
-(7, 5, 4, 2, 1, 3566004, '2018-07-05 00:00:00', '232500.000', 1, '2018-07-07 07:02:18', '2018-07-17 13:18:43'),
-(9, 5, 4, 2, 1, 5996926, '2018-07-08 00:00:00', '117000.000', 0, '2018-07-07 15:24:25', '2018-07-07 15:24:25'),
-(10, 5, 4, 2, 2, 5912949, '2018-07-08 00:00:00', '228390.000', 1, '2018-07-08 07:39:29', '2018-07-18 12:35:59'),
-(12, 5, 4, 3, 1, 521430, '2018-07-09 00:00:00', '400000.000', 0, '2018-07-09 14:22:42', '2018-07-09 14:22:42'),
-(13, 5, 4, 3, 2, 609128, '2018-07-18 00:00:00', '5000000.000', 1, '2018-07-18 14:34:51', '2018-07-18 14:35:18');
+INSERT INTO `purchase_masters` (`id`, `company_id`, `user_id`, `branch_id`, `vendor_id`, `purchase_master_no`, `date`, `total_amount`, `permission`, `complete`, `created_at`, `updated_at`) VALUES
+(7, 5, 4, 2, 1, 3566004, '2018-07-05 00:00:00', '232500.000', 1, 1, '2018-07-07 07:02:18', '2018-07-21 08:19:56'),
+(9, 5, 4, 2, 1, 5996926, '2018-07-08 00:00:00', '117000.000', 0, NULL, '2018-07-07 15:24:25', '2018-07-07 15:24:25'),
+(10, 5, 4, 2, 2, 5912949, '2018-07-08 00:00:00', '228390.000', 1, NULL, '2018-07-08 07:39:29', '2018-07-18 12:35:59'),
+(12, 5, 4, 3, 1, 521430, '2018-07-09 00:00:00', '400000.000', 0, NULL, '2018-07-09 14:22:42', '2018-07-09 14:22:42'),
+(13, 5, 4, 3, 2, 609128, '2018-07-18 00:00:00', '5000000.000', 1, 1, '2018-07-18 14:34:51', '2018-07-20 14:42:17');
 
 -- --------------------------------------------------------
 
