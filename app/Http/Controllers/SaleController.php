@@ -109,7 +109,6 @@ class SaleController extends Controller
         //     'grand_total' => 'required',
         // ]);
 
-<<<<<<< HEAD
         $delupdate = SaleDetail::where('sale_master_id',$id)->get();
 
         foreach($delupdate as $del)
@@ -130,11 +129,10 @@ class SaleController extends Controller
         
         SaleDetail::deleteOldDetailssale($request);
 
-=======
         $sale = SaleMaster::updateSale($request ,$id);
         
         SaleDetail::deleteOldDetailssale($request);
->>>>>>> 9dd727bbb6d234a48d94b64a5c23c301e500be54
+
         for($i=0; $i < sizeof($request->item_id); $i++)
         {
             SaleDetail::createSaleDetail($request, $i);
