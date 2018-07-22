@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 21, 2018 at 01:28 PM
+-- Generation Time: Jul 22, 2018 at 07:49 AM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.16
 
@@ -569,17 +569,16 @@ CREATE TABLE IF NOT EXISTS `g_r_n_details` (
   KEY `g_r_n_details_vendor_id_foreign` (`vendor_id`),
   KEY `g_r_n_details_inventory_id_foreign` (`inventory_id`),
   KEY `g_r_n_details_company_id_foreign` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `g_r_n_details`
 --
 
 INSERT INTO `g_r_n_details` (`id`, `user_id`, `company_id`, `branch_id`, `vendor_id`, `grn_master_id`, `inventory_id`, `qty`, `rate`, `amount`, `balance`, `created_at`, `updated_at`) VALUES
-(27, 4, 5, 3, 2, 16, 4, 1000000, 5, 5000000, 0, '2018-07-20 14:42:17', '2018-07-20 14:42:17'),
-(28, 4, 5, 2, 1, 17, 1, 500, 70, 35000, 0, '2018-07-21 08:19:56', '2018-07-21 08:19:56'),
-(29, 4, 5, 2, 1, 17, 1, 500, 125, 62500, 0, '2018-07-21 08:19:56', '2018-07-21 08:19:56'),
-(30, 4, 5, 2, 1, 17, 1, 500, 270, 135000, 0, '2018-07-21 08:19:56', '2018-07-21 08:19:56');
+(42, 4, 5, 2, 1, 19, 1, 500, 70, 35000, 0, '2018-07-22 02:48:36', '2018-07-22 02:48:36'),
+(43, 4, 5, 2, 1, 19, 1, 500, 125, 62500, 0, '2018-07-22 02:48:36', '2018-07-22 02:48:36'),
+(44, 4, 5, 2, 1, 19, 1, 500, 270, 135000, 0, '2018-07-22 02:48:36', '2018-07-22 02:48:36');
 
 -- --------------------------------------------------------
 
@@ -606,16 +605,16 @@ CREATE TABLE IF NOT EXISTS `g_r_n_masters` (
   KEY `g_r_n_masters_company_id_foreign` (`company_id`),
   KEY `g_r_n_masters_vendor_id_foreign` (`vendor_id`),
   KEY `g_r_n_masters_user_id_foreign` (`user_id`),
-  KEY `g_r_n_masters_branch_id_foreign` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `g_r_n_masters_branch_id_foreign` (`branch_id`),
+  KEY `g_r_n_masters_purchase_id_foreign` (`purchase_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `g_r_n_masters`
 --
 
 INSERT INTO `g_r_n_masters` (`id`, `user_id`, `company_id`, `branch_id`, `vendor_id`, `purchase_id`, `grn_master_no`, `date`, `total_amount`, `total_balance`, `complete`, `created_at`, `updated_at`) VALUES
-(16, 4, 5, 3, 2, 13, 6453553, '2018-07-02 00:00:00', 5000000, NULL, 1, '2018-07-20 14:42:17', '2018-07-20 14:42:17'),
-(17, 4, 5, 2, 1, 7, 2763101, '2018-07-21 00:00:00', 232500, NULL, 1, '2018-07-21 08:19:56', '2018-07-21 08:19:56');
+(19, 4, 5, 2, 1, 7, 3715067, '2018-07-22 00:00:00', 232500, 0, 1, '2018-07-22 02:48:08', '2018-07-22 02:48:35');
 
 -- --------------------------------------------------------
 
@@ -814,11 +813,11 @@ CREATE TABLE IF NOT EXISTS `purchase_masters` (
 --
 
 INSERT INTO `purchase_masters` (`id`, `company_id`, `user_id`, `branch_id`, `vendor_id`, `purchase_master_no`, `date`, `total_amount`, `permission`, `complete`, `created_at`, `updated_at`) VALUES
-(7, 5, 4, 2, 1, 3566004, '2018-07-05 00:00:00', '232500.000', 1, 1, '2018-07-07 07:02:18', '2018-07-21 08:19:56'),
+(7, 5, 4, 2, 1, 3566004, '2018-07-05 00:00:00', '232500.000', 1, 1, '2018-07-07 07:02:18', '2018-07-22 02:48:35'),
 (9, 5, 4, 2, 1, 5996926, '2018-07-08 00:00:00', '117000.000', 0, NULL, '2018-07-07 15:24:25', '2018-07-07 15:24:25'),
-(10, 5, 4, 2, 2, 5912949, '2018-07-08 00:00:00', '228390.000', 1, NULL, '2018-07-08 07:39:29', '2018-07-18 12:35:59'),
+(10, 5, 4, 2, 2, 5912949, '2018-07-08 00:00:00', '228390.000', 1, NULL, '2018-07-08 07:39:29', '2018-07-22 02:36:02'),
 (12, 5, 4, 3, 1, 521430, '2018-07-09 00:00:00', '400000.000', 0, NULL, '2018-07-09 14:22:42', '2018-07-09 14:22:42'),
-(13, 5, 4, 3, 2, 609128, '2018-07-18 00:00:00', '5000000.000', 1, 1, '2018-07-18 14:34:51', '2018-07-20 14:42:17');
+(13, 5, 4, 3, 2, 609128, '2018-07-18 00:00:00', '5000000.000', 1, NULL, '2018-07-18 14:34:51', '2018-07-20 14:42:17');
 
 -- --------------------------------------------------------
 
@@ -5182,6 +5181,7 @@ ALTER TABLE `g_r_n_details`
 ALTER TABLE `g_r_n_masters`
   ADD CONSTRAINT `g_r_n_masters_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `g_r_n_masters_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `g_r_n_masters_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchase_masters` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `g_r_n_masters_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `g_r_n_masters_vendor_id_foreign` FOREIGN KEY (`vendor_id`) REFERENCES `vendors` (`id`) ON DELETE CASCADE;
 

@@ -28,6 +28,10 @@ class GRNMaster extends Model
     {
         return $this->hasMany('App\Models\GRNDetail','grn_master_id');
     }
+    public function purchase_masters()
+    {
+        return $this->belongsTo('App\Models\PurchaseMaster','purchase_id');
+    }
 
     Public static function fetchGRN(){
     	if(Auth::user()->role_id === 2)
@@ -45,12 +49,12 @@ class GRNMaster extends Model
     Public static function fetchSingleGRN($id){
     	if(Auth::user()->role_id === 2)
         {	
-        	$grn = GRNMaster::where('id' , $id)->where('company_id','=',Auth::user()->company_id)->with('g_r_n_details.inventories', 'branches' ,'vendors')->get()->first();
+        	$grn = GRNMaster::where('id' , $id)->where('company_id','=',Auth::user()->company_id)->with('g_r_n_details.inventories', 'branches' ,'vendors', 'purchase_masters')->get()->first();
         }
         elseif(Auth::user()->role_id === 3)
         {
             $grn = GRNMaster::where('id' , $id)->where('company_id','=',Auth::user()->company_id)
-                ->where('branch_id','=',Auth::user()->branch_id)->with('g_r_n_details.inventories', 'branches' ,'vendors')->get()->first();
+                ->where('branch_id','=',Auth::user()->branch_id)->with('g_r_n_details.inventories', 'branches' ,'vendors', 'purchase_masters')->get()->first();
         }
     	return $grn;
     }
@@ -86,7 +90,32 @@ class GRNMaster extends Model
         }
     }
 
+    public static function updateGRN($data ,$id)
+    {   
+        $grn = GRNMaster::findOrFail($id);
+        $grn->company_id = auth()->user()->company_id;
+        $grn->user_id = auth()->user()->id;
+        $grn->date = $data['grn_Date'];
+        $grn->total_amount = $data['grand_total'];
+        $grn->total_balance = $data['total_balance'];
+        if($data['total_balance'] == null || $data['total_balance'] == 0){
+            $grn->complete = 1;
+        }else{
+            $grn->complete = 0;
+        }
 
+        $grn->save();
+
+        if($data['total_balance'] == null || $data['total_balance'] == 0){
+            $purchase = PurchaseMaster::findOrFail( $data['purchase_id'] );
+            $purchase->complete = 1;
+            $purchase->save();
+        }else{
+            $purchase = PurchaseMaster::findOrFail( $data['purchase_id'] );
+            $purchase->complete = 0;
+            $purchase->save();
+        }
+    }
 
     public static function changePurchaseComplete($id){
     	$purchase_id = GRNMaster::where('id', $id)->pluck('purchase_id')->first();

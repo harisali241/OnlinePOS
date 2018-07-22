@@ -46,4 +46,11 @@ class GRNDetail extends Model
 
         $grn->save();
     }
+
+    public static function deleteOldGRNDetails(Request $request)
+    {
+        $grn_master_id = GRNMaster::Where('grn_master_no', $request['grn_master_no'])->pluck('id')->first();
+        GRNDetail::Where('grn_master_id', $grn_master_id)->delete();
+    }
+
 }

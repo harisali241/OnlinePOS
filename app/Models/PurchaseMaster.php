@@ -29,6 +29,10 @@ class PurchaseMaster extends Model
     {
         return $this->hasMany('App\Models\PurchaseDetail','purchase_master_id');
     }
+    public function g_r_n_masters()
+    {
+        return $this->hasOne('App\Models\GRNMaster','purchase_id');
+    }
 
 
     Public static function fetchPurchaseOrder(){

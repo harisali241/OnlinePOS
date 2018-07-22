@@ -91,7 +91,8 @@ class grnController extends Controller
      */
     public function edit($id)
     {
-        //
+        $grn = GRNMaster::fetchSingleGRN($id);
+        return view('pages.grn.editGRN', compact('grn'));
     }
 
     /**
@@ -103,7 +104,23 @@ class grnController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //return $request->all();
+        $request->validate([
+            'grn_Date' => 'required',
+            'branch_id' => 'required',
+            'vendor_id' => 'required',
+            'grn_master_no' => 'required',
+            'grand_total' => 'required',
+        ]);
+
+        GRNMaster::updateGRN($request, $id);
+        GRNDetail::deleteOldGRNDetails($request);
+        for($i=0; $i < sizeof($request->item_id); $i++)
+        {
+            GRNDetail::createGRNDetail($request, $i);
+        }
+
+        return redirect('grn')->with('message', 'Successfully Saved');
     }
 
     /**
