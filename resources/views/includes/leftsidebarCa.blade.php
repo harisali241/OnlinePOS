@@ -2,6 +2,13 @@ Left Sidebar Menu -->
 <div class="fixed-sidebar-left">
     <ul class="nav navbar-nav side-nav nicescroll-bar">
         <li class="navigation-header">
+            <span>Point Of Sale</span>
+            <i class="zmdi zmdi-more"></i>
+        </li>
+        <li>
+            <a href="{{url('/pointOfSale')}}" target="_blank"><div class="pull-left"><i class="zmdi zmdi-apps mr-20"></i><span class="right-nav-text">POS</span></div><div class="pull-right"><span class="label label-warning"></span></div><div class="clearfix"></div></a>
+        </li>
+        <li class="navigation-header">
             <span>Main</span>
             <i class="zmdi zmdi-more"></i>
         </li>

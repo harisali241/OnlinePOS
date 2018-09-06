@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::resource('purchase', 'purchaseController');
     Route::resource('sale', 'SaleController');
     Route::resource('grn', 'grnController');
+    Route::resource('pointOfSale', 'PointOfSaleController');
 
 
     /*Ajax Routes*/
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::get('check_username_edit','AjaxController@check_usernames_edit');
 });
 
+Route::post('getSearhItem','PointOfSaleController@getSearhItem');
 Route::post('reqPO','grnController@reqPO');
 Route::get('/grnComplete', 'grnController@complete');
 Route::get('/purchaseapprove', 'purchaseController@approve');
