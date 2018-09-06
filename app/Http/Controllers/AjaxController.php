@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Terminal;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,15 @@ class AjaxController extends Controller
 
         else
             return response()->json(1);
+
+    }
+
+    public function terminal_fetch()
+    {
+        $terminals = Terminal::with('branches')
+            ->where('branch_id','=',request()->branch_id)->get();
+
+        return response()->json($terminals);
 
     }
 }

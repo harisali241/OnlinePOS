@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::resource('company', 'CompanyController');
     Route::resource('branch', 'BranchController');
     Route::resource('terminal', 'TerminalController');
+    Route::resource('users', 'UserController');
     Route::resource('vender', 'VendorController');
     Route::resource('customer', 'CustomerController');
     Route::resource('inventory', 'InventoryController');
@@ -34,9 +35,7 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::resource('pointOfSale', 'PointOfSaleController');
 
 
-    /*Ajax Routes*/
-    Route::get('check_username','AjaxController@check_usernames');
-    Route::get('check_username_edit','AjaxController@check_usernames_edit');
+
 });
 
 Route::post('getSearhItem','PointOfSaleController@getSearhItem');
@@ -44,3 +43,7 @@ Route::post('reqPO','grnController@reqPO');
 Route::get('/grnComplete', 'grnController@complete');
 Route::get('/purchaseapprove', 'purchaseController@approve');
 Route::post('aprovel', 'purchaseController@aprovel');
+/*Ajax Routes*/
+Route::get('check_username','AjaxController@check_usernames');
+Route::get('check_username_edit','AjaxController@check_usernames_edit');
+Route::get('get_terminals','AjaxController@terminal_fetch');

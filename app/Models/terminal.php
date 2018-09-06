@@ -15,9 +15,9 @@ class Terminal extends Model
         'user_id', 'branch_id', 'terminal_name','terminal_code', 'status'
     ];
 
-    public function Users()
+    public function users()
     {
-        return $this->belongsTo('App\User');
+        return $this->hasMany('App\User');
     }
     public function branches()
     {

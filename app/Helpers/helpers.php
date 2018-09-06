@@ -1,6 +1,7 @@
 <?php
 
 use App\AdminmenuPremit;
+use App\Models\Terminal;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -43,4 +44,12 @@ function createAdminPermission()
 
         $permit->save();
     }
+}
+
+function getTerminalOfBranches($branchId)
+{
+    $terminals = Terminal::with('branches')
+        ->where('branch_id','=',Auth::user()->branch_id)->get();
+
+    return json_decode($terminals);
 }
