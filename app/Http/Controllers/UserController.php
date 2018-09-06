@@ -36,7 +36,8 @@ class UserController extends Controller
         $branches = Branch::fetchBranches();
         $terminals = Terminal::where('branch_id','=',$user->branch_id)->get();
 
-        return view('pages.users.add_users',[
+        return view('pages.users.edit_users',[
+            'user' => $user,
             'branches' => $branches,
             'terminals' => $terminals
         ]);
@@ -51,6 +52,12 @@ class UserController extends Controller
 
         $user_id = User::createUsers($request,auth()->user()->company_id);
 
+        return redirect('users')->with('message','successfully Created Users');
+    }
+
+    public function update(Request $request,$id)
+    {
+        $user_id = User::updateUsers($request,$id);
         return redirect('users')->with('message','successfully Created Users');
     }
 

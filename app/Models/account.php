@@ -12,7 +12,8 @@ use Auth;
 class Account extends Model
 {
     protected $fillable = [
-        'nature_id', 'account_name','user_id','branch_id', 'account_number', 'account_contact', 'account_desc', 'account_address', 'opening_credit', 'opening_debit'
+        'nature_id', 'account_name','user_id','branch_id', 'account_number', 'account_contact', 'account_desc', 'account_address', 'opening_credit', 'opening_debit',
+        'current_debit','current_credit'
     ];
 
     public function Users()
@@ -72,6 +73,8 @@ class Account extends Model
         $account->account_desc = request('account_desc');
         $account->opening_debit = request('opening_debit');
         $account->opening_credit = request('opening_credit');
+        $account->current_debit = request('opening_debit');
+        $account->current_credit = request('opening_credit');
         $account->save();
 
     }

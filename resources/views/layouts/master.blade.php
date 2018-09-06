@@ -62,7 +62,7 @@
     .small-input{
         height: 32px !important;
     }
-</style>
+</style
 <body>
 <!--Preloader-->
 <div class="preloader-it">

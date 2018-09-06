@@ -1,6 +1,7 @@
 <?php
 
 use App\AdminmenuPremit;
+use App\Models\Account;
 use App\Models\Terminal;
 use Illuminate\Support\Facades\Route;
 
@@ -46,10 +47,9 @@ function createAdminPermission()
     }
 }
 
-function getTerminalOfBranches($branchId)
+function getAccountOfBranches($branchId)
 {
-    $terminals = Terminal::with('branches')
-        ->where('branch_id','=',Auth::user()->branch_id)->get();
+    $edit_accounts = account::where('branch_id','=',$branchId)->pluck('account_name','id');
 
-    return json_decode($terminals);
+    return json_decode($edit_accounts);
 }

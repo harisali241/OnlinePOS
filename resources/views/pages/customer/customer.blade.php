@@ -32,113 +32,109 @@
                                             <input type="hidden" value="{{ Auth::user()->company_id }}" name="company_id">
                                             <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
 
-                                            {{-- customer name--}}
+                                            {{-- Branch --}}
 
+                                            @if(auth()->user()->role_id === 2)
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
-                                                        <label for="inputName" class="control-label mb-10">Customer Name<span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control small-input" required name="customer_name" placeholder="Enter Customer Name">
-                                                    </div>
-                                                </div>
-
-                                            {{-- customer name--}}
-
-                                            {{-- customer email --}}
-
-                                                <div class="col-sm-4">
-                                                    <div class="form-group">
-                                                        <label for="inputName" class="control-label mb-10">Customer Email<span class="text-danger">*</span></label>
-                                                        <input type="email" class="form-control small-input" required name="customer_email" placeholder="Enter Customer Email">
-                                                    </div>
-                                                </div>
-
-                                            {{-- customer email --}}
-
-                                            {{-- customer phoneNo --}}
-
-                                                <div class="col-sm-4">
-                                                    <div class="form-group">
-                                                        <label for="inputName" class="control-label mb-10">Customer Contact Number<span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control small-input" required name="customer_phoneNo" id="customer_phoneNo" placeholder="Enter Phone No" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" onkeypress='validate(event)'>
-                                                    </div>
-                                                </div>
-
-                                            {{-- Customer phoneNo --}}
-
-                                            {{-- Status --}}
-
-                                                <div class="col-sm-4">
-                                                    <div class="form-group">
-                                                        <label for="" class="control-label mb-10">Status<span class="text-danger">*</span></label>
-                                                        <div>
-                                                            <div class="radio radio-success radio-inline">
-                                                                <input type="radio" name="status" id="radio1" value="1" checked>
-                                                                <label for="radio1"> Active </label>
-                                                            </div>
-
-                                                            <div class="radio radio-info radio-inline">
-                                                                <input type="radio" name="status" id="radio2" value="0">
-                                                                <label for="radio2"> In Active </label>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-                                            {{-- Status --}}
-
-                                            {{-- customer Address --}}
-
-                                            <div class="col-sm-4">
-                                                @if(Auth::user()->role_id === 2)
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
-                                                            <select class="form-control select2" name="branch_id" id="branch_id">
-                                                                <option disabled selected value="0">Select Branch Name</option>
-                                                                @foreach($branches as $branch)
-                                                                    <option value="{{$branch->id}}">{{$branch->branch_name}}</option>
-                                                                @endforeach
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                @elseif(Auth::user()->role_id === 3)
-                                                    <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
-                                                @endif
-                                            </div>
-
-                                            {{-- customer Address --}}
-
-                                            {{-- account --}}
-
-                                                <div class="col-sm-4">
-                                                    <div class="form-group">
-                                                        <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
-                                                        <select class="form-control select2" name="account_id">
-                                                            <option disabled selected value="0">Select Account</option>
-                                                            @foreach($accounts as $account)
-                                                                <option value="{{$account->id}}">{{$account->account_name}}</option>
+                                                        <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
+                                                        <select class="form-control select2 branch_id" name="branch_id" id="branch_id">
+                                                            <option disabled selected value="0">Select Branch Name</option>
+                                                            @foreach($branches as $branch)
+                                                                <option value="{{$branch->id}}">{{$branch->branch_name}}</option>
                                                             @endforeach
 
                                                         </select>
                                                     </div>
                                                 </div>
+                                            @elseif(auth()->user()->role_id === 3)
+                                                <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
+                                            @endif
+
+                                            {{-- Branch --}}
 
                                             {{-- account --}}
 
-                                            {{-- Branch --}}
                                             <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
+                                                    <select class="form-control select2 account_id" name="account_id">
+                                                        <option disabled selected value="0">Select Account</option>
+
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            {{-- account --}}
+
+                                            {{-- Status --}}
+
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="" class="control-label mb-10">Status<span class="text-danger">*</span></label>
+                                                    <div>
+                                                        <div class="radio radio-success radio-inline">
+                                                            <input type="radio" name="status" id="radio1" value="1" checked>
+                                                            <label for="radio1"> Active </label>
+                                                        </div>
+
+                                                        <div class="radio radio-info radio-inline">
+                                                            <input type="radio" name="status" id="radio2" value="0">
+                                                            <label for="radio2"> In Active </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            {{-- Status --}}
+
+                                            <div class="col-sm-12"></div>
+
+                                            {{-- vendor name--}}
+
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">Customer Name<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control small-input" required name="customer_name" placeholder="Enter Customer Name">
+                                                </div>
+                                            </div>
+
+                                            {{-- vendor name--}}
+
+                                            {{-- vendor email --}}
+
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">Customer Email<span class="text-danger">*</span></label>
+                                                    <input type="email" class="form-control small-input" required name="customer_email" placeholder="Enter Customer Email">
+                                                </div>
+                                            </div>
+
+                                            {{-- vendor email --}}
+
+                                            {{-- vendor phoneNo --}}
+
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="inputName" class="control-label mb-10">Customer Contact Number<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control small-input" required name="customer_phoneNo" id="customer_phoneNo" placeholder="Enter Phone No" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" onkeypress='validate(event)'>
+                                                </div>
+                                            </div>
+
+                                            {{-- vendor phoneNo --}}
+
+                                            {{-- Vendor Address --}}
+
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label for="" class="control-label mb-10">Address</label>
                                                     <input type="text" class="form-control small-input" name="customer_address" placeholder="Enter Address">
                                                 </div>
                                             </div>
-                                                
 
-                                            {{-- Branch --}}
-
-                                            
+                                            {{-- Vendor Address --}}
 
                                         </div>
                                     </div>
@@ -228,7 +224,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h5 class="modal-title" id="myLargeModalLabel">Edit Customer</h5>
+                                            <h5 class="modal-title" id="myLargeModalLabel">Edit Vendor</h5>
                                         </div>
                                         {!! Form::model($customer, ['method' => 'PATCH','url' => ['customer', $customer->id],
                                          'files'=>true,'class' => 'customer_add_submit_edit','role' => 'form' ]) !!}
@@ -239,111 +235,111 @@
                                                 <div class="col-sm-10">
                                                     <div class="row p-10">
 
-                                                        {!! Form::hidden('user_id' , null ,['class' => 'form-control','id' => 'user_id'.$customer->id,'required' => 'required'] ) !!}
-                                                        {!! Form::hidden('company_id' , null ,['class' => 'form-control','id' => 'company_id'.$customer->id,'required' => 'required'] ) !!}
+                                                        {!! Form::hidden('user_id' , $customer->user_id ,['class' => 'form-control','id' => 'user_id'.$customer->id,'required' => 'required'] ) !!}
+                                                        {!! Form::hidden('company_id' , $customer->company_id ,['class' => 'form-control','id' => 'company_id'.$customer->id,'required' => 'required'] ) !!}
 
-                                                        {{-- customer Name --}}
+                                                        {{-- Branch --}}
+
+                                                        @if(auth()->user()->role_id === 2)
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
+                                                                    {!! Form::select('branch_id',$edit_branches,$customer->branch_id,
+                                                                    ['class' => 'select2 form-control branch_id2','data-customerid' => $customer->id  ]) !!}
+                                                                </div>
+                                                            </div>
+                                                        @elseif(auth()->user()->role_id === 3)
+                                                            <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
+                                                        @endif
+
+                                                        {{-- Branch --}}
+
+                                                        {{-- account --}}
+
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
+                                                                {!! Form::select('account_id',getAccountOfBranches($customer->branch_id),$customer->account_id,
+                                                                ['class' => 'select2 form-control account_id'.$customer->id]) !!}
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- account --}}
+
+                                                        {{-- Status --}}
+
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <label for="" class="control-label">Status<span class="text-danger">*</span></label>
+                                                                <div>
+                                                                    <div class="radio radio-success radio-inline">
+                                                                        {!! Form::radio('status', 1,($customer->status === 1) ? true:false,['id' => 'radio1'.$customer->id]) !!}
+                                                                        <label for="radio1{{ $customer->id }}"> Active </label>
+                                                                    </div>
+
+                                                                    <div class="radio radio-info radio-inline">
+                                                                        {!! Form::radio('status', 0,($customer->status === 0) ? true:false,['id' => 'radio12'.$customer->id]) !!}
+                                                                        <label for="radio12{{ $customer->id }}"> In Active </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Status --}}
+
+                                                        <div class="col-sm-12"></div>
+
+                                                        {{-- Vendor Name --}}
 
                                                         <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <label for="inputName" class="control-label mb-10">Customer Name<span class="text-danger">*</span></label>
-                                                                {!! Form::text('customer_name' , null ,['class' => 'form-control small-input',
+                                                                {!! Form::text('customer_name' , $customer->customer_name ,['class' => 'form-control small-input',
                                                                 'placeholder' => 'Enter Customer Name','id' => 'customer_name'.$customer->id,'required' => 'required'] ) !!}
 
                                                             </div>
                                                         </div>
 
-                                                        {{-- customer Name --}}
+                                                        {{-- Vendor Name --}}
 
-                                                        {{-- customer Email --}}
+                                                        {{-- Vendor Email --}}
 
                                                         <div class="col-sm-4">
                                                             <div class="form-group">
-                                                                <label for="inputName" class="control-label mb-10">Customer Name<span class="text-danger">*</span></label>
-                                                                {!! Form::email('customer_email' , null ,['class' => 'form-control small-input',
+                                                                <label for="inputName" class="control-label mb-10">Customer Email<span class="text-danger">*</span></label>
+                                                                {!! Form::email('customer_email' , $customer->customer_email ,['class' => 'form-control small-input',
                                                                 'placeholder' => 'Enter Customer Email','id' => 'customer_email'.$customer->id,'required' => 'required'] ) !!}
 
                                                             </div>
                                                         </div>
 
-                                                        {{-- customer Email --}}
+                                                        {{-- Vendor Email --}}
 
-                                                        {{-- customer phoneno --}}
+                                                        {{-- Vendor phoneno --}}
 
                                                         <div class="col-sm-4">
                                                             <div class="form-group">
-                                                                <label for="inputName" class="control-label mb-10">Customer Contact Number<span class="text-danger">*</span></label>
-                                                                {!! Form::text('customer_phoneNo' , null ,['class' => 'form-control small-input',
-                                                                'placeholder' => 'Enter Customer Phone Number','id' => 'customer_phoneNo'.$customer->id,'required' => 'required','maxlength' => '11'] ) !!}
+                                                                <label for="inputName" class="control-label mb-10">Customer Contact No<span class="text-danger">*</span></label>
+                                                                {!! Form::text('customer_phoneNo' , $customer->customer_phoneNo ,['class' => 'form-control small-input',
+                                                                'placeholder' => 'Enter Customer Phone No','id' => 'customer_phoneNo'.$customer->id,'required' => 'required','onkeypress' => 'validate(event)'] ) !!}
 
                                                             </div>
                                                         </div>
 
-                                                        {{-- customer phoneon --}}
+                                                        {{-- Vendor phoneon --}}
 
-                                                        
-                                                        {{-- Branch --}}
+                                                        {{-- Vendor Address --}}
 
-                                                            @if(auth()->user()->role_id === 2)
-                                                                <div class="col-sm-4">
-                                                                    <div class="form-group">
-                                                                        <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
-                                                                        {!! Form::select('branch_id',$edit_branches,null,
-                                                                        ['class' => 'select2 form-control']) !!}
-                                                                    </div>
-                                                                </div>
-                                                            @elseif(auth()->user()->role_id === 3)
-                                                                <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
-                                                            @endif
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="" class="control-label">Address</label>
+                                                                {!! Form::text('customer_address' , $customer->customer_address ,['class' => 'form-control small-input',
+                                                                'placeholder' => 'Enter Address'] ) !!}
 
-                                                        {{-- Branch --}}
-
-                                                        {{-- Status --}}
-
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <label for="" class="control-label">Status<span class="text-danger">*</span></label>
-                                                                    <div>
-                                                                        <div class="radio radio-success radio-inline">
-                                                                            {!! Form::radio('status', 1,['id' => 'radio1'.$customer->id]) !!}
-                                                                            <label for="radio1{{ $customer->id }}"> Active </label>
-                                                                        </div>
-
-                                                                        <div class="radio radio-info radio-inline">
-                                                                            {!! Form::radio('status', 0,['id' => 'radio12'.$customer->id]) !!}
-                                                                            <label for="radio12{{ $customer->id }}"> In Active </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
                                                             </div>
+                                                        </div>
 
-                                                        {{-- Status --}}
-
-                                                        {{-- account --}}
-
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
-                                                                    {!! Form::select('account_id',$edit_accounts,null,
-                                                                    ['class' => 'select2 form-control']) !!}
-                                                                </div>
-                                                            </div>
-
-                                                        {{-- account --}}
-
-                                                        {{-- customer Address --}}
-
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <label for="" class="control-label">Address</label>
-                                                                    {!! Form::text('customer_address' , null ,['class' => 'form-control small-input',
-                                                                    'placeholder' => 'Enter Address'] ) !!}
-
-                                                                </div>
-                                                            </div>
-
-                                                        {{-- customer Address --}}
-                                                        
+                                                        {{-- Vendor Address --}}
 
                                                     </div>
                                                 </div>
@@ -360,6 +356,7 @@
                                 </div>
                                 <!-- /.modal-dialog -->
                             </div>
+
                             {{-- Edit Modal --}}
                         @endforeach
                         </tbody>
@@ -378,30 +375,58 @@
     <script>
 
         $(document).ready(function (e) {
-            $('.branchId').attr('disabled', 'disabled');
 
-            $(".companyId").on('change', function () {
-                $('.branchId').text('');
-                var id = $(this).val();
+            $('.branch_id').change(function () {
+                var branch_id = $(this).val();
 
-                $.ajax({
-                    url:'/reqBranches',
-                    method:'POST',
-                    dataType:'JSON',
-                    data:{ 'id' : id , '_token': '{{csrf_token()}}' },
-                    success: function (data) {
+                if(branch_id !== '')
+                {
+                    $.ajax({
+                        url:'/get_accounts',
+                        method:'GET',
+                        dataType:'JSON',
+                        data:{ branch_id : branch_id },
+                        success: function (response) {
+                            var html = '<option value="" selected>Select Account</option>';
 
-                        $('.branchId').removeAttr('disabled');
+                            response.forEach(function (data) {
+                                html+= '<option value="'+data.id+'">'+data.account_name+' ('+data.account_number+')</option>'
+                            });
+                            $('.account_id').html(html);
+                        }
+                    });
+                }
+                else{
+                    var html = '<option value="" selected>Select Account</option>';
+                    $('.account_id').html(html);
+                }
+            });
 
-                        $('.branchId').append('<option disabled selected>Select Branch</option>');
+            $('.branch_id2').change(function () {
+                var branch_id = $(this).val();
+                var id = $(this).data('customerid');
 
-                        data.forEach(function (result) {
-                            $('.branchId').append('<option value="'+result.id+'">'+result.branch_name+'</option>');
-                            //console.log(result.branch_name);
-                        })
+                if(branch_id !== '')
+                {
+                    $.ajax({
+                        url:'/get_accounts',
+                        method:'GET',
+                        dataType:'JSON',
+                        data:{ branch_id : branch_id },
+                        success: function (response) {
+                            var html = '<option value="" selected>Select Account</option>';
 
-                    },
-                });
+                            response.forEach(function (data) {
+                                html+= '<option value="'+data.id+'">'+data.account_name+' ('+data.account_number+')</option>'
+                            });
+                            $('.account_id'+id).html(html);
+                        }
+                    });
+                }
+                else{
+                    var html = '<option value="" selected>Select Account</option>';
+                    $('.account_id'+id).html(html);
+                }
             });
         });
 

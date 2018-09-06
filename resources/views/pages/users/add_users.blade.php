@@ -98,7 +98,7 @@
 
                                             <div class="col-sm-12 form-group">
                                                 <label for="" class="control-label">Address</label>
-                                                <textarea name="address" class="form-control" rows="3"></textarea>
+                                                <textarea name="address" placeholder="Address" class="form-control" rows="3"></textarea>
                                             </div>
 
                                             <div class="col-sm-12 form-group">
@@ -181,6 +181,10 @@
                             $('.terminal_id').html(html);
                         }
                     });
+                }
+                else{
+                    var html = '<option value="" selected>Select Terminal</option><option value="">No Terminal</option>';
+                    $('.terminal_id').html(html);
                 }
             });
         });

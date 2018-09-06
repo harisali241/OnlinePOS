@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\Terminal;
 use App\User;
 use Illuminate\Http\Request;
@@ -39,6 +40,15 @@ class AjaxController extends Controller
             ->where('branch_id','=',request()->branch_id)->get();
 
         return response()->json($terminals);
+
+    }
+
+    public function account_fetch()
+    {
+        $accounts = Account::with('branches')
+            ->where('branch_id','=',request()->branch_id)->get();
+
+        return response()->json($accounts);
 
     }
 }

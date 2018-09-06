@@ -108,6 +108,31 @@ class User extends Authenticatable
         $user->save();
     }
 
+    public static function updateUsers($data,$id){
+
+        $user = User::findOrFail($id);
+        $user->firstName = $data['firstName'];
+        $user->lastName = $data['lastName'];
+        if($data->branch_id !== '')
+            $user->branch_id = $data->branch_id;
+
+        if($data->terminal_id !== '')
+            $user->terminal_id = $data->terminal_id;
+
+        $user->username = $data['username'];
+        $user->email = $data['email'];
+        $user->address = $data['address'];
+        $user->phoneNo = $data['phoneNo'];
+        $user->status = $data['status'];
+
+        if($data->password !== null)
+            $user->password = bcrypt($data['password']);
+
+        $user->save();
+
+        return $user->id;
+    }
+
     public static function fetchCompanyAdmins(){
 
         $users = User::with('companies')

@@ -41,7 +41,7 @@
 											<div class="col-sm-4">
 												<div class="form-group">
 													<label for="inputName" class="control-label mb-10">Account Name<span class="text-danger">*</span></label>
-													<input type="text" class="form-control small-input" required name="account_name" placeholder="Enter Account Name">
+													<input type="text" class="form-control" required name="account_name" placeholder="Enter Account Name">
 												</div>
 											</div>
 											<div class="col-sm-4">
@@ -77,7 +77,7 @@
                         					<div class="col-sm-4">
                         					    <div class="form-group">
                         					        <label for="inputName" class="control-label mb-10">Account Number<span class="text-danger">*</span></label>
-                        					        <input type="text" class="form-control small-input" required name="account_number" placeholder="Enter Account Number" onkeypress='validate(event)'>
+                        					        <input type="text" class="form-control" required name="account_number" placeholder="Enter Account Number" onkeypress='validate(event)'>
                         					    </div>
                         					</div>
 
@@ -147,8 +147,12 @@
     	        		<thead>
     	        		<tr>
     	        		    <th>S.NO</th>
-    	        		    <th>Account Nature</th>
+    	        		    <th>Account Type</th>
     	        		    <th>Account Name</th>
+    	        		    <th>Account No</th>
+    	        		    <th>Current Credit</th>
+    	        		    <th>Current Debit</th>
+    	        		    <th>Branch Name</th>
     	        		    <th width="15%">Action</th>
     	        		</tr>
     	        		</thead>
@@ -162,6 +166,11 @@
 
     	        			        <td>{{$account->account_natures->nature_name}}</td>
     	        			        <td>{{$account->account_name}}</td>
+    	        			        <td>{{$account->account_number}}</td>
+    	        			        <td>{{ number_format($account->current_credit,3)}}</td>
+    	        			        <td>{{number_format($account->current_debit,3)}}</td>
+    	        			        <td>{{$account->branches->branch_name}}</td>
+
     	        			        <td>
 
     	        			            <div class="row" align="center">
@@ -195,7 +204,10 @@
     	        			                </div>
     	        			                {!! Form::model($account, ['method' => 'PATCH','url' => ['account', $account->id],
     	        			                 'files'=>true,'class' => 'account_add_submit_edit','role' => 'form' ]) !!}
-
+											<input type="hidden" name="current_credit" value="{{ $account->current_credit }}">
+											<input type="hidden" name="current_debit" value="{{ $account->current_debit }}">
+											<input type="hidden" name="opening_credit" value="{{ $account->opening_credit }}">
+											<input type="hidden" name="opening_debit" value="{{ $account->opening_debit }}">
     	        			                <div class="modal-body">
     	        			                    <div class="row">
                                                     <div class="col-sm-1"></div>
@@ -205,10 +217,10 @@
 
                                                             {{-- Account Name --}}
 
-    	        			                                <div class="col-sm-4">
+    	        			                                <div class="col-sm-6">
     	        			                                    <div class="form-group">
     	        			                                        <label for="inputName" class="control-label mb-10">Accounts Name<span class="text-danger">*</span></label>
-    	        			                                        {!! Form::text('account_name' , null ,['class' => 'form-control small-input',
+    	        			                                        {!! Form::text('account_name' , null ,['class' => 'form-control',
     	        			                                        'placeholder' => 'Enter Account Name','id' => 'accounts_name'.$account->id,'required' => 'required'] ) !!}
 
     	        			                                    </div>
@@ -218,7 +230,7 @@
 
                                                             {{-- Account Nature --}}
 
-                                                                <div class="col-sm-4">
+                                                                <div class="col-sm-6">
                                                                     <div class="form-group">
                                                                         <label for="inputName" class="control-label mb-10">Account Nature<span class="text-danger">*</span></label>
                                                                         {!! Form::select('nature_id',$edit_natures,null,
@@ -231,7 +243,7 @@
                                                             {{-- Branch --}}
 
                                                                 @if(auth()->user()->role_id === 2)
-                                                                    <div class="col-sm-4">
+                                                                    <div class="col-sm-6">
                                                                         <div class="form-group">
                                                                             <label for="inputName" class="control-label mb-10">Branch Name<span class="text-danger">*</span></label>
                                                                             {!! Form::select('branch_id',$edit_branches,null,
@@ -246,46 +258,23 @@
 
                                                             {{-- Account Number --}}
 
-                                                            <div class="col-sm-4">
+                                                            <div class="col-sm-6">
                                                                 <div class="form-group">
                                                                     <label for="inputName" class="control-label mb-10">Account Number<span class="text-danger">*</span></label>
-                                                                    {!! Form::number('account_number' , null ,['class' => 'form-control small-input',
+                                                                    {!! Form::number('account_number' , null ,['class' => 'form-control',
                                                                     'placeholder' => 'Enter Account Name','id' => 'account_number'.$account->id,'required' => 'required','maxlength' => '11'] ) !!}
                                                                 </div>
                                                             </div>
 
                                                             {{-- Account Number --}}
 
-                                                            {{-- Opening credit --}}
-
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <label for="inputName" class="control-label mb-10">Opening Credit<span class="text-danger">*</span></label>
-                                                                    {!! Form::text('opening_credit' , null ,['class' => 'form-control tch2',
-                                                                    'placeholder' => 'Enter Opening Credit','id' => 'opening_credit'.$account->id,'required' => 'required','onkeypress' => 'validate(event)'] ) !!}
-                                                                </div>
-                                                            </div>
-
-                                                            {{-- Opening credit --}}
-
-                                                            {{-- Opening debit --}}
-
-                                                            <div class="col-sm-4">
-                                                                <div class="form-group">
-                                                                    <label for="inputName" class="control-label mb-10">Opening Debit<span class="text-danger">*</span></label>
-                                                                    {!! Form::text('opening_debit' , null ,['class' => 'form-control tch2',
-                                                                    'placeholder' => 'Enter Opening Debit','id' => 'opening_debit'.$account->id,'required' => 'required','onkeypress' => 'validate(event)'] ) !!}
-                                                                </div>
-                                                            </div>
-
-                                                            {{-- Opening debit --}}
 
                                                             {{-- Account Desc --}}
 
                                                             <div class="col-sm-12">
                                                                 <div class="form-group">
                                                                     <label for="inputName" class="control-label mb-10">Description<span class="text-danger">*</span></label>
-                                                                    {!! Form::text('account_desc' , null ,['class' => 'form-control small-input',
+                                                                    {!! Form::text('account_desc' , null ,['class' => 'form-control',
                                                                     'placeholder' => 'Enter Description','id' => 'account_desc'.$account->id,'required' => 'required'] ) !!}
                                                                 </div>
                                                             </div>
