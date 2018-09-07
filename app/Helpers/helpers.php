@@ -1,6 +1,7 @@
 <?php
 
 use App\AdminmenuPremit;
+use App\Menu;
 use App\Models\Account;
 use App\Models\Terminal;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,40 @@ function createAdminPermission()
         $permit->status = 1;
 
         $permit->save();
+    }
+}
+
+
+function createUserPermission()
+{
+    $old_menus = Menu::all();
+
+    foreach ($old_menus as $old)
+    {
+        Menu::findOrFail($old->id)->delete();
+    }
+
+    $routes = Route::getRoutes();
+
+    $systemroutes = [];
+    foreach ($routes as $route)
+    {
+
+        if(isset($route->action['as']))
+            array_push($systemroutes,$route->action['as']);
+
+    }
+    //dd($systemroutes);
+
+    for ($i = 0; $i < sizeof($systemroutes); $i++)
+    {
+        $menu = new Menu;
+
+        $menu->menu_route = $systemroutes[$i];
+        $menu->sort_order = $i+1;
+
+
+        $menu->save();
     }
 }
 
