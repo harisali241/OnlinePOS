@@ -15,6 +15,7 @@
 Auth::routes();
 
 Route::group(['middleware' => ['auth','admin_security']],function () {
+    Route::get('/home', 'HomeController@home')->name('home');
     Route::get('/', 'HomeController@home')->name('home');
     
 
@@ -33,8 +34,6 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
     Route::resource('sale', 'SaleController');
     Route::resource('grn', 'grnController');
     Route::resource('pointOfSale', 'PointOfSaleController');
-
-
 
 });
 
