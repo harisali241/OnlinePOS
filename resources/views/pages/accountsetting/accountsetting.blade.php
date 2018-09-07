@@ -53,7 +53,9 @@
                         							</select>
                         						</div>
                         					</div>
-
+											<div class="col-sm-12">
+												<hr>
+											</div>
                         					<div class="col-sm-4 hide" id="cus_account">
                         						<div class="form-group">
                         							<label for="inputName" class="control-label mb-10">Customer<span class="text-danger">*</span></label>
@@ -256,7 +258,7 @@
 	                	$('.hide').removeClass('hide');
 
 	                	$('#branchchange').removeClass('col-sm-12');
-	                	$('#branchchange').addClass('col-sm-4');
+	                	$('#branchchange').addClass('col-sm-12');
 
 	                    var html = '<option value="" selected>Select Account</option>';
 
