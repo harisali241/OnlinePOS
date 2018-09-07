@@ -31,3 +31,46 @@
       -webkit-appearance: none; 
       margin: 0; 
     }
+
+    .parent-box{
+        width:80%;
+        height:40px;
+        border:solid 1px lightgray;
+        margin-left: 10%;
+        background-color: #4aa23c;
+        border-left: solid 3px #4aa23c; 
+        color:white;
+        font-size: 16px;
+        font-weight: bolder;
+        padding: 8px;
+        padding-left: 10px;
+        cursor: pointer;
+    }
+    .child-box{
+        width:80%;
+        height:40px;
+        margin-top:-1px;
+        border-top: solid 1px #4aa23c;
+        border-bottom: solid 1px #4aa23c;
+        border-left: solid 3px #4aa23c; 
+        margin-left: 10%;
+        background-color: none;
+        color:#4aa23c;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 10px;
+        padding-left: 10px;
+        cursor: pointer;
+        display: none;
+    }
+    .checkb{
+        float: right;
+        height:10px;
+        cursor: pointer;
+        -ms-transform: scale(1.4); 
+        -moz-transform: scale(1.4);
+        -webkit-transform: scale(1.4);
+        -o-transform: scale(1.4);
+        outline: none;
+        border:solid 1px white;
+    }
