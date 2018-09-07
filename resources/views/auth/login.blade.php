@@ -30,9 +30,9 @@
 <div class="wrapper pa-0">
     <header class="sp-header">
         <div class="sp-logo-wrap pull-left">
-            <a href="">
-                {{--<img class="brand-img mr-10" src="dist/img/logo.png" alt="brand"/>--}}
-                <span class="brand-text">onlinePOS</span>
+            <a href="{{url('/')}}">
+                <span class="brand-img" style="color:#4aa23c; font-weight: bolder; font-size: 18px; margin-left: -8px; top: -1px;">POS</span>
+                <span class="brand-text" style="color: #000; top: 2px; margin-left: -4%">Online</span>
             </a>
         </div>
         {{--<div class="form-group mb-0 pull-right">--}}

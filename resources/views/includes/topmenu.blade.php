@@ -5,7 +5,8 @@
         <div class="nav-header pull-left">
             <div class="logo-wrap">
                 <a href="{{url('/')}}">
-                    <span class="brand-text" style="color: #000;">online<strong style="color:#4aa23c">POS</strong></span>
+                    <span class="brand-img" style="color:#4aa23c; font-weight: bolder; font-size: 18px; margin-left: -8px; top: -1px;">POS</span>
+                    <span class="brand-text" style="color: #000; top: 2px; margin-left: -4%">Online</span>
                 </a>
             </div>
         </div>
