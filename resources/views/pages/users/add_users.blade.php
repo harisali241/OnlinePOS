@@ -138,6 +138,50 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-wrap">
+                                    
+                                    {{-- new Row add karlo yaha nechy wali copy kar k dosri parent klie --}}
+
+                                    <div class="row">
+                                        <div class="col-xs-12 parent-box">
+                                            <span>Branches</span>
+                                            <input type="checkbox" class="checkb parent-checkbox">
+                                        </div>
+
+                                        <div class="col-xs-12 child-box">
+                                            <span>Create Branch</span>
+                                            <input type="checkbox" class="checkb child-checkbox">
+                                        </div>
+                                        <div class="col-xs-12 child-box">
+                                            <span>View Branch</span>
+                                            <input type="checkbox" class="checkb child-checkbox">
+                                        </div>
+                                        <div class="col-xs-12 child-box">
+                                            <span>Edit Branch</span>
+                                            <input type="checkbox" class="checkb child-checkbox">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-12 parent-box">
+                                            <span>Vendors</span>
+                                            <input type="checkbox" class="checkb parent-checkbox">
+                                        </div>
+
+                                        <div class="col-xs-12 child-box">
+                                            <span>Create Vendor</span>
+                                            <input type="checkbox" class="checkb child-checkbox">
+                                        </div>
+                                        <div class="col-xs-12 child-box">
+                                            <span>View Vendors</span>
+                                            <input type="checkbox" class="checkb child-checkbox">
+                                        </div>
+                                        <div class="col-xs-12 child-box">
+                                            <span>Edit Vendor</span>
+                                            <input type="checkbox" class="checkb child-checkbox">
+                                        </div>
+                                    </div>
+
+                                    {{-- new Row add karlo yaha uper wali copy kar k dosri parent klie --}}
 
                                 </div>
                             </div>
@@ -162,6 +206,25 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function (e) {
+
+            $('.parent-box').on('click', function(e){
+                if (e.target !== this)
+                 return;
+                if($(this).parent().find('.child-box').is(":visible")){
+                    $(this).parent().find('.child-box').fadeOut(300);
+                }else{
+                    $(this).parent().find('.child-box').fadeIn(300);
+                }
+            });
+            $('.parent-checkbox').on('change', function(){
+                if($(this).is(':checked') == true){
+                    $(this).parent().parent().find('.child-box').find('.child-checkbox').prop('checked', true);
+                }else{
+                    $(this).parent().parent().find('.child-box').find('.child-checkbox').prop('checked', false);
+                }
+            });
+
+
             $('.branch_id').change(function () {
                 var branch_id = $(this).val();
 
