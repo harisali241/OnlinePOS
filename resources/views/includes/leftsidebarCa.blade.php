@@ -42,6 +42,10 @@ Left Sidebar Menu -->
         </li>
 
         <li>
+            <a href="{{url('accountsetting')}}"><div class="pull-left"><i class=" icon-fire  mr-20"></i><span class="right-nav-text">Accounts Setting</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
+        </li>
+
+        <li>
             <a href="{{url('vender')}}"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Vendors</span></div><div class="pull-right"></div><div class="clearfix"></div></a>
         </li>
 
