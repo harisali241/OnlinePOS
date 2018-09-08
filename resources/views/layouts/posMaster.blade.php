@@ -106,14 +106,24 @@
         height:90vh;
         padding: 5px 5px 5px 5px;
     }
+    .tabItem{
+        float: left;
+        width: 60%;
+    }
+    .counter{
+        width: 40%;
+        float:right;
+    }
     .item-search{
         height:70px;
         font-size: 25px;
+        width: 100%;
         border:solid 2px gray;
     }
     .listTable{
-        width: 100%;
+        width: 96%;
         margin-top: 10px;
+        margin-left: 2%;
     }
     .listTable th{
         padding-bottom: 5px;
@@ -137,6 +147,35 @@
         padding-top: 5px;
         border-bottom: solid 1px lightgray;
     }
+    .searching-item{
+        position: fixed;
+        z-index: 100000px;
+        margin: 0 auto;
+        /*right:23px;*/
+        width:38%;
+        scroll-behavior: normal;
+        max-height: 100px;
+        background-color:white;
+        border:solid 1px lightgray;
+    }
+    .itemsForSelect{
+        padding: 5px;
+        font-weight: bold;
+        padding-left: 10px;
+        border:solid 1px gray;
+        cursor: pointer;
+    }
+    .itemsForSelect:hover{
+        background-color: #337f27;
+        color:white;
+    }
+    .plus, .minus{
+        background-color:#337f27;
+        color:white;
+        border:solid 2px #337f27;
+        font-weight:bolder;
+    }
+
 </style>
 
 <body>

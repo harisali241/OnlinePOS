@@ -65,7 +65,7 @@ class Inventory extends Model
         $inventory->item_name = request('item_name');
         $inventory->item_desc = request('item_desc');
         $inventory->opening_qty = request('opening_qty');
-        $inventory->current_qty = request('opening_qty');
+        //$inventory->current_qty = request('opening_qty');
         $inventory->alert_qty = request('alert_qty');
         $inventory->account_id = request('account_id');
         $inventory->user_id = Auth::user()->id;
@@ -84,7 +84,7 @@ class Inventory extends Model
         $inventory->item_name = request('item_name');
         $inventory->item_desc = request('item_desc');
         $inventory->opening_qty = request('opening_qty');
-        $inventory->current_qty = request('opening_qty');
+        //$inventory->current_qty = request('opening_qty');
         $inventory->alert_qty = request('alert_qty');
         $inventory->user_id = Auth::user()->id;
         $inventory->company_id = Auth::user()->company_id;

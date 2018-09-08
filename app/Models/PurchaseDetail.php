@@ -30,8 +30,8 @@ class PurchaseDetail extends Model
         $purchase = new PurchaseDetail;
 
         $purchase->company_id = auth()->user()->company_id;
-        $purchase->user_id = auth()->user()->id;
-        $purchase->vendor_id = $request['vendor_id'];
+        //$purchase->user_id = auth()->user()->id;
+        //$purchase->vendor_id = $request['vendor_id'];
         $purchase->branch_id = $request['branch_id'];
         $purchase->purchase_master_id = $purchase_master_id;
         $purchase->inventory_id = $request['item_id'][$i];

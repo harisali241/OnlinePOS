@@ -33,7 +33,7 @@ class Purchase extends Model
         $purchase->company_id = auth()->user()->company_id;
         $purchase->branch_id = $data['branch_id'];
         $purchase->vendor_id = $data['vendor_id'];
-        $purchase->user_id = auth()->user()->id;
+        //$purchase->user_id = auth()->user()->id;
         $purchase->purchase_master_no = $data['purchase_master_no'];
         $purchase->date = $data['purchase_Date'];
         $purchase->amount = $data['grand_total'];
