@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 22, 2018 at 07:49 AM
--- Server version: 5.7.21
--- PHP Version: 7.1.16
+-- Generation Time: Sep 22, 2018 at 03:45 PM
+-- Server version: 5.7.19
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -40,22 +40,51 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `account_desc` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `account_contactNo` bigint(20) DEFAULT NULL,
   `account_Address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `opening_debit` double NOT NULL,
-  `opening_credit` double NOT NULL,
+  `opening_debit` double(15,3) NOT NULL DEFAULT '0.000',
+  `opening_credit` double(15,3) NOT NULL DEFAULT '0.000',
+  `current_credit` double(15,3) NOT NULL DEFAULT '0.000',
+  `current_debit` double(15,3) NOT NULL DEFAULT '0.000',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `accounts_user_id_foreign` (`user_id`),
   KEY `accounts_branch_id_foreign` (`branch_id`),
   KEY `accounts_nature_id_foreign` (`nature_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `accounts`
 --
 
-INSERT INTO `accounts` (`id`, `nature_id`, `user_id`, `branch_id`, `company_id`, `account_name`, `account_number`, `account_desc`, `account_contactNo`, `account_Address`, `opening_debit`, `opening_credit`, `created_at`, `updated_at`) VALUES
-(2, 1, 4, 2, 5, 'abcd account', 123456, 'asgsag', NULL, NULL, 0.11, 0.11, '2018-07-04 01:57:19', '2018-07-04 01:57:19');
+INSERT INTO `accounts` (`id`, `nature_id`, `user_id`, `branch_id`, `company_id`, `account_name`, `account_number`, `account_desc`, `account_contactNo`, `account_Address`, `opening_debit`, `opening_credit`, `current_credit`, `current_debit`, `created_at`, `updated_at`) VALUES
+(2, 1, 4, 2, 5, 'abcd account', 123456, 'asgsag', NULL, NULL, 0.110, 0.110, 0.000, 0.000, '2018-07-04 01:57:19', '2018-07-04 01:57:19'),
+(3, 1, 4, 4, 5, 'testing Account', 26465115211215, 'test', NULL, NULL, 5000.000, 500.000, 500.000, 5000.000, '2018-09-06 14:12:14', '2018-09-06 14:12:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accounts_setting`
+--
+
+DROP TABLE IF EXISTS `accounts_setting`;
+CREATE TABLE IF NOT EXISTS `accounts_setting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_id` int(11) DEFAULT NULL,
+  `module_name` varchar(255) DEFAULT NULL,
+  `branch_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `accounts_setting`
+--
+
+INSERT INTO `accounts_setting` (`id`, `account_id`, `module_name`, `branch_id`, `user_id`) VALUES
+(1, 2, 'Customer', 2, 4),
+(2, 2, 'Vendor', 2, 4),
+(3, 2, 'Purchases', 2, 4),
+(4, 2, 'Sales', 2, 4);
 
 -- --------------------------------------------------------
 
@@ -94,98 +123,111 @@ CREATE TABLE IF NOT EXISTS `adminmenu_premits` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `adminmenu_premits_role_id_foreign` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=239 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=695 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `adminmenu_premits`
 --
 
 INSERT INTO `adminmenu_premits` (`id`, `role_id`, `name`, `route`, `status`, `created_at`, `updated_at`) VALUES
-(154, 2, NULL, 'login', 1, '2018-06-10 13:50:44', '2018-06-10 13:50:44'),
-(155, 2, NULL, 'logout', 1, '2018-06-10 13:50:44', '2018-06-10 13:50:44'),
-(156, 2, NULL, 'register', 1, '2018-06-10 13:50:44', '2018-06-10 13:50:44'),
-(157, 2, NULL, 'password.request', 1, '2018-06-10 13:50:44', '2018-06-10 13:50:44'),
-(158, 2, NULL, 'password.email', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(159, 2, NULL, 'password.reset', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(160, 2, NULL, 'home', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(161, 2, NULL, 'company.index', 0, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(162, 2, NULL, 'company.create', 0, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(163, 2, NULL, 'company.store', 0, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(164, 2, NULL, 'company.show', 0, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(165, 2, NULL, 'company.edit', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(166, 2, NULL, 'company.update', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(167, 2, NULL, 'company.destroy', 0, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(168, 2, NULL, 'branch.index', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(169, 2, NULL, 'branch.create', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(170, 2, NULL, 'branch.store', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(171, 2, NULL, 'branch.show', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(172, 2, NULL, 'branch.edit', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(173, 2, NULL, 'branch.update', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(174, 2, NULL, 'branch.destroy', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(175, 2, NULL, 'terminal.index', 1, '2018-06-10 13:50:45', '2018-06-10 13:50:45'),
-(176, 2, NULL, 'terminal.create', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(177, 2, NULL, 'terminal.store', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(178, 2, NULL, 'terminal.show', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(179, 2, NULL, 'terminal.edit', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(180, 2, NULL, 'terminal.update', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(181, 2, NULL, 'terminal.destroy', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(182, 2, NULL, 'vender.index', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(183, 2, NULL, 'vender.create', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(184, 2, NULL, 'vender.store', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(185, 2, NULL, 'vender.show', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(186, 2, NULL, 'vender.edit', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(187, 2, NULL, 'vender.update', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(188, 2, NULL, 'vender.destroy', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(189, 2, NULL, 'customer.index', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(190, 2, NULL, 'customer.create', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(191, 2, NULL, 'customer.store', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(192, 2, NULL, 'customer.show', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(193, 2, NULL, 'customer.edit', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(194, 2, NULL, 'customer.update', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(195, 2, NULL, 'customer.destroy', 1, '2018-06-10 13:50:46', '2018-06-10 13:50:46'),
-(196, 2, NULL, 'inventory.index', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(197, 2, NULL, 'inventory.create', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(198, 2, NULL, 'inventory.store', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(199, 2, NULL, 'inventory.show', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(200, 2, NULL, 'inventory.edit', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(201, 2, NULL, 'inventory.update', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(202, 2, NULL, 'inventory.destroy', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(203, 2, NULL, 'nature.index', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(204, 2, NULL, 'nature.create', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(205, 2, NULL, 'nature.store', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(206, 2, NULL, 'nature.show', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(207, 2, NULL, 'nature.edit', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(208, 2, NULL, 'nature.update', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(209, 2, NULL, 'nature.destroy', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(210, 2, NULL, 'account.index', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(211, 2, NULL, 'account.create', 1, '2018-06-10 13:50:47', '2018-06-10 13:50:47'),
-(212, 2, NULL, 'account.store', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(213, 2, NULL, 'account.show', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(214, 2, NULL, 'account.edit', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(215, 2, NULL, 'account.update', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(216, 2, NULL, 'account.destroy', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(217, 2, NULL, 'purchase.index', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(218, 2, NULL, 'purchase.create', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(219, 2, NULL, 'purchase.store', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(220, 2, NULL, 'purchase.show', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(221, 2, NULL, 'purchase.edit', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(222, 2, NULL, 'purchase.update', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(223, 2, NULL, 'purchase.destroy', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(224, 2, NULL, 'sale.index', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(225, 2, NULL, 'sale.create', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(226, 2, NULL, 'sale.store', 1, '2018-06-10 13:50:48', '2018-06-10 13:50:48'),
-(227, 2, NULL, 'sale.show', 1, '2018-06-10 13:50:49', '2018-06-10 13:50:49'),
-(228, 2, NULL, 'sale.edit', 1, '2018-06-10 13:50:49', '2018-06-10 13:50:49'),
-(229, 2, NULL, 'sale.update', 1, '2018-06-10 13:50:49', '2018-06-10 13:50:49'),
-(230, 2, NULL, 'sale.destroy', 1, '2018-06-10 13:50:49', '2018-06-10 13:50:49'),
-(231, 2, NULL, 'grn.create', 1, NULL, NULL),
-(232, 2, NULL, 'grn.index', 1, NULL, NULL),
-(233, 2, NULL, 'reqPO', 1, NULL, NULL),
-(234, 2, NULL, 'grn.store', 1, '2018-07-19 17:37:46', '2018-07-19 17:37:46'),
-(235, 2, NULL, 'grn.show', 1, '2018-07-19 17:37:46', '2018-07-19 17:37:46'),
-(236, 2, NULL, 'grn.edit', 1, '2018-07-19 17:37:46', '2018-07-19 17:37:46'),
-(237, 2, NULL, 'grn.update', 1, '2018-07-19 17:37:46', '2018-07-19 17:37:46'),
-(238, 2, NULL, 'grn.destroy', 1, '2018-07-19 17:37:46', '2018-07-19 17:37:46');
+(597, 2, NULL, 'login', 1, '2018-09-06 12:34:58', '2018-09-06 12:34:58'),
+(598, 2, NULL, 'logout', 1, '2018-09-06 12:34:58', '2018-09-06 12:34:58'),
+(599, 2, NULL, 'register', 1, '2018-09-06 12:34:58', '2018-09-06 12:34:58'),
+(600, 2, NULL, 'password.request', 1, '2018-09-06 12:34:58', '2018-09-06 12:34:58'),
+(601, 2, NULL, 'password.email', 1, '2018-09-06 12:34:58', '2018-09-06 12:34:58'),
+(602, 2, NULL, 'password.reset', 1, '2018-09-06 12:34:58', '2018-09-06 12:34:58'),
+(603, 2, NULL, 'home', 1, '2018-09-06 12:34:58', '2018-09-06 12:34:58'),
+(604, 2, NULL, 'company.index', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(605, 2, NULL, 'company.create', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(606, 2, NULL, 'company.store', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(607, 2, NULL, 'company.show', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(608, 2, NULL, 'company.edit', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(609, 2, NULL, 'company.update', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(610, 2, NULL, 'company.destroy', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(611, 2, NULL, 'branch.index', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(612, 2, NULL, 'branch.create', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(613, 2, NULL, 'branch.store', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(614, 2, NULL, 'branch.show', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(615, 2, NULL, 'branch.edit', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(616, 2, NULL, 'branch.update', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(617, 2, NULL, 'branch.destroy', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(618, 2, NULL, 'terminal.index', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(619, 2, NULL, 'terminal.create', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(620, 2, NULL, 'terminal.store', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(621, 2, NULL, 'terminal.show', 1, '2018-09-06 12:34:59', '2018-09-06 12:34:59'),
+(622, 2, NULL, 'terminal.edit', 1, '2018-09-06 12:35:00', '2018-09-06 12:35:00'),
+(623, 2, NULL, 'terminal.update', 1, '2018-09-06 12:35:00', '2018-09-06 12:35:00'),
+(624, 2, NULL, 'terminal.destroy', 1, '2018-09-06 12:35:00', '2018-09-06 12:35:00'),
+(625, 2, NULL, 'users.index', 1, '2018-09-06 12:35:00', '2018-09-06 12:35:00'),
+(626, 2, NULL, 'users.create', 1, '2018-09-06 12:35:00', '2018-09-06 12:35:00'),
+(627, 2, NULL, 'users.store', 1, '2018-09-06 12:35:00', '2018-09-06 12:35:00'),
+(628, 2, NULL, 'users.show', 1, '2018-09-06 12:35:00', '2018-09-06 12:35:00'),
+(629, 2, NULL, 'users.edit', 1, '2018-09-06 12:35:00', '2018-09-06 12:35:00'),
+(630, 2, NULL, 'users.update', 1, '2018-09-06 12:35:00', '2018-09-06 12:35:00'),
+(631, 2, NULL, 'users.destroy', 1, '2018-09-06 12:35:00', '2018-09-06 12:35:00'),
+(632, 2, NULL, 'vender.index', 1, '2018-09-06 12:35:00', '2018-09-06 12:35:00'),
+(633, 2, NULL, 'vender.create', 1, '2018-09-06 12:35:00', '2018-09-06 12:35:00'),
+(634, 2, NULL, 'vender.store', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(635, 2, NULL, 'vender.show', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(636, 2, NULL, 'vender.edit', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(637, 2, NULL, 'vender.update', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(638, 2, NULL, 'vender.destroy', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(639, 2, NULL, 'customer.index', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(640, 2, NULL, 'customer.create', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(641, 2, NULL, 'customer.store', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(642, 2, NULL, 'customer.show', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(643, 2, NULL, 'customer.edit', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(644, 2, NULL, 'customer.update', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(645, 2, NULL, 'customer.destroy', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(646, 2, NULL, 'inventory.index', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(647, 2, NULL, 'inventory.create', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(648, 2, NULL, 'inventory.store', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(649, 2, NULL, 'inventory.show', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(650, 2, NULL, 'inventory.edit', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(651, 2, NULL, 'inventory.update', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(652, 2, NULL, 'inventory.destroy', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(653, 2, NULL, 'nature.index', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(654, 2, NULL, 'nature.create', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(655, 2, NULL, 'nature.store', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(656, 2, NULL, 'nature.show', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(657, 2, NULL, 'nature.edit', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(658, 2, NULL, 'nature.update', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(659, 2, NULL, 'nature.destroy', 1, '2018-09-06 12:35:01', '2018-09-06 12:35:01'),
+(660, 2, NULL, 'account.index', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(661, 2, NULL, 'account.create', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(662, 2, NULL, 'account.store', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(663, 2, NULL, 'account.show', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(664, 2, NULL, 'account.edit', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(665, 2, NULL, 'account.update', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(666, 2, NULL, 'account.destroy', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(667, 2, NULL, 'purchase.index', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(668, 2, NULL, 'purchase.create', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(669, 2, NULL, 'purchase.store', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(670, 2, NULL, 'purchase.show', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(671, 2, NULL, 'purchase.edit', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(672, 2, NULL, 'purchase.update', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(673, 2, NULL, 'purchase.destroy', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(674, 2, NULL, 'sale.index', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(675, 2, NULL, 'sale.create', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(676, 2, NULL, 'sale.store', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(677, 2, NULL, 'sale.show', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(678, 2, NULL, 'sale.edit', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(679, 2, NULL, 'sale.update', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(680, 2, NULL, 'sale.destroy', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(681, 2, NULL, 'grn.index', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(682, 2, NULL, 'grn.create', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(683, 2, NULL, 'grn.store', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(684, 2, NULL, 'grn.show', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(685, 2, NULL, 'grn.edit', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(686, 2, NULL, 'grn.update', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(687, 2, NULL, 'grn.destroy', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(688, 2, NULL, 'pointOfSale.index', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(689, 2, NULL, 'pointOfSale.create', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(690, 2, NULL, 'pointOfSale.store', 1, '2018-09-06 12:35:02', '2018-09-06 12:35:02'),
+(691, 2, NULL, 'pointOfSale.show', 1, '2018-09-06 12:35:03', '2018-09-06 12:35:03'),
+(692, 2, NULL, 'pointOfSale.edit', 1, '2018-09-06 12:35:03', '2018-09-06 12:35:03'),
+(693, 2, NULL, 'pointOfSale.update', 1, '2018-09-06 12:35:03', '2018-09-06 12:35:03'),
+(694, 2, NULL, 'pointOfSale.destroy', 1, '2018-09-06 12:35:03', '2018-09-06 12:35:03');
 
 -- --------------------------------------------------------
 
@@ -539,7 +581,14 @@ CREATE TABLE IF NOT EXISTS `customers` (
   KEY `customers_user_id_foreign` (`user_id`),
   KEY `customers_branch_id_foreign` (`branch_id`),
   KEY `customers_account_id_foreign` (`account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `account_id`, `company_id`, `user_id`, `branch_id`, `customer_name`, `customer_email`, `customer_phoneNo`, `customer_address`, `status`, `created_at`, `updated_at`) VALUES
+(1, 2, 5, 4, 2, 'ANas12', 'anas@gmail.om', 26416848, 'tset', 1, '2018-09-06 13:32:37', '2018-09-06 13:33:21');
 
 -- --------------------------------------------------------
 
@@ -569,16 +618,7 @@ CREATE TABLE IF NOT EXISTS `g_r_n_details` (
   KEY `g_r_n_details_vendor_id_foreign` (`vendor_id`),
   KEY `g_r_n_details_inventory_id_foreign` (`inventory_id`),
   KEY `g_r_n_details_company_id_foreign` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `g_r_n_details`
---
-
-INSERT INTO `g_r_n_details` (`id`, `user_id`, `company_id`, `branch_id`, `vendor_id`, `grn_master_id`, `inventory_id`, `qty`, `rate`, `amount`, `balance`, `created_at`, `updated_at`) VALUES
-(42, 4, 5, 2, 1, 19, 1, 500, 70, 35000, 0, '2018-07-22 02:48:36', '2018-07-22 02:48:36'),
-(43, 4, 5, 2, 1, 19, 1, 500, 125, 62500, 0, '2018-07-22 02:48:36', '2018-07-22 02:48:36'),
-(44, 4, 5, 2, 1, 19, 1, 500, 270, 135000, 0, '2018-07-22 02:48:36', '2018-07-22 02:48:36');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -607,14 +647,7 @@ CREATE TABLE IF NOT EXISTS `g_r_n_masters` (
   KEY `g_r_n_masters_user_id_foreign` (`user_id`),
   KEY `g_r_n_masters_branch_id_foreign` (`branch_id`),
   KEY `g_r_n_masters_purchase_id_foreign` (`purchase_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `g_r_n_masters`
---
-
-INSERT INTO `g_r_n_masters` (`id`, `user_id`, `company_id`, `branch_id`, `vendor_id`, `purchase_id`, `grn_master_no`, `date`, `total_amount`, `total_balance`, `complete`, `created_at`, `updated_at`) VALUES
-(19, 4, 5, 2, 1, 7, 3715067, '2018-07-22 00:00:00', 232500, 0, 1, '2018-07-22 02:48:08', '2018-07-22 02:48:35');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -663,10 +696,72 @@ INSERT INTO `inventories` (`id`, `account_id`, `company_id`, `user_id`, `branch_
 DROP TABLE IF EXISTS `menus`;
 CREATE TABLE IF NOT EXISTS `menus` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `menu_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `menu_slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `menu_route` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `parent_menu_id` int(11) DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sort_order` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `hidden` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `menus`
+--
+
+INSERT INTO `menus` (`id`, `menu_name`, `menu_slug`, `menu_route`, `parent_menu_id`, `icon`, `sort_order`, `status`, `hidden`, `user_id`, `created_at`, `updated_at`) VALUES
+(106, 'Pos', 'pointOfSale', 'pointOfSale.index', NULL, 'zmdi zmdi-apps', 1, 1, 0, 0, '2018-09-06 14:50:17', '2018-09-06 14:50:17'),
+(107, 'Users', NULL, NULL, NULL, 'fa fa-users', 2, 1, 0, 0, '2018-09-06 14:50:17', '2018-09-06 14:50:17'),
+(108, 'Add Users', 'users/create', 'users.create', 107, NULL, 3, 1, 0, 0, '2018-09-06 14:50:17', '2018-09-06 14:50:17'),
+(109, 'Users List', 'users', 'users.index', 107, NULL, 4, 1, 0, 0, '2018-09-06 14:50:17', '2018-09-06 14:50:17'),
+(110, 'Edit Users', NULL, 'users.edit', 107, NULL, 5, 1, 1, 0, '2018-09-06 14:50:17', '2018-09-06 14:50:17'),
+(111, 'Delete Users', NULL, 'users.destroy', 107, NULL, 6, 1, 1, 0, '2018-09-06 14:50:17', '2018-09-06 14:50:17'),
+(112, 'Branches', 'branch', 'branch.index', NULL, 'fa-building', 7, 1, 0, 0, '2018-09-06 14:50:17', '2018-09-06 14:50:17'),
+(113, 'Terminals', 'terminal', 'terminal.index', NULL, 'fa fa fa-credit-card-alt', 8, 1, 0, 0, '2018-09-06 14:50:17', '2018-09-06 14:50:17'),
+(114, 'Manage Inventory', NULL, NULL, NULL, 'fa fa fa-shopping-basket', 10, 1, 0, 0, '2018-09-06 14:50:17', '2018-09-06 14:50:17'),
+(115, 'Account Setting', 'accountsetting', 'accountsetting.index', 155, NULL, 26, 1, 0, 0, '2018-09-06 14:50:17', '2018-09-06 14:50:17'),
+(117, 'Edit Branches', NULL, 'branch.edit', 112, NULL, 7, 1, 1, 0, '2018-09-06 14:50:17', '2018-09-06 14:50:17'),
+(119, 'Delete Branches', NULL, 'branch.destroy', 112, NULL, 7, 1, 1, 0, '2018-09-06 14:50:17', '2018-09-06 14:50:17'),
+(126, 'Delete Terminals', NULL, 'terminal.destroy', 113, NULL, 8, 1, 1, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(134, 'Settings', NULL, NULL, NULL, 'fa fa-gear', 30, 1, 0, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(135, 'Create Vendors', 'vender/create', 'vender.create', 134, NULL, 31, 1, 0, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(136, 'Manage Vendors', 'vender', 'vender.index', 134, NULL, 32, 1, 0, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(138, 'Edit Vendors', NULL, 'vender.edit', 134, NULL, 33, 1, 1, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(140, 'Delete Vendors', NULL, 'vender.destroy', 134, NULL, 34, 1, 1, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(141, 'Create Customer', 'customer/create', 'customer.create', 134, NULL, 35, 1, 0, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(142, 'Manage Customer', 'customer', 'customer.index', 134, NULL, 36, 1, 0, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(145, 'Edit Customer', NULL, 'customer.edit', 134, NULL, 37, 1, 1, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(147, 'Delete Customer', NULL, 'customer.destroy', 134, NULL, 38, 1, 1, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(148, 'Add Items', 'inventory', 'inventory.index', 114, NULL, 10, 1, 0, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(149, 'Manage Items', 'inventory/create', 'inventory.create', 114, NULL, 11, 1, 0, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(152, 'Edit Items', NULL, 'inventory.edit', 114, NULL, 14, 1, 1, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(154, 'Delete Items', NULL, 'inventory.destroy', 114, NULL, 16, 1, 1, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(155, 'Accounts', NULL, NULL, NULL, 'fa fa-briefcase', 17, 1, 0, 0, '2018-09-06 14:50:19', '2018-09-06 14:50:19'),
+(156, 'Account Nature', NULL, 'nature.index', 155, NULL, 18, 1, 0, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(159, 'Edit Account Nature', NULL, 'nature.edit', 155, NULL, 19, 1, 1, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(161, 'Delete Account Nature', NULL, 'nature.destroy', 155, NULL, 20, 1, 1, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(162, 'Manage Accounts', NULL, 'account.index', 155, NULL, 21, 1, 0, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(163, 'Creaate Accounts', NULL, 'account.create', 155, NULL, 22, 1, 0, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(166, 'Edit Accounts', NULL, 'account.edit', 155, NULL, 23, 1, 1, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(168, 'Delete Accounts', NULL, 'account.destroy', 155, NULL, 25, 1, 1, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(169, 'Sales/Purchase', NULL, NULL, NULL, 'fa fa-money', 27, 1, 0, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(170, 'Add Purchase', 'purchase/create', 'purchase.create', 169, NULL, 28, 1, 0, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(171, 'Manage Purchase', 'purchase', 'purchase.index', 169, NULL, 28, 1, 0, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(173, 'Edit Purchase', NULL, 'purchase.edit', 169, NULL, 28, 1, 1, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(175, 'Delete Purchase', NULL, 'purchase.destroy', 169, NULL, 28, 1, 1, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(176, 'Add Sales', NULL, 'sale.create', 169, NULL, 29, 1, 0, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(177, 'Manage Sales', NULL, 'sale.index', 169, NULL, 29, 1, 0, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(180, 'Edit Sales', NULL, 'sale.edit', 169, NULL, 29, 1, 1, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(182, 'Delete', NULL, 'sale.destroy', 169, NULL, 29, 1, 1, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(183, 'Add GRN', NULL, 'grn.create', 169, NULL, 29, 1, 0, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(184, 'Manage GRN', NULL, 'grn.index', 169, NULL, 29, 1, 0, 0, '2018-09-06 14:50:20', '2018-09-06 14:50:20'),
+(187, 'Edit GRN', NULL, 'grn.edit', 169, NULL, 29, 1, 0, 0, '2018-09-06 14:50:21', '2018-09-06 14:50:21'),
+(189, 'Delete GRN', NULL, 'grn.destroy', 169, NULL, 29, 1, 0, 0, '2018-09-06 14:50:21', '2018-09-06 14:50:21');
 
 -- --------------------------------------------------------
 
@@ -731,6 +826,9 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 DROP TABLE IF EXISTS `permissions`;
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -758,29 +856,7 @@ CREATE TABLE IF NOT EXISTS `purchase_details` (
   KEY `purchase_details_purchase_master_id_foreign` (`purchase_master_id`),
   KEY `purchase_details_branch_id_foreign` (`branch_id`),
   KEY `purchase_details_inventory_id_foreign` (`inventory_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `purchase_details`
---
-
-INSERT INTO `purchase_details` (`id`, `branch_id`, `company_id`, `purchase_master_id`, `inventory_id`, `qty`, `rate`, `amount`, `created_at`, `updated_at`) VALUES
-(2, 2, 5, 7, 1, 500, 70, 35000, '2018-07-07 07:02:18', '2018-07-07 07:02:18'),
-(3, 2, 5, 7, 1, 500, 125, 62500, '2018-07-07 07:02:18', '2018-07-07 07:02:18'),
-(4, 2, 5, 7, 1, 500, 270, 135000, '2018-07-07 07:02:18', '2018-07-07 07:02:18'),
-(9, 2, 5, 9, 1, 300, 120, 36000, '2018-07-07 15:24:25', '2018-07-07 15:24:25'),
-(10, 2, 5, 9, 1, 300, 250, 75000, '2018-07-07 15:24:25', '2018-07-07 15:24:25'),
-(11, 2, 5, 9, 1, 1200, 5, 6000, '2018-07-07 15:24:25', '2018-07-07 15:24:25'),
-(21, 2, 5, 10, 2, 100, 110, 11000, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
-(22, 2, 5, 10, 3, 300, 15, 4500, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
-(23, 2, 5, 10, 5, 1000, 40, 40000, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
-(24, 2, 5, 10, 6, 500, 220, 110000, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
-(25, 2, 5, 10, 1, 123, 125, 15375, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
-(26, 2, 5, 10, 1, 90, 25, 2250, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
-(27, 2, 5, 10, 2, 53, 5, 265, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
-(28, 2, 5, 10, 4, 750, 60, 45000, '2018-07-08 08:40:52', '2018-07-08 08:40:52'),
-(29, 3, 5, 12, 3, 8000, 50, 400000, '2018-07-09 14:22:42', '2018-07-09 14:22:42'),
-(30, 3, 5, 13, 4, 1000000, 5, 5000000, '2018-07-18 14:34:51', '2018-07-18 14:34:51');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -806,18 +882,7 @@ CREATE TABLE IF NOT EXISTS `purchase_masters` (
   KEY `purchase_masters_vendor_id_foreign` (`vendor_id`),
   KEY `purchase_masters_user_id_foreign` (`user_id`),
   KEY `purchase_masters_branch_id_foreign` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `purchase_masters`
---
-
-INSERT INTO `purchase_masters` (`id`, `company_id`, `user_id`, `branch_id`, `vendor_id`, `purchase_master_no`, `date`, `total_amount`, `permission`, `complete`, `created_at`, `updated_at`) VALUES
-(7, 5, 4, 2, 1, 3566004, '2018-07-05 00:00:00', '232500.000', 1, 1, '2018-07-07 07:02:18', '2018-07-22 02:48:35'),
-(9, 5, 4, 2, 1, 5996926, '2018-07-08 00:00:00', '117000.000', 0, NULL, '2018-07-07 15:24:25', '2018-07-07 15:24:25'),
-(10, 5, 4, 2, 2, 5912949, '2018-07-08 00:00:00', '228390.000', 1, NULL, '2018-07-08 07:39:29', '2018-07-22 02:36:02'),
-(12, 5, 4, 3, 1, 521430, '2018-07-09 00:00:00', '400000.000', 0, NULL, '2018-07-09 14:22:42', '2018-07-09 14:22:42'),
-(13, 5, 4, 3, 2, 609128, '2018-07-18 00:00:00', '5000000.000', 1, NULL, '2018-07-18 14:34:51', '2018-07-20 14:42:17');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5055,7 +5120,14 @@ CREATE TABLE IF NOT EXISTS `terminals` (
   PRIMARY KEY (`id`),
   KEY `terminals_user_id_foreign` (`user_id`),
   KEY `terminals_branch_id_foreign` (`branch_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `terminals`
+--
+
+INSERT INTO `terminals` (`id`, `user_id`, `branch_id`, `terminal_name`, `terminal_code`, `status`, `created_at`, `updated_at`) VALUES
+(1, 4, 2, 'test 1', 5291824, 1, '2018-09-06 10:21:45', '2018-09-06 10:21:45');
 
 -- --------------------------------------------------------
 
@@ -5067,8 +5139,10 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `company_id` int(10) UNSIGNED NOT NULL,
-  `branch_id` int(10) UNSIGNED DEFAULT NULL,
+  `branch_id` int(10) UNSIGNED DEFAULT '0',
   `role_id` int(10) UNSIGNED NOT NULL,
+  `terminal_id` int(11) DEFAULT NULL,
+  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `firstName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -5092,10 +5166,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `username`, `firstName`, `lastName`, `email`, `phoneNo`, `address`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, 1, 'admin', 'Huzaifa', 'Siddiqui', 'huzzee.24.sidd@gmail.com', NULL, NULL, '$2y$10$T.rdL9/b9CXJTMS5e3L2Ve8s08fpP4h.US4ITy5EXyo2J63XMuiTW', 1, 'GKNWVCxofpKXi6Sg5VlzKkkuJHGFT9u226r0Y8LeYImcWu4GW1Trrt0Np4A8', NULL, NULL),
-(4, 5, NULL, 2, 'danny', 'Bilal', 'Danny', 'danny@gmail.com', 3122245, 'asgasgasg', '$2y$10$cJKUxS2zXZQnw6quxkTh1eAc5v7FfViqqUSe5E2tnHoh.DGVeTXee', 1, 'C97CqXyP2qrfWwWQNwdsblXF3RXMlbKYhdtwBYBzMR9SiB7DLB852Py1SmY6', '2018-06-07 02:47:29', '2018-07-06 10:23:11'),
-(5, 6, NULL, 2, 'zee21', 'huzaifa', 'Siddiqui', 'zee@gmail.com', NULL, NULL, '$2y$10$zSsd9xzA/.qZZyLUTGfZV.T7y65dEz7J.bivwnnMZCKQh75MEVA6W', 1, NULL, '2018-06-07 02:49:19', '2018-06-07 02:49:19');
+INSERT INTO `users` (`id`, `company_id`, `branch_id`, `role_id`, `terminal_id`, `user_type`, `username`, `firstName`, `lastName`, `email`, `phoneNo`, `address`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, 1, NULL, NULL, 'admin', 'Huzaifa', 'Siddiqui', 'huzzee.24.sidd@gmail.com', NULL, NULL, '$2y$10$T.rdL9/b9CXJTMS5e3L2Ve8s08fpP4h.US4ITy5EXyo2J63XMuiTW', 1, 'lbLPKYL4shrcnUYyll5jvXew1rl3AyvpbZ2jS9RJfTIkkRHQnSph8E8OTAW7', NULL, NULL),
+(4, 5, NULL, 2, NULL, NULL, 'danny', 'Bilal', 'Danny', 'danny@gmail.com', 3122245, 'asgasgasg', '$2y$10$cJKUxS2zXZQnw6quxkTh1eAc5v7FfViqqUSe5E2tnHoh.DGVeTXee', 1, 'C97CqXyP2qrfWwWQNwdsblXF3RXMlbKYhdtwBYBzMR9SiB7DLB852Py1SmY6', '2018-06-07 02:47:29', '2018-07-06 10:23:11'),
+(5, 6, NULL, 2, NULL, NULL, 'zee21', 'huzaifa', 'Siddiqui', 'zee@gmail.com', NULL, NULL, '$2y$10$zSsd9xzA/.qZZyLUTGfZV.T7y65dEz7J.bivwnnMZCKQh75MEVA6W', 1, NULL, '2018-06-07 02:49:19', '2018-06-07 02:49:19');
 
 -- --------------------------------------------------------
 
@@ -5122,15 +5196,14 @@ CREATE TABLE IF NOT EXISTS `vendors` (
   KEY `vendors_user_id_foreign` (`user_id`),
   KEY `vendors_branch_id_foreign` (`branch_id`),
   KEY `vendors_account_id_foreign` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `vendors`
 --
 
 INSERT INTO `vendors` (`id`, `account_id`, `user_id`, `company_id`, `branch_id`, `vendor_name`, `vendor_email`, `vendor_phoneNo`, `vendor_address`, `status`, `created_at`, `updated_at`) VALUES
-(1, 2, 4, 5, 2, 'Test Vendor', 'test@abc.com', 31165168, 'asg', 1, '2018-07-05 04:58:00', '2018-07-05 04:58:00'),
-(2, 2, 4, 5, 4, 'Test Vendor 2', 'test2@hotmail.com', 9571294, 'karachi', 1, '2018-07-08 07:26:02', '2018-07-08 07:26:02');
+(3, 2, 4, 5, 2, 'huzaifa', 'abc@example.com', 316816846, 'tset', 1, '2018-09-06 13:22:14', '2018-09-06 13:22:45');
 
 --
 -- Constraints for dumped tables
