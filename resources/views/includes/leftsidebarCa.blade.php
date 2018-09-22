@@ -106,16 +106,16 @@ Left Sidebar Menu -->
         </li>
         <li>
             <a href="javascript:void(0);" data-toggle="collapse" data-target="#pages_user"><div class="pull-left"><i class=" icon-key mr-20"></i><span class="right-nav-text">Users</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-            <ul id="pages_user class="collapse collapse-level-1 two-col-list">
+            <ul id="pages_user" class="collapse collapse-level-1 two-col-list">
 
-        <li>
-            <a href="{{url('/users')}}">Users</a>
+                <li>
+                    <a href="{{url('/users')}}">Users</a>
+                </li>
+                <li>
+                    <a href="{{url('/users/create')}}">Add Users</a>
+                </li>
+            </ul>
         </li>
-        <li>
-            <a href="{{url('/users/create')}}">Add Users</a>
-        </li>
-    </ul>
-    </li>
 
     </ul>
 

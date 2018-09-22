@@ -82,6 +82,24 @@ function createUserPermission()
     }
 }
 
+function get_parent_menus_permission()
+{
+    $menus = Menu::where('status','=',1)
+        ->where('parent_menu_id','=',null)
+        ->orderBy('sort_order','asc')->get();
+
+    return $menus;
+}
+
+function get_child_menus_permission($parent_menu_id)
+{
+    $menus = Menu::where('status','=',1)
+        ->where('parent_menu_id','=',$parent_menu_id)
+        ->orderBy('sort_order','asc')->get();
+
+    return $menus;
+}
+
 function getAccountOfBranches($branchId)
 {
     $edit_accounts = account::where('branch_id','=',$branchId)->pluck('account_name','id');
