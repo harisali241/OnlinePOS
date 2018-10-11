@@ -12,6 +12,10 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
+     <!-- App css -->
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/core.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/components.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- Data table CSS -->
     <link href="{{asset('vendors/bower_components/datatables/media/css/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css"/>
@@ -99,7 +103,7 @@
         color:white;
     }
     .icons:hover{
-        background-color:#337f27;
+        background-color:#575a60;
         transition: all ease-in-out 0.3s;
     }
     .big-two{
@@ -126,11 +130,12 @@
         margin-left: 2%;
     }
     .listTable th{
-        padding-bottom: 5px;
-        padding-top: 5px;
-        background-color:#337f27; 
+        padding-bottom: 3px;
+        padding-top: 3px;
+        background-color:#575a60; 
         text-align: center;
-        font-size:16px;
+        font-size:13px;
+        font-weight: bolder;
         color: white;
     }
     .listTable td{
@@ -166,13 +171,13 @@
         cursor: pointer;
     }
     .itemsForSelect:hover{
-        background-color: #337f27;
+        background-color: #575a60;
         color:white;
     }
     .plus, .minus{
-        background-color:#337f27;
+        background-color:#575a60;
         color:white;
-        border:solid 2px #337f27;
+        border:solid 2px #575a60;
         font-weight:bolder;
     }
 
@@ -230,6 +235,14 @@
 <script src="{{asset('dist/js/form-advance-data.js')}}"></script>
 <script src="{{asset('js/custom.js')}}"></script>
 <script src="{{asset('js/modal.js')}}"></script>
+
+{{-- Search Box --}}
+
+{{-- <script type="text/javascript" src="{{ asset('plugins/autocomplete/jquery.mockjax.js') }}"></script>
+<script type="text/javascript" src="{{ asset('plugins/autocomplete/jquery.autocomplete.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('plugins/autocomplete/countries.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/pages/jquery.autocomplete.init.js') }}"></script>
+ --}}
 
     @yield('script')
 

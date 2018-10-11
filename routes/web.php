@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth','admin_security']],function () {
 
 });
 
-Route::post('getSearhItem','PointOfSaleController@getSearhItem');
+Route::post('getSearchItem','PointOfSaleController@getSearchItem');
 Route::post('reqPO','grnController@reqPO');
 Route::get('/grnComplete', 'grnController@complete');
 Route::get('/purchaseapprove', 'purchaseController@approve');

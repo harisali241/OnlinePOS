@@ -16,12 +16,48 @@ class PointOfSaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {   
-        return view('pages.sale.pos', compact('items'));
+    public function index() {   
+         if(Auth::user()->branch_id == null){
+            $invs = Inventory::where('company_id', Auth::user()->company_id)
+                            // ->where('item_name' ,'like', '%'.$request->item.'%')
+                            ->pluck('id');
+            $grn_m = GRNMaster::where('complete', 1)->pluck('id');
+            $items = GRNDetail::whereIn('inventory_id', $invs)
+                                ->whereIn('grn_master_id', $grn_m)
+                                ->with('inventories')
+                                ->orderBy('created_at')
+                                ->get();
+
+        }else{
+            $invs = Inventory::where('company_id', Auth::user()->company_id)
+                            ->where('branch_id', Auth::user()->branch_id)
+                            // ->where('item_name' ,'like', '%'.$request->item.'%')
+                            ->pluck('id');
+            $grn_m = GRNMaster::where('complete', 1)->pluck('id');
+            $items = GRNDetail::whereIn('inventory_id', $invs)
+                                ->whereIn('grn_master_id', $grn_m)
+                                ->with('inventories')
+                                ->orderBy('created_at')
+                                ->get();
+        }
+
+        $itemRec = [];
+        for($i=0; $i<count($items); $i++){          
+            if(!in_array($items[$i]->inventories->item_name, array_column($itemRec, 'name'))){
+                array_push($itemRec, [
+                    "id" => $items[$i]->inventory_id,
+                    "company_id" => $items[$i]->company_id,
+                    "name" => $items[$i]->inventories->item_name,
+                    "qty" => $items[$i]->qty,
+                    "rate" => $items[$i]->rate
+                ]);
+            }
+        }
+
+        return view('pages.sale.pos', compact('items', 'itemRec'));
     }
 
-    public function getSearhItem(Request $request){
+    public function getSearchItem(Request $request){
 
 
         if(Auth::user()->branch_id == null){
@@ -47,7 +83,6 @@ class PointOfSaleController extends Controller
                                 ->orderBy('created_at')
                                 ->get();
         }
-        
 
         $itemRec = [];
         for($i=0; $i<count($items); $i++){          
@@ -61,7 +96,6 @@ class PointOfSaleController extends Controller
                 ]);
             }
         }
-
         return response()->json($itemRec);
     }
 

@@ -34,11 +34,11 @@
     <!-- /.modal-dialog -->
 </div>
 
-<header>
+<header style="background-color: #575a60 !important;">
     
-        <div class="logo-wrap" style="width: 120px; float: left;"> 
+        <div class="logo-wrap" style="width: 120px; float: left; background-color: whitesmoke"> 
             <a href="{{url('/')}}">
-                <span class="brand-text" style="color: #000;">Online<strong style="color:white">POS</strong></span>
+                <span class="brand-text" style="color: #000;font-weight: bold;">Online<strong style="color:#337f27;">&nbsp;POS</strong></span>
             </a>
         </div>
 

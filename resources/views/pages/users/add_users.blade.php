@@ -207,9 +207,8 @@
     <script type="text/javascript">
         $(document).ready(function (e) {
 
-            $('.parent-box').on('click', function(e){
-                if (e.target !== this)
-                 return;
+            $('.parent-box').on('click', function(){
+               
                 if($(this).parent().find('.child-box').is(":visible")){
                     $(this).parent().find('.child-box').fadeOut(300);
                 }else{
