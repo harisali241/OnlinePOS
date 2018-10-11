@@ -4,6 +4,7 @@ use App\AdminmenuPremit;
 use App\Menu;
 use App\Models\Account;
 use App\Models\Terminal;
+use App\Permission;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -105,4 +106,41 @@ function getAccountOfBranches($branchId)
     $edit_accounts = account::where('branch_id','=',$branchId)->pluck('account_name','id');
 
     return json_decode($edit_accounts);
+}
+
+function parent_menu()
+{
+    $permission = Permission::with('menus')
+        ->where('status', '=', 1)
+        ->where('user_id', '=', auth()->user()->id)->get()->where('menus.parent_menu_id','=',null);
+
+
+    return $permission;
+}
+
+function child_menu($parent_id)
+{
+    $permission = Permission::with('menus')
+        ->where('status', '=', 1)
+        ->where('user_id', '=', auth()->user()->id)->get()
+        ->where('menus.parent_menu_id','=',$parent_id)
+        ->where('menus.status','=',1)
+        ->where('menus.hidden','=',0);
+
+    if(sizeof($permission) < 1)
+    {
+        $data = [
+            'is_child' => false,
+            'data' => $permission
+        ];
+    }
+    else
+    {
+        $data = [
+            'is_child' => true,
+            'data' => $permission
+        ];
+    }
+
+    return $data;
 }

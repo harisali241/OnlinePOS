@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Menu;
 use App\Models\Branch;
 use App\Models\Terminal;
+use App\Permission;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -50,7 +52,16 @@ class UserController extends Controller
            'username' => 'unique:users'
         ]);
 
+        //dd($request->menu_id);
         $user_id = User::createUsers($request,auth()->user()->company_id);
+
+        $menus = Menu::all();
+
+        for ($i=0; $i < sizeof($menus);$i++)
+        {
+            Permission::creator($request,$user_id,$menus[$i]->id);
+        }
+
 
         return redirect('users')->with('message','successfully Created Users');
     }

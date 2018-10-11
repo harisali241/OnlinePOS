@@ -71,12 +71,16 @@
 <!--/Preloader-->
 <div class="wrapper theme-1-active pimary-color-green">
 
+
+
     @include('includes.topmenu')
 
     @if(Auth::user()->role_id === 1)
         @include('includes.leftsidebarSa')
     @elseif(Auth::user()->role_id === 2)
         @include('includes.leftsidebarCa')
+    @else
+        @include('includes.leftbarCu')
     @endif
 
     @include('includes.success')

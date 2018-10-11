@@ -143,14 +143,14 @@
                                     @foreach(get_parent_menus_permission() as $parent_menu)
                                         <div class="row">
                                             <div class="col-xs-12 parent-box">
-                                                <input type="checkbox" name="menu_id" value="{{ $parent_menu->id }}" class="checkb parent-checkbox">&nbsp;
+                                                <input type="checkbox" name="menu_id[]" value="{{ $parent_menu->id }}" class="checkb parent-checkbox">&nbsp;
                                                 <span style="font-size: 20px;font-weight: bold;">{{ $parent_menu->menu_name }}</span>
 
                                             </div>
                                             <div >
                                                 @foreach(get_child_menus_permission($parent_menu->id) as $child_menu)
                                                     <div class="col-xs-12 child-box">
-                                                        <input type="checkbox" name="menu_id" value="{{ $parent_menu->id }}" class="checkb child-checkbox">&nbsp;
+                                                        <input type="checkbox" name="menu_id[]" value="{{ $child_menu->id }}" class="checkb child-checkbox">&nbsp;
                                                         <span>{{ $child_menu->menu_name }}</span>
 
                                                     </div>
